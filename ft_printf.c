@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/07/31 20:13:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/01 12:46:25 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,67 +18,6 @@
 void	print_error(void)
 {
 	ft_putstr("Error...\n");
-}
-
-char	*parse_padding(t_glb *glb, char *fmt)
-{
-	char	*tmp;
-	char	*zero;
-	int		max;
-	int		i;
-
-	max = 0;
-	i = 0;
-	if (*fmt == '%' && glb && *(fmt + 1) != '\0')
-	{
-		fmt++;
-		if (ft_isdigit(*fmt))
-		{
-			max = ft_atoi(fmt);
-			tmp = ft_strdup(glb->ret);
-			zero = ft_strnew(max);
-			ft_memset((void *)zero, ' ', max);
-			free((void *)glb->ret);
-			glb->ret = ft_strjoin(tmp, zero);
-		}
-	}
-	return (fmt);
-}
-
-void	ar_init(t_ar *ar)
-{
-	if (ar)
-	{
-		ar->parser_fun[0] = handle_binary;
-		ar->parser_fun[1] = handle_char;
-		ar->parser_fun[2] = handle_escape;
-		ar->parser_fun[3] = handle_float;
-		ar->parser_fun[4] = handle_hex;
-		ar->parser_fun[5] = handle_int;
-		ar->parser_fun[6] = handle_long;
-		ar->parser_fun[7] = handle_oct;
-		ar->parser_fun[8] = handle_ptr;
-		ar->parser_fun[9] = handle_str;
-		ar->parser_fun[10] = handle_uint;
-		ar->parser_fun[11] = handle_unsigned;
-		ar->parser_fun[12] = handle_wstr;
-	}
-}
-
-void	glb_init(t_glb *glb)
-{
-	t_info	info;
-	va_list	ap;
-
-	glb->ap = &ap;
-	info.b_sign = 0;
-	info.f_prefix = 0;
-	info.f_sign = 0;
-	info.right_pad = 0;
-	info.zero_pad = 0;
-	glb->ret = NULL;
-	glb->fmt = NULL;
-	glb->info = &info;
 }
 
 void	cut_and_paste(t_glb *glb, char *fmt)
@@ -112,7 +51,6 @@ void	chomp(t_glb *glb, char *fmt)
 		glb->ret = ft_strncpy(glb->ret, (const char *)fmt, (size_t)a);
 		fmt = ft_strchr(fmt, '%');
 		parse_padding(glb, fmt);
-		//cut_and_paste(glb, fmt);
 	}
 	else
 	{
