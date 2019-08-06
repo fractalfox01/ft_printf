@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:12:08 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/03/27 20:57:19 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/08/03 22:56:44 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/08/04 21:14:35 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr(char *str)
+char	*ft_strrev(char *str)
 {
-	int	len;
-	
-	len = ft_strlen(str);
-	write(1, &*str, len);
+	int	i;
+	char *rev;
+	int	j;
+
+	i = ft_strlen(str);
+	rev = ft_strdup(str);
+	j = 0;
+	while (i >= 0)
+	{
+		rev[j++] = str[i - 1];
+		i--;
+	}
+	return (rev);
 }
+

@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_dequeue.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:12:08 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/03/27 20:57:19 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/07/15 16:34:22 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/07/15 22:31:16 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr(char *str)
+int	ft_dequeue(t_queue *que)
 {
-	int	len;
-	
-	len = ft_strlen(str);
-	write(1, &*str, len);
+	int data;
+
+	if (ft_queue_is_empty(que) == 0)
+	{
+		data = que->arr[que->front];
+		que->front += 1;
+		return (data);
+	}
+	return (0);
 }

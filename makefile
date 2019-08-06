@@ -1,16 +1,16 @@
 NAME= ft_printf
 
-LIBFLAG= -Llibft -lft -Ilibft
+LIBFLAG= libft/libft.a
 
 FLAGS= -Wall -Wextra -Werror
 
-SRC= ft_printf.c parse1.c parse2.c parse3.c
+SRC= $(addsuffix .c, ft_printf parse1 parse2 parse3 init_util pf_utils)
 
 DEBUG= -g
 
 $(NAME):
 	make -C libft all
-	$(CC) $(FLAGS) $(SRC) $(LIBFLAG) -o ft_printf
+	$(CC) $(FLAGS) $(LIBFLAG) $(SRC) -o ft_printf
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/01 12:32:22 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/05 14:57:34 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,9 @@ void	ar_init(t_ar *ar)
 void	glb_init(t_glb *glb)
 {
 	t_info	info;
-	va_list	ap;
 
-	glb->ap = &ap;
-	info.b_sign = 0;
-	info.f_prefix = 0;
-	info.f_sign = 0;
-	info.right_pad = 0;
-	info.zero_pad = 0;
 	glb->ret = NULL;
 	glb->fmt = NULL;
-	glb->info = &info;
+	glb->pad_size = 0;
+	glb->info = *&info;
 }

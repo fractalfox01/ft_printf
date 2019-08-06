@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_destroy_queue.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:12:08 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/03/27 20:57:19 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/07/15 16:15:29 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/07/15 22:40:19 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr(char *str)
+int	ft_destroy_queue(struct s_queue *que)
 {
-	int	len;
-	
-	len = ft_strlen(str);
-	write(1, &*str, len);
+	if (que)
+	{
+		free((void *)que->arr);
+		ft_memdel((void **)&que);
+		return (1);
+	}
+	return (0);
 }
