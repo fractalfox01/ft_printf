@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/05 22:15:00 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/06 17:57:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,11 @@ int		main(void)
 
 	a = 0;
 	b = 0;
-	a = ft_printf("string: %6s blah: %10s\n", "Hello", "goodbye");
-	b = printf("string: %6s blah: %10s\n", "Hello", "goodbye");
+	a = ft_printf("1:|%-16s|2:|%-10s|3:|%7s|4:|%s|\n", "Hello", "goodbye", "meow", "42school");
+	b = printf("1:|%-16s|2:|%-10s|3:|%7s|4:|%s|\n", "Hello", "goodbye", "meow", "42school");
+	printf("string: %6s blah: %10s\n", "Hello", "goodbye");
 	printf("%d\n%d\n", a, b);
 	//ft_printf("string: %5s\n", "goodbye world");
 	//ft_printf("single line - no arguments...\n");
 	return (0);
 }
-
