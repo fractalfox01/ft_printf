@@ -1,61 +1,58 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+# include <stdarg.h>
+# include <stdio.h>
+# include "../libft/libft.h"
 
 typedef struct		s_info
 {
-	int				hash_pad;
+	int				flag_prefix;
 	int				zero_pad;
-	int				plus_sign;
-	int				minus_sign;
-	int				space;
+	int				right_pad;
+	int				flag_sign;
+	int				b_sign;
 }					t_info;
 
-struct    			pf_table
+typedef struct		s_arg_list
 {
-     char 			*str;
-     void(*function)();
-};
+	int				id;
+	char			*arg;
+	size_t			len;
+	t_arg_lst		*next;
+}					t_arg_lst;
 
-typedef struct		s_fun
+typedef int			func(t_glb *glb);
+
+typedef struct		s_argfun
 {
-	size_t			(*parser_fun[15])();
-}					t_ar;
-
-typedef struct table_enty t_table;
+	func			*argfun[12];
+}					t_argfun;
 
 typedef struct      s_ft_printf
 {
 	va_list			ap;
 	char			*ret;
 	char			*fmt;
-	size_t			pad_size;
-	char			*arg;
-	t_info			info;
+	size_t			total;
+	int				buf;
+	t_info			*info;
+	t_argfun		*funs;
 }               	t_glb;
 
-void				ar_init(t_ar *ar);
-void				glb_init(t_glb *glb);
-char				*parse_padding(t_glb *glb, char *fmt);
-int					ft_isnotpadding(char c);
-void				flag_catcher(t_glb *glb, char *fmt);
-size_t				handle_escape(t_glb *glb, char *fmt);
-size_t				handle_str(t_glb *glb, char *fmt);
-size_t				handle_wstr(t_glb *glb, char *fmt);
-size_t				handle_int(t_glb *glb, char *fmt);
-size_t				handle_long(t_glb *glb, char *fmt);
-size_t				handle_ptr(t_glb *glb, char *fmt);
-size_t				handle_oct(t_glb *glb, char *fmt);
-size_t				handle_unsigned(t_glb *glb, char *fmt);
-size_t				handle_hex(t_glb *glb, char *fmt);
-size_t				handle_char(t_glb *glb, char *fmt);
-size_t				handle_binary(t_glb *glb, char *fmt);
-size_t				handle_float(t_glb *glb, char *fmt);
-size_t				handle_uint(t_glb *glb, char *fmt);
-void				flag_catcher(t_glb *glb, char *fmt);
-void				parser(t_glb *glb, char *fmt);
+size_t				ft_printf(char *sfmt, ...);
+int					parse_conversion_spec(t_glb *glb, char *fmt);
+int					parse_string(t_glb *glb);
+int					parse_char(t_glb *glb);
+int					parse_int(t_glb *glb);
+int					parse_long(t_glb *glb);
+int					parse_ptr(t_glb *glb);
+int					parse_oct(t_glb *glb);
+int					parse_unsigned(t_glb *glb);
+int					parse_hex(t_glb *glb);
+int					parse_bin(t_glb *glb);
+int					parse_float(t_glb *glb);
+int					parse_uint(t_glb *glb);
+int					parse_conversion(t_glb *glb, char *fmt);
 
 #endif

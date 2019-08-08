@@ -1,23 +1,5 @@
 
 # Ft_printf
-
-| type   |   description              |
-|--------|----------------------------|
-| %d  %i |    Decimal signed integer. |
-| %o     |  Octal integer.            |
-| %x %X    |  Hex integer.                 |
-| %u	     | Unsigned integer.            |
-| %c	     | Character.                   |
-| %s	     | String. See below.           |
-| %f	     | double                       |
-| %e %E    | double.   									 |
-| %g %G    | double.											 |
-| %p       | pointer.										 |
-| %n	     | Number of characters written by this printf. |
-|				  | No argument expected. |
-| %%        |%. No argument expected. |
-
-
 ##	c
 The int argument is converted to an unsigned char, and the resulting character is written.
 

@@ -6,168 +6,70 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/06 17:57:12 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:14:05 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "libft/libft.h"
 #include "includes/ft_printf.h"
-#include <stdio.h>
 
-void	print_error(void)
+void	init_argfun(t_glb *glb)
 {
-	ft_putstr("Error...\n");
+	t_argfun fun;
+
+	glb->funs = &fun;
+	fun.argfun[0] = parse_string;
+	fun.argfun[1] = parse_char;
+	fun.argfun[2] = parse_int;
 }
 
-// void	cut_and_paste(t_glb *glb, char *fmt)
-// {
-// 	int i;
-// 	int	a;
-
-// 	i = 0;
-// 	a = ft_strxlen((const char *)fmt, '%');
-// 	parse_padding(glb, fmt);
-// 	if (handle_escape(ft_strchr(fmt, '%'), glb->ap) == 0)
-// 	{
-
-// 	}
-// }
-
-void	parser(t_glb *glb, char *fmt)
+void	save_args(t_glb *glb)
 {
-	if (*fmt == '%')
-	{
-		fmt++;
-		while (*fmt == '#' || *fmt == ' ' || *fmt == '-' || *fmt == '+' || ft_isdigit(*fmt))
-			fmt++;
-	}
-	if (*fmt == 's')
-		handle_str(glb, fmt);
-	if (*fmt == 'c')
-		handle_char(glb, fmt);
-	if (*fmt == 'd' || *fmt == 'i')
-		handle_int(glb, fmt);
-	if (*fmt == 'o')
-		handle_oct(glb, fmt);
-	if (*fmt == 'x' || *fmt == 'X')
-		handle_hex(glb, fmt);
-	if (*fmt == 'l')
-		handle_long(glb, fmt);
-}
+	int		i;
+	char	*arg;
+	char	*fmt;
 
-void	chomp(t_glb *glb, char *fmt)
-{
-	int		a;
-	size_t	i;
-	int		j;
-	char	*tmp;
-
-	a = ft_strxlen((const char *)fmt, '%');
 	i = 0;
-	j = 0;
-	tmp = NULL;
-	if (!(glb->ret))
+	fmt = glb->fmt;
+	while (*fmt != '\0')
 	{
-		glb->ret = ft_strnew(a);
-		glb->ret = ft_strncpy(glb->ret, (const char *)fmt, (size_t)a);
-		fmt = ft_strchr(fmt, '%');
-		parse_padding(glb, fmt);
+		if (*fmt == '%')
+		{
+			arg = ft_strdup("scdiouxXfp");
+			// parse_conversion_spec returns number of characters to be skipped
+			// and saves flags, fieldwidth, precision, and length modifier.
+			if ((i = parse_conversion_spec(glb, fmt)) > 0)
+				fmt += i;
+			i = 0;
+			while (arg[i] != '\0')
+			{
+				if (arg[i] == *fmt)
+				{
+					// pre-allocated space already ready; argument is converted here using data already obtained.
+					// need dispatch table :(
+					// ex. argfun[i](glb)
+				}
+			}
+			ft_strdel(&arg);
+		}
+		fmt++;
+	}
+}
+
+size_t		ft_printf(char *fmt, ...)
+{
+	static t_glb	glb;
+
+	glb_init(&glb);
+	va_start(glb.ap, fmt);
+	if (has_args(fmt) == 0)
+	{
+		ft_putstr(fmt);
+		return (ft_strlen(fmt));
 	}
 	else
 	{
-		tmp = ft_strdup(glb->ret);
-		ft_strdel((char **)&glb->ret);
-		glb->fmt = ft_strnew(a);
-		ft_strncpy(glb->fmt, fmt, (size_t)a);
-		glb->ret = ft_strjoin(tmp, glb->fmt);
-		free((void *)glb->fmt);
-		fmt = ft_strchr(fmt, '%');
-		parse_padding(glb, fmt);
+		save_args(&glb);
+		return (glb.total);
 	}
-}
-
-int	has_args(char *fmt)
-{
-	int i;
-
-	i = 0;
-	while (fmt[i] != '\0')
-	{
-		if (fmt[i + 1] != '\0')
-		{
-			if (fmt[i] == '%' && fmt[i + 1] != '%')
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	cookie_monster(t_glb *glb)
-{
-	if (glb->arg)
-		ft_strdel(&glb->arg);
-	if (glb->ret)
-		ft_strdel(&glb->ret);
-	if (glb->fmt)
-		ft_strdel(&glb->fmt);
-}
-
-int	ft_printf(char *sfmt, ...)
-{
-	//int				ret;
-	t_glb			glb;
-	t_ar			ar;
-
-	ar_init(&ar);
-	glb_init(&glb);
-	va_start(glb.ap, sfmt);
-	//ret = ft_parser(&ap, sfmt);
-	if (has_args(sfmt) == 0)
-	{
-		ft_putstr(sfmt);
-		return (ft_strlen(sfmt));
-	}
-	while ((ft_strchr(sfmt, '%')))
-	{
-		chomp(&glb, sfmt);
-		sfmt = ft_strchr(sfmt, '%');
-		if (*sfmt == '%')
-			sfmt++;
-		while (*sfmt == '-' || *sfmt == '+' || *sfmt == '#' || ft_isdigit(*sfmt))
-			sfmt++;
-		if (*sfmt == 's' || *sfmt == 'd' || *sfmt == 'i' || *sfmt == 'x' \
-			|| *sfmt == 'X' || *sfmt == 'o' || *sfmt == 'u' || *sfmt == 'f')
-			sfmt++;
-	}
-	if (*sfmt != '\0')
-	{
-		glb.fmt = ft_strdup(glb.ret);
-		ft_strdel(&glb.ret);
-		glb.ret = ft_strjoin(glb.fmt, sfmt);
-		ft_strdel(&glb.fmt);
-	}
-	ft_putstr(glb.ret);
-	//cookie_monster(&glb);
-	return (ft_strlen(glb.ret));
-}
-
-int		main(void)
-{
-	void	*d2[3];
-	d2[0] = (void *)42;
-	d2[1] = (void*)"Hello World";
-	d2[2] = (void *)(-1);
-	int	a, b;
-
-	a = 0;
-	b = 0;
-	a = ft_printf("1:|%-16s|2:|%-10s|3:|%7s|4:|%s|\n", "Hello", "goodbye", "meow", "42school");
-	b = printf("1:|%-16s|2:|%-10s|3:|%7s|4:|%s|\n", "Hello", "goodbye", "meow", "42school");
-	printf("string: %6s blah: %10s\n", "Hello", "goodbye");
-	printf("%d\n%d\n", a, b);
-	//ft_printf("string: %5s\n", "goodbye world");
-	//ft_printf("single line - no arguments...\n");
 	return (0);
 }
