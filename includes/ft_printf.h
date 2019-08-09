@@ -7,18 +7,17 @@
 
 typedef struct		s_info
 {
-	int				flag_prefix;
-	int				zero_pad;
-	int				right_pad;
-	int				flag_sign;
-	int				b_sign;
+	char			flag;
+	int				fieldwidth;
+	int				precision;
+	char			lenmod[3];
+	char			*arg;
 }					t_info;
 
 typedef struct		s_arg_list
 {
 	int				id;
-	char			*arg;
-	size_t			len;
+	t_info			*info;
 	t_arg_lst		*next;
 }					t_arg_lst;
 
@@ -41,7 +40,7 @@ typedef struct      s_ft_printf
 }               	t_glb;
 
 size_t				ft_printf(char *sfmt, ...);
-int					parse_conversion_spec(t_glb *glb, char *fmt);
+int					parse_conversion_spec(t_arg_lst *arglst, char *fmt);
 int					parse_string(t_glb *glb);
 int					parse_char(t_glb *glb);
 int					parse_int(t_glb *glb);

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/08 14:14:05 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:36:32 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	init_argfun(t_glb *glb)
 	fun.argfun[2] = parse_int;
 }
 
+t_arg_lst	*new_list(void)
+{
+	t_arg_lst	*list;
+	t_info		info;
+
+	list = (t_arg_lst *)malloc(sizeof(t_arg_lst) * 1);
+	list->id = 0;
+	list->info = &info;
+	list->next = NULL;
+	return (list);
+}
+
 void	save_args(t_glb *glb)
 {
 	int		i;
@@ -30,11 +42,11 @@ void	save_args(t_glb *glb)
 
 	i = 0;
 	fmt = glb->fmt;
+	arg = ft_strdup("scdiouxXfp");
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
 		{
-			arg = ft_strdup("scdiouxXfp");
 			// parse_conversion_spec returns number of characters to be skipped
 			// and saves flags, fieldwidth, precision, and length modifier.
 			if ((i = parse_conversion_spec(glb, fmt)) > 0)
@@ -49,10 +61,10 @@ void	save_args(t_glb *glb)
 					// ex. argfun[i](glb)
 				}
 			}
-			ft_strdel(&arg);
 		}
 		fmt++;
 	}
+	ft_strdel(&arg);
 }
 
 size_t		ft_printf(char *fmt, ...)
