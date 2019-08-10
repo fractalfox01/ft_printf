@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/08 18:36:32 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/10 13:56:50 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		parse_flags(t_arg_lst *arglst, char *fmt)
 		arglst->info->flag = *fmt;
 		return (1);
 	}
+	else
+		arglst->info->flag = '\0';
 	return (0);
 }
 
@@ -42,6 +44,8 @@ int		parse_fieldwidth(t_arg_lst *arglst, char *fmt)
 		}
 		return (ret);
 	}
+	else
+		arglst->info->fieldwidth = 0;
 	return (0);
 }
 
@@ -62,6 +66,8 @@ int		parse_precision(t_arg_lst *arglst, char *fmt)
 			fmt++;
 		}
 	}
+	else
+		arglst->info->precision = 0;
 	return (ret);
 }
 
@@ -100,19 +106,21 @@ int		parse_lengthmod(t_arg_lst *arglst, char *fmt)
 		}
 		return (ret);
 	}
+	else
+		arglst->info->lenmod[0] = '\0';
 	return (0);
 }
 
-int		parse_conversion_spec(t_arg_lst *arglst, char *fmt)
+int		parse_conversion_spec(t_glb *glb, t_arg_lst *arglst, char *fmt)
 {
 	// data for new formatted strings are assigned here
 	// and allocated.
 	int ret;
 
-	ret = 0;
+	ret = 1;
 	ret += parse_flags(arglst, fmt);
 	ret += parse_fieldwidth(arglst, fmt);
 	ret += parse_lengthmod(arglst, fmt);
-	ret += parse_conversion(arglst, fmt);
+	ret += parse_conversion(glb, fmt);
 	return (ret);
 }
