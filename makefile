@@ -13,14 +13,22 @@ $(NAME):
 all: $(NAME)
 
 clean:
-	make -C libft clean
-	rm main.o
-	rm ft_printf.o
-	rm init_util.o
-	rm pf_flags.o
-	rm pf_args.o
+	make -C libft clean || echo 'Complete'
+	rm main.o || echo 'Complete'
+	rm ft_printf.o || echo 'Complete'
+	rm init_util.o || echo 'Complete'
+	rm pf_flags.o || echo 'Complete'
+	rm pf_args.o || echo 'Complete'
+	rm -rf ft_printf.dSYM || echo 'Complete'
 
-fclean:
-	make -C libft fclean
+fclean: clean
+	make -C libft fclean || echo 'Complete'
+	rm ft_printf || echo 'Complete'
+
+fc: fclean
+
+debug:
+	make -C libft all
+	$(CC) -g $(FLAGS) $(SRC) $(LIB) -o ft_printf
 
 re: fclean all

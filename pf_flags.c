@@ -6,11 +6,31 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/10 13:56:50 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/12 21:17:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+
+/*
+**	TODO:
+**	
+**	Create get_arg function to return the info link to the next list in line.
+**  using glb->total to obtain appropriate list id
+**
+*/
+
+t_arg_lst	*get_arg(t_glb *glb)
+{
+	t_arg_lst *arg;
+
+	arg = glb->args;
+	while (arg->id < (glb->total - 1))
+	{
+		arg = arg->next;
+	}
+	return (arg);
+}
 
 int		parse_flags(t_arg_lst *arglst, char *fmt)
 {
@@ -71,12 +91,15 @@ int		parse_precision(t_arg_lst *arglst, char *fmt)
 	return (ret);
 }
 
+/*
+**	checks for ll hh l h
+*/
+
 int		parse_lengthmod(t_arg_lst *arglst, char *fmt)
 {
 	int	ret;
 
 	ret = 0;
-	// checks for ll hh l h
 	if (*fmt == 'l' || *fmt == 'h' || *fmt == 'L')
 	{
 		ret++;
@@ -111,16 +134,36 @@ int		parse_lengthmod(t_arg_lst *arglst, char *fmt)
 	return (0);
 }
 
-int		parse_conversion_spec(t_glb *glb, t_arg_lst *arglst, char *fmt)
-{
-	// data for new formatted strings are assigned here
-	// and allocated.
-	int ret;
+/*
+**	data for new formatted strings are assigned here
+**	and allocated.
+*/
 
-	ret = 1;
-	ret += parse_flags(arglst, fmt);
-	ret += parse_fieldwidth(arglst, fmt);
-	ret += parse_lengthmod(arglst, fmt);
+int		parse_conversion_spec(t_glb *glb, char *fmt)
+{
+	int ret;
+	int	track;
+
+	ret = 0;
+	track = 0;
+	ret += parse_flags(get_arg(glb), fmt);
+	if (ret > track)
+	{
+		track = ret;
+		fmt += ret;
+	}
+	ret += parse_fieldwidth(get_arg(glb), fmt);
+	if (ret > track)
+	{
+		track = ret;
+		fmt += ret;
+	}
+	ret += parse_lengthmod(get_arg(glb), fmt);
+	if (ret > track)
+	{
+		track = ret;
+		fmt += ret;
+	}
 	ret += parse_conversion(glb, fmt);
 	return (ret);
 }

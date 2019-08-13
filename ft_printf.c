@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/10 14:27:08 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/12 21:16:47 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ void		save_args(t_glb *glb)
 			** parse_conversion_spec returns number of characters to be skipped
 			** and saves flags, fieldwidth, precision, and length modifier.
 			*/
-			if ((i = parse_conversion_spec(glb, glb->args, fmt)) > 0)
+			fmt += 1;
+			if ((i = parse_conversion_spec(glb, fmt)) > 0)
 				fmt += i;
-			i = 0;
-			while (arg[i] != '\0')
-			{
-				if (arg[i] == *fmt)
-				{
-					glb->argfun[i](glb);
-					break ;
-				}
-				i++;
-			}
 			i = 0;
 		}
 		fmt++;
 	}
 	ft_strdel(&arg);
+}
+
+void		form_formatted(t_glb *glb)
+{
+	if (glb)
+	{
+		
+	}
 }
 
 int			has_args(char *fmt)
@@ -61,7 +60,7 @@ int			has_args(char *fmt)
 
 size_t		ft_printf(char *fmt, ...)
 {
-	static t_glb	glb;
+	t_glb	glb;
 
 	glb_init(&glb);
 	va_start(glb.ap, fmt);
@@ -74,7 +73,7 @@ size_t		ft_printf(char *fmt, ...)
 	{
 		glb.fmt = ft_strdup(fmt);
 		save_args(&glb);
-		
+		form_formatted(&glb);
 		return (glb.total);
 	}
 	return (0);
