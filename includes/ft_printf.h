@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/12 21:16:56 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/13 14:02:52 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_info
 	int				fieldwidth;
 	int				precision;
 	char			lenmod[3];
+	char			*str;
 	char			*arg;
 }					t_info;
 
@@ -33,7 +34,7 @@ typedef struct		s_arg_list
 	struct s_arg_list		*next;
 }					t_arg_lst;
 
-typedef struct      s_ft_printf
+typedef struct		s_ft_printf
 {
 	va_list			ap;
 	int				(*argfun[12])(struct s_ft_printf *glb, t_arg_lst *arg);
@@ -43,7 +44,7 @@ typedef struct      s_ft_printf
 	int				total;
 	int				buf;
 	t_arg_lst		*args;
-}               	t_glb;
+}					t_glb;
 
 void				glb_init(t_glb *glb);
 size_t				ft_printf(char *sfmt, ...);
