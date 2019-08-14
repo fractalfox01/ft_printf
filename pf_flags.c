@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/12 21:17:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/13 22:54:52 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_arg_lst	*get_arg(t_glb *glb)
 	t_arg_lst *arg;
 
 	arg = glb->args;
-	while (arg->id < (glb->total - 1))
+	while (arg->id < (glb->total))
 	{
 		arg = arg->next;
 	}
@@ -139,7 +139,7 @@ int		parse_lengthmod(t_arg_lst *arglst, char *fmt)
 **	and allocated.
 */
 
-int		parse_conversion_spec(t_glb *glb, char *fmt)
+int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 {
 	int ret;
 	int	track;
@@ -164,6 +164,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt)
 		track = ret;
 		fmt += ret;
 	}
-	ret += parse_conversion(glb, fmt);
+	ret += parse_conversion(glb, fmt, orig);
 	return (ret);
 }

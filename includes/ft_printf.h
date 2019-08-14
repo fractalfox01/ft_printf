@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/13 14:02:52 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/13 22:56:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct		s_arg_list
 typedef struct		s_ft_printf
 {
 	va_list			ap;
-	int				(*argfun[12])(struct s_ft_printf *glb, t_arg_lst *arg);
+	int				(*argfun[12])(struct s_ft_printf *glb, t_arg_lst *arg, char *orig);
 	char			*ret;
 	size_t			ret_total;
 	char			*fmt;
@@ -48,19 +48,19 @@ typedef struct		s_ft_printf
 
 void				glb_init(t_glb *glb);
 size_t				ft_printf(char *sfmt, ...);
-int					parse_conversion_spec(t_glb *glb, char *fmt);
-int					parse_string(t_glb *glb, t_arg_lst *arg);
-int					parse_char(t_glb *glb, t_arg_lst *arg);
-int					parse_int(t_glb *glb, t_arg_lst *arg);
-int					parse_long(t_glb *glb, t_arg_lst *arg);
-int					parse_ptr(t_glb *glb, t_arg_lst *arg);
-int					parse_oct(t_glb *glb, t_arg_lst *arg);
-int					parse_unsigned(t_glb *glb, t_arg_lst *arg);
-int					parse_hex(t_glb *glb, t_arg_lst *arg);
-int					parse_bin(t_glb *glb, t_arg_lst *arg);
-int					parse_float(t_glb *glb, t_arg_lst *arg);
-int					parse_uint(t_glb *glb, t_arg_lst *arg);
-int					parse_conversion(t_glb *glb, char *fmt);
+int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);
+int					parse_string(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_char(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_int(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_long(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_oct(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_unsigned(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_hex(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_bin(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_float(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_uint(t_glb *glb, t_arg_lst *arg, char *orig);
+int					parse_conversion(t_glb *glb, char *fmt, char *orig);
 t_arg_lst			*new_list(void);
 
 #endif

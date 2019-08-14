@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/12 21:17:23 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/13 22:57:23 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*pad_arg(t_arg_lst *tmp, char *s2)
 	return (s2);
 }
 
-int		parse_string(t_glb *glb, t_arg_lst *arg)
+int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	size_t		buf_len;
 	char		*buf_str;
@@ -78,127 +78,127 @@ int		parse_string(t_glb *glb, t_arg_lst *arg)
 		buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
 		if (arg->info->flag == '+' || arg->info->flag == '#')
 			exit (0);
-		arg->info->arg = ft_strdup(pad_arg(arg, buf_str));
+		arg->info->arg = ft_strjoin(orig, pad_arg(arg, buf_str));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
 
-int		parse_char(t_glb *glb, t_arg_lst *arg)
+int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_int(t_glb *glb, t_arg_lst *arg)
+int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_long(t_glb *glb, t_arg_lst *arg)
+int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_ptr(t_glb *glb, t_arg_lst *arg)
+int		parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_oct(t_glb *glb, t_arg_lst *arg)
+int		parse_oct(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_unsigned(t_glb *glb, t_arg_lst *arg)
+int		parse_unsigned(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_hex(t_glb *glb, t_arg_lst *arg)
+int		parse_hex(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_bin(t_glb *glb, t_arg_lst *arg)
+int		parse_bin(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_float(t_glb *glb, t_arg_lst *arg)
+int		parse_float(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
 	return (ret);
 }
 
-int		parse_uint(t_glb *glb, t_arg_lst *arg)
+int		parse_uint(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
 
 	ret = 0;
-	if (glb && arg)
+	if (glb && arg && orig)
 	{
 		
 	}
@@ -210,14 +210,14 @@ static t_arg_lst	*get_arg(t_glb *glb)
 	t_arg_lst *arg;
 
 	arg = glb->args;
-	while (arg->id < (glb->total - 1))
+	while (arg->id < (glb->total))
 	{
 		arg = arg->next;
 	}
 	return (arg);
 }
 
-int		parse_conversion(t_glb *glb, char *fmt)
+int		parse_conversion(t_glb *glb, char *fmt, char *orig)
 {
 	int		i;
 	char	*fmt_str;
@@ -230,6 +230,6 @@ int		parse_conversion(t_glb *glb, char *fmt)
 		i++;
 	ft_strdel(&fmt_str);
 	if (i < 10)
-		return (glb->argfun[i](glb, get_arg(glb)));
+		return (glb->argfun[i](glb, get_arg(glb), orig));
 	return (0);
 }
