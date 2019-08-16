@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/13 22:57:45 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 12:12:42 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,58 @@ char		*get_sub_str(char *str, int	start, int end)
 
 	if (str)
 	{
-		tmp = (char *)malloc(sizeof(char) * (end - start));
+		tmp = (char *)malloc(sizeof(char) * (end - start) + 1);
 		i = 0;
 		while (start < end && str[start] != '\0')
 		{
 			tmp[i++] = str[start++];
 		}
+		tmp[i] = '\0';
 		return (tmp);
 	}
 	return (NULL);
 }
+
+int			check_next(char *fmt)
+{
+	while (*fmt != '\0')
+	{
+		if (*fmt == '%')
+			return (1);
+		fmt++;
+	}
+	return (0);
+}
+
+void		add_remainder(t_glb *glb, char *lo)
+{
+	t_arg_lst	*atmp;
+	int			i;
+	int			j;
+
+	atmp = glb->args;
+	i = 0;
+	j = 0;
+	while (atmp->id < glb->total)
+		atmp = atmp->next;
+	glb->total += 1;
+	atmp->info->arg = ft_strdup(lo);
+	atmp->next = (t_arg_lst *)malloc(sizeof(t_arg_lst) * 1);
+	atmp = atmp->next;
+	atmp->id = glb->total;
+}
+
+/*
+** parse_conversion_spec returns number of characters to be skipped
+** and saves flags, fieldwidth, precision, and length modifier.
+*/
 
 void		save_args(t_glb *glb)
 {
 	int		i;
 	int		x;
 	int		y;
+	char	*leftovers;
 	char	*tmp;
 	char	*arg;
 	char	*fmt;
@@ -44,24 +80,33 @@ void		save_args(t_glb *glb)
 	y = 0;
 	fmt = glb->fmt;
 	arg = ft_strdup("scdiouxXfp");
+	leftovers = NULL;
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
 		{
-			/*
-			** parse_conversion_spec returns number of characters to be skipped
-			** and saves flags, fieldwidth, precision, and length modifier.
-			*/
 			tmp = get_sub_str(glb->fmt, y, x);
 			fmt += 1;
 			if ((i = parse_conversion_spec(glb, fmt, tmp)) > 0)
+			{
 				fmt += i;
-			y = x + 1 + i;
+				x += i + 1;
+			}
+			else
+				x++;
+			ft_strdel(&tmp);
+			y = x + 1;
 			i = 0;
+			if (check_next(fmt + 1) == 0)
+			{
+				leftovers = ft_strdup(fmt + 1);
+			}
 		}
 		x++;
 		fmt++;
 	}
+	add_remainder(glb, leftovers);
+	ft_strdel(&leftovers);
 	ft_strdel(&arg);
 }
 
@@ -76,10 +121,11 @@ void		form_formatted(t_glb *glb)
 	i = 0;
 	if (tmp)
 	{
-		// while (tmp)
-		// {
-		// 	while ()
-		// }
+		while (tmp->id < glb->total)
+		{
+			ft_putstr(tmp->info->arg);
+			tmp = tmp->next;
+		}
 	}
 }
 
@@ -109,7 +155,7 @@ size_t		ft_printf(char *fmt, ...)
 	{
 		glb.fmt = ft_strdup(fmt);
 		save_args(&glb);
-		//form_formatted(&glb);
+		form_formatted(&glb);
 		return (glb.total);
 	}
 	return (0);

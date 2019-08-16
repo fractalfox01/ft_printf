@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/13 22:57:23 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 12:20:42 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*pad_arg(t_arg_lst *tmp, char *s2)
 		{
 			if ((size_t)len > i)
 				return (s2);
-			x = i - len - 1;
+			x = i - len;
 			while (x <= (int)i && s2[y] != '\0')
 			{
 				stmp[x++] = s2[y++];
@@ -92,7 +92,7 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("char parse\n");
 	}
 	return (ret);
 }
@@ -104,7 +104,7 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("int parse\n");
 	}
 	return (ret);
 }
@@ -116,7 +116,7 @@ int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("long parse\n");
 	}
 	return (ret);
 }
@@ -128,7 +128,7 @@ int		parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("pointer parse\n");
 	}
 	return (ret);
 }
@@ -140,7 +140,7 @@ int		parse_oct(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("octal parse\n");
 	}
 	return (ret);
 }
@@ -152,7 +152,7 @@ int		parse_unsigned(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("unsigned parse\n");
 	}
 	return (ret);
 }
@@ -164,7 +164,7 @@ int		parse_hex(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("hex parse\n");
 	}
 	return (ret);
 }
@@ -176,7 +176,7 @@ int		parse_bin(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("binary parse\n");
 	}
 	return (ret);
 }
@@ -188,7 +188,7 @@ int		parse_float(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("float parse\n");
 	}
 	return (ret);
 }
@@ -200,7 +200,7 @@ int		parse_uint(t_glb *glb, t_arg_lst *arg, char *orig)
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		
+		ft_putstr("unsigned int parse\n");
 	}
 	return (ret);
 }
