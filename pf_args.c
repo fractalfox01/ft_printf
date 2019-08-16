@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 12:20:42 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 13:56:06 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ t_arg_lst	*new_list(void)
 	return (list);
 }
 
-char	*pad_arg(t_arg_lst *tmp, char *s2)
+char	*pad_left(t_arg_lst *tmp, char *str)
 {
-	// char	*n_str;
 	char	*stmp;
 	int		len;
 	int		y;
@@ -39,25 +38,56 @@ char	*pad_arg(t_arg_lst *tmp, char *s2)
 	i = 0;
 	x = 0;
 	y = 0;
-	if (tmp && s2)
+	if (tmp && str)
 	{
-		len = ft_strlen(s2);
+		len = ft_strlen(str);
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
 		ft_memset(stmp, ' ', i);
 		if (tmp->info->flag == '\0')
 		{
 			if ((size_t)len > i)
-				return (s2);
+				return (str);
 			x = i - len;
-			while (x <= (int)i && s2[y] != '\0')
+			while (x <= (int)i && str[y] != '\0')
 			{
-				stmp[x++] = s2[y++];
+				stmp[x++] = str[y++];
 			}
 			return (stmp);
 		}
 	}
-	return (s2);
+	return (str);
+}
+
+char	*pad_right(t_arg_lst *tmp, char *str)
+{
+	char	*stmp;
+	int		len;
+	int		y;
+	int		x;
+	size_t	i;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	if (tmp && str)
+	{
+		len = ft_strlen(str);
+		i = (size_t)tmp->info->fieldwidth;
+		stmp = ft_strnew(i);
+		ft_memset(stmp, ' ', i);
+		if (tmp->info->flag == '-')
+		{
+			if ((size_t)len > i)
+				return (str);
+			while (x <= (int)i && str[y] != '\0')
+			{
+				stmp[x++] = str[y++];
+			}
+			return (stmp);
+		}
+	}
+	return (str);
 }
 
 int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
@@ -78,7 +108,10 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 		buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
 		if (arg->info->flag == '+' || arg->info->flag == '#')
 			exit (0);
-		arg->info->arg = ft_strjoin(orig, pad_arg(arg, buf_str));
+		if (arg->info->flag == '-')
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}

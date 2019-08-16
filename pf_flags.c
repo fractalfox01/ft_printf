@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/13 22:54:52 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 14:01:21 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,27 +143,35 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 {
 	int ret;
 	int	track;
+	int	tot;
 
+	tot = 0;
 	ret = 0;
 	track = 0;
-	ret += parse_flags(get_arg(glb), fmt);
+	ret = parse_flags(get_arg(glb), fmt);
 	if (ret > track)
 	{
+		tot += ret;
 		track = ret;
 		fmt += ret;
+		ret = 0;
 	}
-	ret += parse_fieldwidth(get_arg(glb), fmt);
+	ret = parse_fieldwidth(get_arg(glb), fmt);
 	if (ret > track)
 	{
+		tot += ret;
 		track = ret;
 		fmt += ret;
+		ret = 0;
 	}
-	ret += parse_lengthmod(get_arg(glb), fmt);
+	ret = parse_lengthmod(get_arg(glb), fmt);
 	if (ret > track)
 	{
+		tot += ret;
 		track = ret;
 		fmt += ret;
+		ret = 0;
 	}
-	ret += parse_conversion(glb, fmt, orig);
-	return (ret);
+	parse_conversion(glb, fmt, orig);
+	return (tot);
 }
