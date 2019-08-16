@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 13:56:06 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 14:17:22 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,32 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 
 int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
+	int		ret;
+	char	c;
+	size_t	buf_len;
+	char	*padded;
 
 	ret = 0;
+	buf_len = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("char parse\n");
+		while (arg->id < glb->total)
+		{
+			arg = arg->next;
+		}
+		glb->total += 1;
+		c = va_arg(glb->ap, int);
+		buf_len = (size_t)arg->info->fieldwidth;
+		padded = ft_strnew(buf_len);
+		padded[0] = c;
+		if (arg->info->flag == '+' || arg->info->flag == '#')
+			exit (0);
+		if (arg->info->flag == '-')
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
