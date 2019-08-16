@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 14:01:21 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 16:32:32 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ int		parse_flags(t_arg_lst *arglst, char *fmt)
 	int	ret;
 
 	ret = 0;
-	if (*fmt == ' ' || *fmt == '#' || *fmt == '-' || *fmt == '+')
+	arglst->info->flag = 0;
+	while (*fmt == ' ' || *fmt == '#' || *fmt == '-' || *fmt == '+')
 	{
-		// glb flag = *fmt;
-		arglst->info->flag = *fmt;
-		return (1);
+		arglst->info->flag += 1;
+		fmt++;
 	}
-	else
-		arglst->info->flag = '\0';
 	return (0);
 }
 

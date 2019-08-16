@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 14:17:22 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 16:27:02 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*pad_left(t_arg_lst *tmp, char *str)
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
 		ft_memset(stmp, ' ', i);
-		if (tmp->info->flag == '\0')
+		if (tmp->info->flag == '\0' || tmp->info->flag == '+')
 		{
 			if ((size_t)len > i)
 				return (str);
@@ -138,12 +138,14 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 		buf_len = (size_t)arg->info->fieldwidth;
 		padded = ft_strnew(buf_len);
 		padded[0] = c;
-		if (arg->info->flag == '+' || arg->info->flag == '#')
+		if (arg->info->flag == '#')
 			exit (0);
 		if (arg->info->flag == '-')
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 		else
+		{
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		}
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
@@ -152,12 +154,36 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 
 int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
+	int		ret;
+	int		c;
+	size_t	buf_len;
+	char	*padded;
+	char	*tmp;
 
 	ret = 0;
+	buf_len = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("int parse\n");
+		while (arg->id < glb->total)
+		{
+			arg = arg->next;
+		}
+		glb->total += 1;
+		c = va_arg(glb->ap, int);
+		buf_len = (size_t)arg->info->fieldwidth;
+		padded = ft_itoa(c);
+		if (arg->info->flag == '-')
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		else if (arg->info->flag == '+')
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
