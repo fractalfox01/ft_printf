@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 16:27:02 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 20:07:14 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*pad_left(t_arg_lst *tmp, char *str)
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
 		ft_memset(stmp, ' ', i);
-		if (tmp->info->flag == '\0' || tmp->info->flag == '+')
+		if (tmp->info->plus_flag == 1)
 		{
 			if ((size_t)len > i)
 				return (str);
@@ -76,7 +76,7 @@ char	*pad_right(t_arg_lst *tmp, char *str)
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
 		ft_memset(stmp, ' ', i);
-		if (tmp->info->flag == '-')
+		if (tmp->info->minus_flag == 1)
 		{
 			if ((size_t)len > i)
 				return (str);
@@ -95,8 +95,10 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 	size_t		buf_len;
 	char		*buf_str;
 	int			ret;
+	int			i;
 
 	ret = 0;
+	i = 0;
 	if (glb)
 	{
 		while (arg->id < glb->total)
@@ -106,9 +108,20 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 		glb->total += 1;
 		buf_str = va_arg(glb->ap, char *);
 		buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
-		if (arg->info->flag == '+' || arg->info->flag == '#')
+		if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1)
 			exit (0);
-		if (arg->info->flag == '-')
+		if (arg->info->precision)
+		{
+			arg->info->str = ft_strnew((size_t)arg->info->precision);
+			while (i < arg->info->precision && buf_str[i] != '\0')
+			{
+				arg->info->str[i] = buf_str[i];
+				i++;
+			}
+			buf_str = ft_strdup(arg->info->str);
+			ft_strdel(&(arg->info->str));
+		}
+		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
 		else
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str));
@@ -138,9 +151,9 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 		buf_len = (size_t)arg->info->fieldwidth;
 		padded = ft_strnew(buf_len);
 		padded[0] = c;
-		if (arg->info->flag == '#')
+		if (arg->info->plus_flag == 1)
 			exit (0);
-		if (arg->info->flag == '-')
+		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 		else
 		{
@@ -172,9 +185,9 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 		c = va_arg(glb->ap, int);
 		buf_len = (size_t)arg->info->fieldwidth;
 		padded = ft_itoa(c);
-		if (arg->info->flag == '-')
+		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
-		else if (arg->info->flag == '+')
+		else if (arg->info->plus_flag == 1)
 		{
 			tmp = ft_strjoin("+", padded);
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));

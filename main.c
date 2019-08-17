@@ -2,7 +2,7 @@
 
 int		main(void)
 {
-	char str0[19] = "string: |%7.10s|\n";
+	//char str0[19] = "string: |%6.3s|\n";
 	// char str1[29] = "string: %10s string2: %25s\n";
 	// //char str2[25] = "number: %d number2: %d\n";
 	// char str3[31] = "string: %-10s string2: %-25s\n";
@@ -10,12 +10,13 @@ int		main(void)
 	// char str5[40] = "int1: |%+10d| int2: |%-10d| int3: |%d|\n";
 	
 	// ft_printf("Mine:\n");
-	//ft_printf(str0, 42, "goodbye");
-	printf(str0, "hello");
-	printf("string: |%.3s|\n", "hello");
-	printf("string: |%10.3s|\n", "hello");
-	printf("string: |%-.3s|\n", "hello");
-	printf("string: |%-10.3s|\n", "hello");
+	// //ft_printf(str0, 42, "goodbye");
+	// ft_printf(str0, "hello");
+	// ft_printf("string: |%.3s|\n", "hello");
+	// ft_printf("string: |%10.3s|\n", "hello");
+	// ft_printf("string: |%-.3s|\n", "hello");
+	// ft_printf("string: |%-10.3s|\n", "hello");
+
 	//ft_putchar('\n');
 	// ft_printf(str1, "hello", "goodbye");
 	// //ft_printf(str2, 42, -99);
@@ -24,7 +25,12 @@ int		main(void)
 	// ft_printf(str4, 'a', 'b');
 	// ft_printf(str5, 12, 66, -127);
 	// //ft_putchar('\n');
-	// printf("\nTheres:\n");
+	printf("\nTheres:\n");
+	printf("string: |%6.3s|\n", "hello");
+	printf("string: |%.3s|\n", "hello");
+	printf("string: |%10.3s|\n", "hello");
+	printf("string: |%-.3s|\n", "hello");
+	printf("string: |%-10.3s|\n", "hello");
 	//printf(str0, "hello", "goodbye");
 	// //printf("\n");
 	// printf(str1, "hello", "goodbye");

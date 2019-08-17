@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 16:32:32 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 19:57:05 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,20 @@ int		parse_flags(t_arg_lst *arglst, char *fmt)
 	int	ret;
 
 	ret = 0;
-	arglst->info->flag = 0;
+	arglst->info->blank_flag = 0;
+	arglst->info->hash_flag = 0;
+	arglst->info->minus_flag = 0;
+	arglst->info->plus_flag = 0;
 	while (*fmt == ' ' || *fmt == '#' || *fmt == '-' || *fmt == '+')
 	{
-		arglst->info->flag += 1;
+		if (*fmt == ' ')
+			arglst->info->blank_flag = 1;
+		if (*fmt == '#')
+			arglst->info->hash_flag = 1;
+		if (*fmt == '-')
+			arglst->info->minus_flag = 1;
+		if (*fmt == '+')
+			arglst->info->plus_flag = 1;
 		fmt++;
 	}
 	return (0);
@@ -155,6 +165,14 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 		ret = 0;
 	}
 	ret = parse_fieldwidth(get_arg(glb), fmt);
+	if (ret > track)
+	{
+		tot += ret;
+		track = ret;
+		fmt += ret;
+		ret = 0;
+	}
+	ret = parse_precision(get_arg(glb), fmt);
 	if (ret > track)
 	{
 		tot += ret;
