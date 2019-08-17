@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/13 22:56:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/16 19:44:06 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 
 typedef struct		s_info
 {
-	char			flag;
+	int				blank_flag:1;
+	int				hash_flag:1;
+	int				minus_flag:1;
+	int				plus_flag:1;
 	int				fieldwidth;
 	int				precision;
 	char			lenmod[3];
