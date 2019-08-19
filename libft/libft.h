@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 20:09:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/18 14:36:14 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/19 12:52:45 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct			s_lst_var
 	int					j;
 }						t_lst_var;
 
+char					*ft_ltoa(long n);
 int						ft_numlen(int i);
 int						get_n_char(int fd, char **line, int size);
 int						ft_hex_to_int(char *hex);

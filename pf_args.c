@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/18 18:06:58 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/19 12:31:05 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*pad_left(t_arg_lst *tmp, char *str)
 		if ((size_t)len > i)
 			return (str);
 		x = i - len;
-		while (x <= (int)i && str[y] != '\0')
+		while (x < (int)i && str[y] != '\0')
 			stmp[x++] = str[y++];
 		return (stmp);
 	}
@@ -171,32 +171,105 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 	buf_len = 0;
 	if (glb && arg && orig)
 	{
-		while (arg->id < glb->total)
-			arg = arg->next;
+		if (arg->info->lenmod[0] == 'l')
+		{
+			parse_long(glb, arg, orig);
+		}
+		else
+		{
+			glb->total += 1;
+			c = va_arg(glb->ap, int);
+			if (arg->info->precision > arg->info->fieldwidth)
+				arg->info->fieldwidth = arg->info->precision;
+			buf_len = (size_t)arg->info->fieldwidth;
+			padded = ft_itoa(c);
+			if (arg->info->precision > 0)
+			{
+				len = ft_strlen(padded);
+				if (c < 0)
+					len--;
+				zero = arg->info->precision - len;
+				if ((len + zero) <= arg->info->fieldwidth)
+				{
+					if (c < 0)
+						zero++;
+					xtmp = ft_strnew(zero);
+					ft_memset(xtmp, '0', zero);
+					if (c < 0)
+					{
+						xtmp[0] = '-';
+						c = ft_abs(c);
+					}
+					stmp = ft_strjoin(xtmp, ft_itoa(c));
+					ft_strdel(&padded);
+					padded = ft_strdup(stmp);
+					ft_strdel(&xtmp);
+					ft_strdel(&stmp);
+				}
+			}
+			if (arg->info->minus_flag == 1)
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+			else if (arg->info->plus_flag == 1)
+			{
+				tmp = ft_strjoin("+", padded);
+				arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+				ft_strdel(&tmp);
+			}
+			else
+				arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+			arg->next = new_list();
+			arg->next->id = (arg->id + 1);
+		}
+	}
+	return (ret);
+}
+
+int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
+{
+	int		ret;
+	long	c;
+	int		len;
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
+	size_t	buf_len;
+	char	*padded;
+	char	*tmp;
+
+	ret = 0;
+	zero = 0;
+	buf_len = 0;
+	if (glb && arg && orig)
+	{
 		glb->total += 1;
-		c = va_arg(glb->ap, int);
+		c = va_arg(glb->ap, long);
+		if (arg->info->precision > arg->info->fieldwidth)
+			arg->info->fieldwidth = arg->info->precision;
 		buf_len = (size_t)arg->info->fieldwidth;
-		padded = ft_itoa(c);
+		padded = ft_ltoa(c);
 		if (arg->info->precision > 0)
 		{
-			len = ft_numlen(c);
+			len = ft_strlen(padded);
 			if (c < 0)
-				len++;
+				len--;
 			zero = arg->info->precision - len;
-			if (c < 0)
-				zero++;
-			xtmp = ft_strnew(zero);
-			ft_memset(xtmp, '0', zero);
-			if (c < 0)
+			if ((len + zero) <= arg->info->fieldwidth)
 			{
-				xtmp[0] = '-';
-				c = ft_abs(c);
+				if (c < 0)
+					zero++;
+				xtmp = ft_strnew(zero);
+				ft_memset(xtmp, '0', zero);
+				if (c < 0)
+				{
+					xtmp[0] = '-';
+					c = ft_abs(c);
+				}
+				stmp = ft_strjoin(xtmp, ft_ltoa(c));
+				ft_strdel(&padded);
+				padded = ft_strdup(stmp);
+				ft_strdel(&xtmp);
+				ft_strdel(&stmp);
 			}
-			stmp = ft_strjoin(xtmp, ft_itoa(c));
-			ft_strdel(&padded);
-			padded = ft_strdup(stmp);
-			ft_strdel(&xtmp);
-			ft_strdel(&stmp);
 		}
 		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
@@ -210,18 +283,6 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
-	}
-	return (ret);
-}
-
-int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
-{
-	int	ret;
-
-	ret = 0;
-	if (glb && arg && orig)
-	{
-		ft_putstr("long parse\n");
 	}
 	return (ret);
 }
