@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:12:08 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/03/27 20:57:19 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/08/18 14:19:35 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/08/18 17:57:02 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr(char *str)
+int	ft_numlen(int nbr)
 {
-	int	len;
-	
-	len = ft_strlen(str);
-	write(1, &*str, len);
+	int i;
+
+	i = 1;
+	while (nbr / 10 > 0)
+	{
+		i++;
+		nbr /= 10;
+	}
+	return (i);
 }

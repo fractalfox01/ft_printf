@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 19:57:05 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/18 10:31:53 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int		parse_flags(t_arg_lst *arglst, char *fmt)
 		if (*fmt == '+')
 			arglst->info->plus_flag = 1;
 		fmt++;
+		ret++;
 	}
-	return (0);
+	return (ret);
 }
 
 int		parse_fieldwidth(t_arg_lst *arglst, char *fmt)
@@ -160,7 +161,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 	if (ret > track)
 	{
 		tot += ret;
-		track = ret;
 		fmt += ret;
 		ret = 0;
 	}
@@ -168,7 +168,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 	if (ret > track)
 	{
 		tot += ret;
-		track = ret;
 		fmt += ret;
 		ret = 0;
 	}
@@ -176,7 +175,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 	if (ret > track)
 	{
 		tot += ret;
-		track = ret;
 		fmt += ret;
 		ret = 0;
 	}
@@ -184,7 +182,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 	if (ret > track)
 	{
 		tot += ret;
-		track = ret;
 		fmt += ret;
 		ret = 0;
 	}

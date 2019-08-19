@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 20:07:14 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/18 18:06:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,12 @@ char	*pad_left(t_arg_lst *tmp, char *str)
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
 		ft_memset(stmp, ' ', i);
-		if (tmp->info->plus_flag == 1)
-		{
-			if ((size_t)len > i)
-				return (str);
-			x = i - len;
-			while (x <= (int)i && str[y] != '\0')
-			{
-				stmp[x++] = str[y++];
-			}
-			return (stmp);
-		}
+		if ((size_t)len > i)
+			return (str);
+		x = i - len;
+		while (x <= (int)i && str[y] != '\0')
+			stmp[x++] = str[y++];
+		return (stmp);
 	}
 	return (str);
 }
@@ -81,9 +76,7 @@ char	*pad_right(t_arg_lst *tmp, char *str)
 			if ((size_t)len > i)
 				return (str);
 			while (x <= (int)i && str[y] != '\0')
-			{
 				stmp[x++] = str[y++];
-			}
 			return (stmp);
 		}
 	}
@@ -108,7 +101,7 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 		glb->total += 1;
 		buf_str = va_arg(glb->ap, char *);
 		buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
-		if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1)
+		if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1 || arg->info->blank_flag == 1)
 			exit (0);
 		if (arg->info->precision)
 		{
@@ -143,9 +136,7 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 	if (glb && arg && orig)
 	{
 		while (arg->id < glb->total)
-		{
 			arg = arg->next;
-		}
 		glb->total += 1;
 		c = va_arg(glb->ap, int);
 		buf_len = (size_t)arg->info->fieldwidth;
@@ -156,9 +147,7 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 		else
-		{
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
-		}
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
@@ -169,22 +158,46 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int		ret;
 	int		c;
+	int		len;
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
 	size_t	buf_len;
 	char	*padded;
 	char	*tmp;
 
 	ret = 0;
+	zero = 0;
 	buf_len = 0;
 	if (glb && arg && orig)
 	{
 		while (arg->id < glb->total)
-		{
 			arg = arg->next;
-		}
 		glb->total += 1;
 		c = va_arg(glb->ap, int);
 		buf_len = (size_t)arg->info->fieldwidth;
 		padded = ft_itoa(c);
+		if (arg->info->precision > 0)
+		{
+			len = ft_numlen(c);
+			if (c < 0)
+				len++;
+			zero = arg->info->precision - len;
+			if (c < 0)
+				zero++;
+			xtmp = ft_strnew(zero);
+			ft_memset(xtmp, '0', zero);
+			if (c < 0)
+			{
+				xtmp[0] = '-';
+				c = ft_abs(c);
+			}
+			stmp = ft_strjoin(xtmp, ft_itoa(c));
+			ft_strdel(&padded);
+			padded = ft_strdup(stmp);
+			ft_strdel(&xtmp);
+			ft_strdel(&stmp);
+		}
 		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 		else if (arg->info->plus_flag == 1)

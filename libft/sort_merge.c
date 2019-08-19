@@ -6,11 +6,12 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 23:27:45 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/04 20:30:47 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/07/19 21:31:35 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 typedef struct  s_merge
 {
@@ -47,20 +48,20 @@ void    merge(t_merge *sm, int  l, int m, int r)
     }
 }
 
-void    s_passoff(t_merge *sm, int  *arr, int l, int r)
+void    sort_merge(t_merge *sm, int  *arr, int l, int r)
 {
     int     m;
 
     m = (l + r) / 2;
     if (l < r)
     {
-        s_passoff(sm, arr, l, m);
-        s_passoff(sm, arr, m + 1, r);
+        sort_merge(sm, arr, l, m);
+        sort_merge(sm, arr, m + 1, r);
         merge(sm, l, m, r);
     }
 }
 
-void    sort_mergeint *arr, int l, int r)
+void    s_passof(int *arr, int l, int r)
 {
     t_merge sm;
 
@@ -68,5 +69,28 @@ void    sort_mergeint *arr, int l, int r)
     sm.tptr = (int *)malloc(sizeof(int) * r);
     sm.p1 = 0;
     sm.p2 = 0;
-    s_passoff(&sm, arr, l, r);
+    sort_merge(&sm, arr, l, r);
+}
+
+void    print_array(int *arr, size_t size)
+{
+    size_t i;
+
+    i = 0;
+    while (i < size)
+    {
+        printf("%d\n", arr[i]);
+        i++;
+    }
+}
+
+int main(void)
+{
+    int tab[10] = {12, 43, -12, 45, 18, 105, 601, -779, 1001, 22};
+    int *arr;
+
+    arr = tab;
+    s_passof(arr, 0, 9);
+    print_array(arr, 10);
+    return (0);
 }

@@ -8,35 +8,12 @@ int		main(void)
 	// char str3[31] = "string: %-10s string2: %-25s\n";
 	// char str4[44] = "char1: |%+10c| char2: |%10c|\nLEFTOVERS!!!\n";
 	// char str5[40] = "int1: |%+10d| int2: |%-10d| int3: |%d|\n";
-	
-	// ft_printf("Mine:\n");
-	// //ft_printf(str0, 42, "goodbye");
-	// ft_printf(str0, "hello");
-	// ft_printf("string: |%.3s|\n", "hello");
-	// ft_printf("string: |%10.3s|\n", "hello");
-	// ft_printf("string: |%-.3s|\n", "hello");
-	// ft_printf("string: |%-10.3s|\n", "hello");
+	ft_printf("Mine:\n");
+	ft_printf("string0: |%15.4s|\nstring1: |%-6s|\nstring2: |%6s|\nstring3: |%6.3s|\n", "waffle", "hello", "world", "bye!!");
+	ft_printf("int0: |%+10.6d|\nint1: |%10.6d|\nint2: |%+6d|\n", 42, -42, 127);
 
-	//ft_putchar('\n');
-	// ft_printf(str1, "hello", "goodbye");
-	// //ft_printf(str2, 42, -99);
-	// ft_printf(str3, "hello", "goodbye");
-
-	// ft_printf(str4, 'a', 'b');
-	// ft_printf(str5, 12, 66, -127);
-	// //ft_putchar('\n');
-	printf("\nTheres:\n");
-	printf("string: |%6.3s|\n", "hello");
-	printf("string: |%.3s|\n", "hello");
-	printf("string: |%10.3s|\n", "hello");
-	printf("string: |%-.3s|\n", "hello");
-	printf("string: |%-10.3s|\n", "hello");
-	//printf(str0, "hello", "goodbye");
-	// //printf("\n");
-	// printf(str1, "hello", "goodbye");
-	// printf(str3, "hello", "goodbye");
-	// printf(str4, 'a', 'b');
-	// printf(str5, 12, 66, -127);
-	// //printf("\n");
+	printf("\nThiers:\n");
+	printf("string0: |%15.4s|\nstring1: |%-6s|\nstring2: |%6s|\nstring3: |%6.3s|\n", "waffle", "hello", "world", "bye!!");
+	printf("int0: |%+10.6d|\nint1: |%10.6d|\nint2: |%+6d|\n", 42, -42, 127);
 	return (0);
 }
