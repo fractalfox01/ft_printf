@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 20:09:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/19 12:52:45 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:38:29 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ typedef struct			s_lst_var
 	int					j;
 }						t_lst_var;
 
+char					*ft_strrev(char *str);
+int						ft_otoi(char *str);
+char					*ft_itoo(int nbr);
+int						ft_ltoo(long nbr);
+char					*ft_ltoh(long n);
 char					*ft_ltoa(long n);
 int						ft_numlen(int i);
 int						get_n_char(int fd, char **line, int size);
@@ -116,7 +121,6 @@ char					*ft_strchr(const char *s, int c);
 char					*ft_strrchr(const char *s, int c);
 char					*ft_strstr(const char *haystack, const char *needle);
 char					*ft_strnstr(const char *h, const char *n, size_t ln);
-char					*ft_strrev(char *str);
 char					*ft_strncpy(char *dst, const char *src, size_t len);
 char					*ft_strsub(char const *s, unsigned int st, size_t l);
 char					*ft_strjoin(char const *s1, char const *s2);
@@ -164,6 +168,5 @@ int						ft_queue_is_empty(t_queue *que);
 int						ft_queue_is_full(t_queue *que);
 int						ft_queue_front(t_queue *que);
 int						ft_queue_rear(t_queue *que);
-int						ft_dec_to_oct(int nbr);
 
 #endif

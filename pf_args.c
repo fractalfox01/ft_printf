@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/19 12:31:05 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:41:48 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,11 +290,16 @@ int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
 int		parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
+	long	n;
 
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("pointer parse\n");
+		n = va_arg(glb->ap, long);
+		arg->info->arg = ft_strjoin(orig, ft_ltoh(n));
+		glb->total += 1;
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
@@ -302,11 +307,17 @@ int		parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig)
 int		parse_oct(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
+	int n;
 
 	ret = 0;
+	n = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("octal parse\n");
+		n = va_arg(glb->ap, int);
+		arg->info->arg = ft_strjoin(orig, ft_itoo(n));
+		glb->total += 1;
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
