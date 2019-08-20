@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/19 18:41:48 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:08:59 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,14 +154,44 @@ int		parse_char(t_glb *glb, t_arg_lst *arg, char *orig)
 	return (ret);
 }
 
-int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
+void	int_helper(t_arg_lst *arg, char *padded, int c)
 {
-	int		ret;
-	int		c;
 	int		len;
 	int		zero;
 	char	*xtmp;
 	char	*stmp;
+	
+	len = ft_strlen(padded);
+	if (c < 0)
+		len--;
+	zero = arg->info->precision - len;
+	if (zero >= 0)
+	{
+		if (c < 0)
+			zero++;
+		xtmp = ft_strnew(zero);
+		ft_memset(xtmp, '0', zero);
+		if (c < 0)
+		{
+			xtmp[0] = '-';
+			c = ft_abs(c);
+		}
+		stmp = ft_strjoin(xtmp, ft_itoa(c));
+		ft_strdel(&padded);
+		padded = ft_strdup(stmp);
+		ft_strdel(&xtmp);
+		ft_strdel(&stmp);
+	}
+}
+
+int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
+{
+	int		ret;
+	int		c;
+	//int		len;
+	int		zero;
+	//char	*xtmp;
+	//char	*stmp;
 	size_t	buf_len;
 	char	*padded;
 	char	*tmp;
@@ -185,27 +215,7 @@ int		parse_int(t_glb *glb, t_arg_lst *arg, char *orig)
 			padded = ft_itoa(c);
 			if (arg->info->precision > 0)
 			{
-				len = ft_strlen(padded);
-				if (c < 0)
-					len--;
-				zero = arg->info->precision - len;
-				if ((len + zero) <= arg->info->fieldwidth)
-				{
-					if (c < 0)
-						zero++;
-					xtmp = ft_strnew(zero);
-					ft_memset(xtmp, '0', zero);
-					if (c < 0)
-					{
-						xtmp[0] = '-';
-						c = ft_abs(c);
-					}
-					stmp = ft_strjoin(xtmp, ft_itoa(c));
-					ft_strdel(&padded);
-					padded = ft_strdup(stmp);
-					ft_strdel(&xtmp);
-					ft_strdel(&stmp);
-				}
+				int_helper(arg, &*padded, c);
 			}
 			if (arg->info->minus_flag == 1)
 				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
@@ -253,7 +263,7 @@ int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
 			if (c < 0)
 				len--;
 			zero = arg->info->precision - len;
-			if ((len + zero) <= arg->info->fieldwidth)
+			if (zero >= 0)
 			{
 				if (c < 0)
 					zero++;
@@ -325,11 +335,17 @@ int		parse_oct(t_glb *glb, t_arg_lst *arg, char *orig)
 int		parse_unsigned(t_glb *glb, t_arg_lst *arg, char *orig)
 {
 	int	ret;
+	unsigned n;
 
 	ret = 0;
+	n = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("unsigned parse\n");
+		n = va_arg(glb->ap, unsigned);
+		arg->info->arg = ft_strjoin(orig, ft_itoa(n));
+		glb->total += 1;
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }

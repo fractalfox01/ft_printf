@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 20:09:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/19 18:38:29 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/20 12:59:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct			s_lst_var
 	int					j;
 }						t_lst_var;
 
+char					*ft_ftoa(double flt, int afterpoint);
 char					*ft_strrev(char *str);
 int						ft_otoi(char *str);
 char					*ft_itoo(int nbr);
