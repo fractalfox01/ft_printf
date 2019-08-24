@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/20 13:08:59 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/24 15:30:17 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,35 @@ int		parse_string(t_glb *glb, t_arg_lst *arg, char *orig)
 		}
 		glb->total += 1;
 		buf_str = va_arg(glb->ap, char *);
-		buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
-		if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1 || arg->info->blank_flag == 1)
-			exit (0);
-		if (arg->info->precision)
+		if (!(buf_str))
 		{
-			arg->info->str = ft_strnew((size_t)arg->info->precision);
-			while (i < arg->info->precision && buf_str[i] != '\0')
-			{
-				arg->info->str[i] = buf_str[i];
-				i++;
-			}
-			buf_str = ft_strdup(arg->info->str);
-			ft_strdel(&(arg->info->str));
+			arg->info->arg = ft_strjoin(orig, "");
+			arg->next = new_list();
+			arg->next->id = (arg->id + 1);
 		}
-		if (arg->info->minus_flag == 1)
-			arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str));
-		arg->next = new_list();
-		arg->next->id = (arg->id + 1);
+		{
+			buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
+			if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1 || arg->info->blank_flag == 1)
+				exit (0);
+			if (arg->info->precision)
+			{
+				arg->info->str = ft_strnew((size_t)arg->info->precision);
+				while (i < arg->info->precision && buf_str[i] != '\0')
+				{
+					arg->info->str[i] = buf_str[i];
+					i++;
+				}
+				buf_str = ft_strdup(arg->info->str);
+				ft_strdel(&(arg->info->str));
+			}
+			if (arg->info->minus_flag == 1)
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
+			else
+				arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str));
+			arg->next = new_list();
+			arg->next->id = (arg->id + 1);
+		}
 	}
 	return (ret);
 }
@@ -297,16 +306,64 @@ int		parse_long(t_glb *glb, t_arg_lst *arg, char *orig)
 	return (ret);
 }
 
+static char	*find_va(char *ptr, unsigned long nbr, long len, int b)
+{
+	unsigned long	rem;
+    unsigned long    a;
+    int			     i;
+    char    		*hex;
+	unsigned long	testing;
+
+	rem = 1;
+    a = 0;
+    i = 0;
+    hex = ft_strdup("0123456789abcdef");
+	while (len-- > 1)
+	{
+        a = ft_power(len, 16);
+		testing = (nbr / a);
+		if (testing <= 16)
+			ptr[b++] = hex[(nbr / a)];
+		nbr -= a * (nbr / a);
+	}
+	return (ptr);
+}
+
+char		*fp_pointer(unsigned long n)
+{
+	unsigned long	nbr;
+	char			*ptr;
+	long			len;
+	int				b;
+	unsigned long	tmp;
+
+	len = 1;
+	b = 0;
+	nbr = n;
+	tmp = nbr;
+	while (tmp >= 10)
+		tmp = (nbr / ft_power(len++, 16));
+	ptr = ft_strnew(len + 1);
+	if (!ptr)
+		return (NULL);
+	if (nbr == 0 && (ptr[b] = '0'))
+		return (ptr);
+	return (find_va(ptr, nbr, len, b));
+}
+
 int		parse_ptr(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
-	long	n;
+	int				ret;
+	unsigned long	n;
+	char			*tmp;
 
 	ret = 0;
 	if (glb && arg && orig)
 	{
-		n = va_arg(glb->ap, long);
-		arg->info->arg = ft_strjoin(orig, ft_ltoh(n));
+		n = va_arg(glb->ap, unsigned long);
+		tmp = ft_strjoin("0x", fp_pointer(n));
+		arg->info->arg = ft_strjoin(orig, tmp);
+		ft_strdel(&tmp);
 		glb->total += 1;
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
@@ -334,30 +391,84 @@ int		parse_oct(t_glb *glb, t_arg_lst *arg, char *orig)
 
 int		parse_unsigned(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
-	unsigned n;
+	int				ret;
+	unsigned		n;
+	unsigned long	l;
 
 	ret = 0;
 	n = 0;
+	l = 0;
 	if (glb && arg && orig)
 	{
-		n = va_arg(glb->ap, unsigned);
-		arg->info->arg = ft_strjoin(orig, ft_itoa(n));
-		glb->total += 1;
-		arg->next = new_list();
-		arg->next->id = (arg->id + 1);
+		if (arg->info->lenmod[0] == 'l')
+		{
+			l = va_arg(glb->ap, unsigned long);
+			arg->info->arg = ft_strjoin(orig, ft_ltoa(l));
+			glb->total += 1;
+			arg->next = new_list();
+			arg->next->id = arg->id + 1;
+		}
+		else
+		{
+			n = va_arg(glb->ap, unsigned);
+			arg->info->arg = ft_strjoin(orig, ft_ltoa(n));
+			glb->total += 1;
+			arg->next = new_list();
+			arg->next->id = (arg->id + 1);
+		}
 	}
 	return (ret);
 }
 
+char		*fp_ltoh(long n)
+{
+	char	*tmp;
+	char	*hex;
+	int		i;
+
+	tmp = ft_strnew(17);
+	hex = ft_strdup("0123456789abcdef");
+	i = 0;
+	ft_memset(tmp, 0, 17);
+	while (n / 16 > 0 && i < 17)
+	{
+		tmp[i++] = hex[(n % 16)];
+		n = n / 16;
+	}
+	if (n > 0)
+		tmp[i] = hex[n];
+	return (ft_strrev(tmp));
+}
+
 int		parse_hex(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
+	int				ret;
+	int				i;
+	long	l;
+	char			*str;
 
 	ret = 0;
+	i = 0;
+	l = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("hex parse\n");
+		if (arg->info->lenmod[0] == 'l')
+		{
+			l = va_arg(glb->ap, long);
+			str = fp_ltoh(l);
+			arg->info->arg = ft_strjoin(orig, str);
+			glb->total += 1;
+			arg->next = new_list();
+			arg->next->id = arg->id + 1;
+		}
+		else
+		{
+			i = va_arg(glb->ap, int);
+			arg->info->arg = ft_strjoin(orig, ft_itoh(i));
+			glb->total += 1;
+			arg->next = new_list();
+			arg->next->id = arg->id + 1;
+		}
 	}
 	return (ret);
 }
@@ -376,24 +487,23 @@ int		parse_bin(t_glb *glb, t_arg_lst *arg, char *orig)
 
 int		parse_float(t_glb *glb, t_arg_lst *arg, char *orig)
 {
-	int	ret;
+	int		ret;
+	double	n;
+	int		b;
 
 	ret = 0;
+	n = 0;
+	b = 0;
 	if (glb && arg && orig)
 	{
-		ft_putstr("float parse\n");
-	}
-	return (ret);
-}
-
-int		parse_uint(t_glb *glb, t_arg_lst *arg, char *orig)
-{
-	int	ret;
-
-	ret = 0;
-	if (glb && arg && orig)
-	{
-		ft_putstr("unsigned int parse\n");
+		n = va_arg(glb->ap, double);
+		b = arg->info->precision;
+		if (b == 0)
+			b = 6;
+		arg->info->arg = ft_strjoin(orig, ft_ftoa(n, b));
+		glb->total += 1;
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
 	return (ret);
 }
