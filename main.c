@@ -1,77 +1,96 @@
 #include <math.h>
 #include "includes/ft_printf.h"
 
+void	str_tests(void)
+{
+	ft_printf("Str 1: |%s|\nStr 2: |%10s|\nStr 3: |%-10s|\nStr 4: |%10.7s|\nStr 5: |%-10.7s|\n", "hello", "world", "Hello", "World", "hEllo");
+	printf("Str 1: |%s|\nStr 2: |%10s|\nStr 3: |%-10s|\nStr 4: |%10.7s|\nStr 5: |%-10.7s|\n", "hello", "world", "Hello", "World", "hEllo");
+	ft_printf("\n");
+	ft_printf("Str 1: |%s|\nStr 2: |%4s|\nStr 3: |%-4s|\nStr 4: |%10.4s|\nStr 5: |%-10.4s|\nStr 6: |%-.7s|\n", "hello", "world", "Hello", "World", "hEllo", "wOrld");
+	printf("Str 1: |%s|\nStr 2: |%4s|\nStr 3: |%-4s|\nStr 4: |%10.4s|\nStr 5: |%-10.4s|\nStr 6: |%-.7s|\n", "hello", "world", "Hello", "World", "hEllo", "wOrld");
+}
+
+char		*fp_itoa(int n)
+{
+	char	*tmp;
+	char	*ret;
+	long	i;
+	long	nbr;
+	
+	tmp = ft_strnew(12);
+	i = 0;
+	nbr = (long)n;
+	if (nbr < 0)
+		nbr *= -1;
+	while (nbr / 10 > 0)
+	{
+		tmp[i++] = (nbr % 10) + 48;
+		nbr /= 10;
+	}
+	tmp[i++] = nbr + 48;
+	if (n < 0)
+		tmp[i++] = '-';
+	tmp[i] = '\0';
+	ret = ft_strrev(tmp);
+	ft_strdel(&tmp);
+	return (ret);
+}
+
+void	int_tests(void)
+{
+	long	a, b, c, d, e, f, g;
+	short	h, i, j;
+	long long k, l, m;
+	a = 342345245645;
+	b = 3423534543;
+	c = -234235426545437823;
+	d = 9045834502349;
+	e = 42;
+	f = -0;
+	g = 0xfffffffa;
+	h = 0;
+	i = -15000;
+	j = 15000;
+	k = 1234567809864563254;
+	l = -3245465845856945425;
+	m = 0;
+	ft_printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
+	printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
+	
+	ft_printf("\nNext:\n");
+	// 3 not working (ret: Int 3: |-?        |), 7 not working (ret: Int 7: |4294967290|)
+	ft_printf("Int 1: |%ld|\nInt 2: |%10ld|\nInt 3: |%-10ld|\nInt 4: |%10.5ld|\nInt 5: |%-10.5ld|\nInt 6: |%+10.5ld|\nInt 7: |%+-10.5ld|\n", a, b, c, d, e, f, g);
+	printf("Int 1: |%ld|\nInt 2: |%10ld|\nInt 3: |%-10ld|\nInt 4: |%10.5ld|\nInt 5: |%-10.5ld|\nInt 6: |%+10.5ld|\nInt 7: |%+-10.5ld|\n", a, b, c, d, e, f, g);
+
+	ft_printf("\nNext:\n");
+	ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
+	printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
+
+	ft_printf("\nNext:\n");
+	ft_printf("Int 1: |%lld|\nInt 2: |%20lld|\nInt 3: |%-20lld|\nInt 4: |%20.25lld|\nInt 5: |%-20.25lld|\nInt 6: |%+20.25lld|\nInt 7: |%+-20.25lld|\n", m, k, l, l, k, l, k);
+	printf("Int 1: |%lld|\nInt 2: |%20lld|\nInt 3: |%-20lld|\nInt 4: |%20.25lld|\nInt 5: |%-20.25lld|\nInt 6: |%+20.25lld|\nInt 7: |%+-20.25lld|\n", m, k, l, l, k, l, k);
+}
+
+void	octal_test(void)
+{
+	int a = 0xbeef;
+	long b = 0xbeefbed;
+
+
+	ft_printf("octal 1: |%o|\n octal 2: |%lo|\n", a, b);
+	printf("octal 1: |%o|\n octal 2: |%lo|\n", a, b);
+}
+
 int		main(void)
 {
-	char str[] = "Simple string";
-	long a, b, c = 0;
-	int	d, e, f = 0;
-	unsigned g, h, i;
-	int	*int_ptr;
-	long *lng_ptr;
-	char *str_ptr;
-	void *vptr;
-	//float j = 134454.16042534565756746;
-	a = 4256786785678768;
-	b = 4211;
-	c = 127123;
-	d = 420123;
-	e = -697345;
-	f = 374345;
-	g = 4294967295;
-	h = 456789;
-	i = 98712334;
-	int_ptr = &e;
-	lng_ptr = &a;
-	str_ptr = str;
-	vptr = &*(void *)(str_ptr);
-	long ptest = (long)vptr;
-	
-	ft_printf("int pointer: %p\n", int_ptr);
-	printf("int pointer: %p\n", int_ptr);
-	ft_printf("long pointer: %p\n", lng_ptr);
-	printf("long pointer: %p\n", lng_ptr);
-	ft_printf("string pointer: %p\n", str_ptr);
-	printf("string pointer: %p\n", str_ptr);
-	ft_printf("lx: %lx\n", ptest);
-	printf("lx: %lx\n", ptest);
 
-	ft_printf("string 1: |%15.4s|\nstring 2: |%-6s|\nstring 3: |%6s|\nstring 4: |%6.3s|\n", "waffle", "hello", "world", "bye!!");
-	printf("string 1: |%15.4s|\nstring 2: |%-6s|\nstring 3: |%6s|\nstring 4: |%6.3s|\n", "waffle", "hello", "world", "bye!!");
+	// STRING TESTS:
+	//str_tests();
 
-	ft_printf("char 1: |%c|\nchar 2: |%10c|\nchar 3: |%-10c|\n", 'a', 'b', 'c');
-	printf("char 1: |%c|\nchar 2: |%10c|\nchar 3: |%-10c|\n", 'a', 'b', 'c');
+	// INTEGER TESTS:
+	int_tests();
 
-	ft_printf("d flag: |%-+30.20ld|\n", a);
-	printf("d flag: |%-+30.20ld|\n", a);
-	
-	ft_printf("i flag 1: |%+7.5i|\ni flag 2: |%7.5i|\ni flag 3: |%+6i|\n", d, e, f);
-	printf("i flag 1: |%+7.5i|\ni flag 2: |%7.5i|\ni flag 3: |%+6i|\n", d, e, f);
-	
-	ft_printf("octal 1: %o\noctal 2: |%10o|\noctal 3: |%-10o|\n", d, d, d);
-	printf("octal 1: %o\noctal 2: |%10o|\noctal 3: |%-10o|\n", d, d, d);
-
-	ft_printf("unsigned 0: |%u|\nunsigned 1: |%10u|\nunsigned 2: |%-10u|\n", g, h, i);
-	printf("unsigned 0: |%u|\nunsigned 1: |%10u|\nunsigned 2: |%-10u|\n", g, h, i);
-	//int	aft = (int)j;
-	char	stmp[20];
-	
-	//int	pasta = 0xabcdef;
-	long monster = 0xdeadbeef;
-
-	ft_printf("sizeof pointer: |%5lu|\n", sizeof(str_ptr));
-	printf("sizeof pointer: |%5lu|\n", sizeof(str_ptr));
-	ft_printf("my hex: %p\n", str_ptr);
-	ft_printf("my hex: %p\n", &monster);
-	printf("there hex: |%-30p|\n", str_ptr);
-	printf("there hex: %p\n", &monster);
-	ft_printf("my hex: %lx\n", monster);
-	printf("there hex: %lx\n", monster);
-	// ft_printf("float: |%.35f|\n", j);
-	// printf("float: |%20.35f|\n", j);
-	ft_printf("|%10s|\n", stmp);
-	ft_printf("int: |%10.6d|\n", e);
-	ft_printf("int0: |%u|\nint1: |%u|\nint2: |%u|\n", g, h, i);
-	printf("int0: |%u|\nint1: |%u|\nint2: |%u|\n", g, h, i);
+	// OCTAL TESTS:
+	octal_test();
 	return (0);
 }

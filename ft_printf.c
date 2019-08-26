@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/16 12:12:42 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/25 13:59:25 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			check_next(char *fmt)
 
 void		add_remainder(t_glb *glb, char *lo)
 {
-	t_arg_lst	*atmp;
+	t_alst	*atmp;
 	int			i;
 	int			j;
 
@@ -55,7 +55,7 @@ void		add_remainder(t_glb *glb, char *lo)
 		atmp = atmp->next;
 	glb->total += 1;
 	atmp->info->arg = ft_strdup(lo);
-	atmp->next = (t_arg_lst *)malloc(sizeof(t_arg_lst) * 1);
+	atmp->next = (t_alst *)malloc(sizeof(t_alst) * 1);
 	atmp = atmp->next;
 	atmp->id = glb->total;
 }
@@ -112,7 +112,7 @@ void		save_args(t_glb *glb)
 
 void		form_formatted(t_glb *glb)
 {
-	t_arg_lst	*tmp;
+	t_alst	*tmp;
 	char		*fmt;
 	int			i;
 

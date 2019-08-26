@@ -6,17 +6,17 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 20:11:39 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/20 13:25:47 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/21 20:58:06 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
 
-static int	fp_pow(double n, int base)
+static long	fp_pow(long n, long base)
 {
 	long	i;
-	int		nbr;
+	long	nbr;
 
 	i = 1;
 	nbr = 1;
@@ -32,30 +32,43 @@ static int	fp_pow(double n, int base)
 	return (nbr);
 }
 
+static char	*fp_hlper(char *ret, char *ip, int ap)
+{
+	char	*stmp;
+
+	stmp = ft_strnew(ap);
+	ft_memset(stmp, '0', ap);
+	ip = ft_strdup(ret);
+	ft_strdel(&ret);
+	ret = ft_strjoin(ip, stmp);
+	ft_strdel(&stmp);
+	return (ret);
+}
+
 char	*ft_ftoa(double flt, int afterpoint)
 {
-	char	*str;
-	char	*tmp;
-	int		p;
-	int		i;
-	double	f;
+	int		n;
+	char	*int_part;
+	char	*stmp;
+	double	d;
+	char	*ret;
 
-	p = (int)flt;
-	f = flt - (float)p;
-	f *= 10;
-	i = 0;
-	str = ft_itoa(p);
-	if (p != 0 && afterpoint)
+	n = (int)flt;
+	int_part = ft_strjoin(ft_itoa(n), ".");
+	d = flt - n;
+	n = 0;
+	while (d > 0 && n++ < afterpoint)
 	{
-		while (f > 0 && i++ < 10)
-		{
-			printf("inner: %d\n", fp_pow(10, f));
-			f = f * fp_pow(10, f);
-			tmp = ft_strjoin(str, ft_itoa((int)f % 10));
-			ft_strdel(&str);
-			str = ft_strdup(tmp);
-			ft_strdel(&tmp);
-		}
+		d = d * fp_pow(2, 10);
+		stmp = ft_itoa((int)d);
+		d = d - (int)d;
+		ret = ft_strjoin(int_part, stmp);
+		ft_strdel(&int_part);
+		int_part = ft_strdup(ret);
+		ft_strdel(&stmp);
 	}
-	return (str);
+	if (n < afterpoint)
+		ret = fp_hlper(ret, int_part, afterpoint - n);
+	ft_strdel(&int_part);
+	return (ret);
 }

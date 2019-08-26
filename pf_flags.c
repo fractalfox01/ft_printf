@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/18 10:31:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/25 13:58:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 **
 */
 
-t_arg_lst	*get_arg(t_glb *glb)
+t_alst	*get_arg(t_glb *glb)
 {
-	t_arg_lst *arg;
+	t_alst *arg;
 
 	arg = glb->args;
 	while (arg->id < (glb->total))
@@ -32,7 +32,7 @@ t_arg_lst	*get_arg(t_glb *glb)
 	return (arg);
 }
 
-int		parse_flags(t_arg_lst *arglst, char *fmt)
+int		parse_flags(t_alst *arglst, char *fmt)
 {
 	int	ret;
 
@@ -57,7 +57,7 @@ int		parse_flags(t_arg_lst *arglst, char *fmt)
 	return (ret);
 }
 
-int		parse_fieldwidth(t_arg_lst *arglst, char *fmt)
+int		parse_fieldwidth(t_alst *arglst, char *fmt)
 {
 	int ret;
 
@@ -78,7 +78,7 @@ int		parse_fieldwidth(t_arg_lst *arglst, char *fmt)
 	return (0);
 }
 
-int		parse_precision(t_arg_lst *arglst, char *fmt)
+int		parse_precision(t_alst *arglst, char *fmt)
 {
 	int	ret;
 
@@ -104,7 +104,7 @@ int		parse_precision(t_arg_lst *arglst, char *fmt)
 **	checks for ll hh l h
 */
 
-int		parse_lengthmod(t_arg_lst *arglst, char *fmt)
+int		parse_lengthmod(t_alst *arglst, char *fmt)
 {
 	int	ret;
 

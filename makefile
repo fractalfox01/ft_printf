@@ -4,7 +4,7 @@ LIB= libft/libft.a
 
 FLAGS= -Werror -Wextra -Wall
 
-SRC= $(addsuffix .c, main ft_printf init_util pf_flags pf_args)
+SRC= $(addsuffix .c, main pad_util parser_1 parser_2 parser_3 ft_printf init_util pf_flags pf_args)
 
 $(NAME):
 	make -C libft all

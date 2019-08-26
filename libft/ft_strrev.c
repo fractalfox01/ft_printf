@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 22:56:44 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/19 18:40:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/24 16:14:35 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ char	*ft_strrev(char *str)
 	char *rev;
 	int	j;
 
-	i = ft_strlen(str);
+	i = ft_strlen(str) - 1;
 	rev = ft_strdup(str);
 	j = 0;
 	while (i >= 0)
-	{
-		rev[j++] = str[i - 1];
-		i--;
-	}
+		rev[j++] = str[i--];
 	return (rev);
 }

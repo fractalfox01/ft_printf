@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoh.c                                          :+:      :+:    :+:   */
+/*   parser_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/19 18:01:06 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 10:24:44 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/08/26 10:12:11 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/08/26 10:19:43 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/ft_printf.h"
 
-char	*ft_ltoh(long n)
+char		*fp_pointer(long long n)
 {
-	char	*tmp;
-	char	*ret;
-	long	i;
-	long	nbr;
-	char	*hex;
-
-	hex = ft_strdup("0123456789abcdef");
+	char	        *tmp;
+	char	        *ret;
+	long long	i;
+	long long	nbr;
+    char        *hex;
+	
+    hex = ft_strdup("0123456789abcdef");
 	tmp = ft_strnew(21);
 	i = 0;
 	nbr = n;
@@ -37,5 +37,25 @@ char	*ft_ltoh(long n)
 	tmp[i] = '\0';
 	ret = ft_strrev(tmp);
 	ft_strdel(&tmp);
+	return (ret);
+}
+
+int		parse_ptr(t_glb *glb, t_alst *arg, char *orig)
+{
+	int			ret;
+	long long	n;
+	char		*tmp;
+
+	ret = 0;
+	if (glb && arg && orig)
+	{
+		n = va_arg(glb->ap, long long);
+		tmp = ft_strjoin("0x", fp_pointer(n));
+		arg->info->arg = ft_strjoin(orig, tmp);
+		ft_strdel(&tmp);
+		glb->total += 1;
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+	}
 	return (ret);
 }
