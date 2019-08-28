@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 16:54:05 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/28 11:45:55 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,22 +124,96 @@ static void lnglng_helper(t_alst *arg, char *padded, long long c)
 	}
 }
 
-int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig, int ret)
+static void	short_helper(t_alst *arg, char *padded, short c)
+{
+	int		len;
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
+	
+	len = ft_strlen(padded);
+	if (c < 0)
+		len--;
+	zero = arg->info->precision - len;
+	if (zero >= 0)
+	{
+		if (c < 0)
+			zero++;
+		xtmp = ft_strnew(zero);
+		ft_memset(xtmp, '0', zero);
+		if (c < 0)
+		{
+			xtmp[0] = '-';
+			c = ft_abs(c);
+		}
+		stmp = ft_strjoin(xtmp, ft_stoa(c));
+		ft_strdel(&padded);
+		padded = ft_strdup(stmp);
+		ft_strdel(&xtmp);
+		ft_strdel(&stmp);
+	}
+}
+
+static void	long_helper(t_alst *arg, char *padded, long c)
+{
+	int		len;
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
+	
+	len = ft_strlen(padded);
+	if (c < 0)
+		len--;
+	zero = arg->info->precision - len;
+	if (zero >= 0)
+	{
+		if (c < 0)
+			zero++;
+		xtmp = ft_strnew(zero);
+		ft_memset(xtmp, '0', zero);
+		if (c < 0)
+		{
+			xtmp[0] = '-';
+			c = ft_abs(c);
+		}
+		stmp = ft_strjoin(xtmp, ft_ltoa(c));
+		ft_strdel(&padded);
+		padded = ft_strdup(stmp);
+		ft_strdel(&xtmp);
+		ft_strdel(&stmp);
+	}
+}
+
+void	parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 {
 	int		c;
 	char	*padded;
 	char	*tmp;
+	int		neg;
 
+	neg = 0;
 	glb->total += 1;
 	c = va_arg(glb->ap, int);
+	if (c < 0)
+		neg = 1;
+	tmp = NULL;
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_itoa(c);
 	if (arg->info->precision > 0)
 		int_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
-		arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
-	else if (arg->info->plus_flag == 1)
+	{
+		if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+	}
+	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
@@ -149,48 +223,54 @@ int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig, int ret)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
-	return (ret);
 }
 
-int		parse_int(t_glb *glb, t_alst *arg, char *orig)
+void	parse_int(t_glb *glb, t_alst *arg, char *orig)
 {
-	int		ret;
-	
-	ret = 0;
 	if (glb && arg && orig)
 	{
 		if (arg->info->lenmod[0] == 'l' && arg->info->lenmod[1] == '\0')
-			ret = parse_long(glb, arg, orig);
+			parse_long(glb, arg, orig);
 		else if (arg->info->lenmod[0] == 'l' && arg->info->lenmod[1] == 'l')
-			ret = parse_longlong(glb, arg, orig);
+			parse_longlong(glb, arg, orig);
 		else if (arg->info->lenmod[0] == 'h' && arg->info->lenmod[1] == '\0')
-			ret = parse_short(glb, arg, orig);
+			parse_short(glb, arg, orig);
 		else if (arg->info->lenmod[0] == 'h' && arg->info->lenmod[1] == 'h')
-			ret = parse_char(glb, arg, orig);
+			parse_char(glb, arg, orig);
 		else
-			ret = parse_int_normal(glb, arg, orig, ret);
+			parse_int_normal(glb, arg, orig);
 	}
-	return (ret);
 }
 
-int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
+void	parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 {
-    int         ret;
     long long	c;
 	char        *padded;
 	char	    *tmp;
+	int			neg;
 
-    ret = 0;
+	neg = 0;
 	glb->total += 1;
 	c = va_arg(glb->ap, long long);
+	if (c < 0)
+		neg = 1;
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_lltoa(c);
 	if (arg->info->precision > 0)
 		lnglng_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
-		arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
-	else if (arg->info->plus_flag == 1)
+	{
+		if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+	}
+	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
@@ -200,86 +280,84 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
-	return (ret);
 }
 
-int		parse_short(t_glb *glb, t_alst *arg, char *orig)
+void	parse_short(t_glb *glb, t_alst *arg, char *orig)
 {
-	int     ret;
-    int   n;
+    long long	c;
+	char        *padded;
+	char	    *tmp;
+	int			neg;
 
-	ret = 0;
-    n = 0;
-	if (glb && arg && orig)
+	neg = 0;
+	glb->total += 1;
+	c = va_arg(glb->ap, int);
+	if (c < 0)
+		neg = 1;
+	if (arg->info->precision > arg->info->fieldwidth)
+		arg->info->fieldwidth = arg->info->precision;
+	padded = ft_stoa(c);
+	if (arg->info->precision > 0)
+		short_helper(arg, &*padded, c);
+	if (arg->info->minus_flag == 1)
 	{
-        n = va_arg(glb->ap, int);
-        arg->info->arg = ft_strjoin(orig, ft_stoa(n));
-        glb->total += 1;
-        arg->next = new_list();
-        arg->next->id = (arg->id + 1);
-    }
-	return (ret);
-}
-
-int		parse_long(t_glb *glb, t_alst *arg, char *orig)
-{
-	int		ret;
-	long	c;
-	int		len;
-	int		zero;
-	char	*xtmp;
-	char	*stmp;
-	size_t	buf_len;
-	char	*padded;
-	char	*tmp;
-
-	ret = 0;
-	zero = 0;
-	buf_len = 0;
-	if (glb && arg && orig)
-	{
-		glb->total += 1;
-		c = va_arg(glb->ap, long);
-		if (arg->info->precision > arg->info->fieldwidth)
-			arg->info->fieldwidth = arg->info->precision;
-		buf_len = (size_t)arg->info->fieldwidth;
-		padded = ft_ltoa(c);
-		if (arg->info->precision > 0)
-		{
-			len = ft_strlen(padded);
-			if (c < 0)
-				len--;
-			zero = arg->info->precision - len;
-			if (zero >= 0)
-			{
-				if (c < 0)
-					zero++;
-				xtmp = ft_strnew(zero);
-				ft_memset(xtmp, '0', zero);
-				if (c < 0)
-				{
-					xtmp[0] = '-';
-					c = ft_abs(c);
-				}
-				stmp = ft_strjoin(xtmp, ft_ltoa(c));
-				ft_strdel(&padded);
-				padded = ft_strdup(stmp);
-				ft_strdel(&xtmp);
-				ft_strdel(&stmp);
-			}
-		}
-		if (arg->info->minus_flag == 1)
-			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
-		else if (arg->info->plus_flag == 1)
+		if (arg->info->plus_flag == 1 && neg == 0)
 		{
 			tmp = ft_strjoin("+", padded);
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
 			ft_strdel(&tmp);
 		}
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
-		arg->next = new_list();
-		arg->next->id = (arg->id + 1);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 	}
-	return (ret);
+	else if (arg->info->plus_flag == 1 && neg == 0)
+	{
+		tmp = ft_strjoin("+", padded);
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		ft_strdel(&tmp);
+	}
+	else
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+	arg->next = new_list();
+	arg->next->id = (arg->id + 1);
+}
+
+void	parse_long(t_glb *glb, t_alst *arg, char *orig)
+{
+	long	c;
+	char	*padded;
+	char	*tmp;
+	int		neg;
+
+	neg = 0;
+	glb->total += 1;
+	c = va_arg(glb->ap, long);
+	if (c < 0)
+		neg = 1;
+	if (arg->info->precision > arg->info->fieldwidth)
+		arg->info->fieldwidth = arg->info->precision;
+	padded = ft_ltoa(c);
+	if (arg->info->precision > 0)
+		long_helper(arg, &*padded, c);
+	if (arg->info->minus_flag == 1)
+	{
+		if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+	}
+	else if (arg->info->plus_flag == 1 && neg == 0)
+	{
+		tmp = ft_strjoin("+", padded);
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		ft_strdel(&tmp);
+	}
+	else
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+	arg->next = new_list();
+	arg->next->id = (arg->id + 1);
 }

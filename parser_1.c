@@ -6,20 +6,18 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 10:42:59 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/28 12:49:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-int		parse_string(t_glb *glb, t_alst *arg, char *orig)
+void	parse_string(t_glb *glb, t_alst *arg, char *orig)
 {
 	size_t		buf_len;
 	char		*buf_str;
-	int			ret;
 	int			i;
 
-	ret = 0;
 	i = 0;
 	if (glb)
 	{
@@ -59,17 +57,14 @@ int		parse_string(t_glb *glb, t_alst *arg, char *orig)
 			arg->next->id = (arg->id + 1);
 		}
 	}
-	return (ret);
 }
 
-int		parse_char(t_glb *glb, t_alst *arg, char *orig)
+void	parse_char(t_glb *glb, t_alst *arg, char *orig)
 {
-	int		ret;
 	char	c;
 	size_t	buf_len;
 	char	*padded;
 
-	ret = 0;
 	buf_len = 0;
 	if (glb && arg && orig)
 	{
@@ -89,34 +84,114 @@ int		parse_char(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
-	return (ret);
 }
 
-int		parse_oct(t_glb *glb, t_alst *arg, char *orig)
+static void lnglng_oct_helper(t_alst *arg, char *padded, long long c, int len)
 {
-	int	ret;
-	long n;
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
+	
+	len = ft_strlen(padded);
+	if (c < 0)
+		len--;
+	zero = arg->info->precision - len;
+	if (zero >= 0)
+	{
+		if (c < 0)
+			zero++;
+		xtmp = ft_strnew(zero);
+		ft_memset(xtmp, '0', zero);
+		if (c < 0)
+		{
+			xtmp[0] = '-';
+			c *= -1;
+		}
+		stmp = ft_strjoin(xtmp, ft_lltoa(c));
+		ft_strdel(&padded);
+		padded = ft_strdup(stmp);
+		ft_strdel(&xtmp);
+		ft_strdel(&stmp);
+	}
+}
 
-	ret = 0;
-	n = 0;
+static void long_hex_helper(t_alst *arg, char *padded, long c, int len)
+{
+	int		zero;
+	char	*xtmp;
+	char	*stmp;
+
+	len = ft_strlen(padded);
+	if (c < 0)
+		len--;
+	zero = arg->info->precision - len;
+	if (zero >= 0)
+	{
+		if (c < 0)
+			zero++;
+		xtmp = ft_strnew(zero);
+		ft_memset(xtmp, '0', zero);
+		if (c < 0)
+		{
+			xtmp[0] = '-';
+			c *= -1;
+		}
+		stmp = ft_strjoin(xtmp, ft_ltoh(c));
+		ft_strdel(&padded);
+		padded = ft_strdup(stmp);
+		ft_strdel(&xtmp);
+		ft_strdel(&stmp);
+	}
+}
+
+void	parse_oct(t_glb *glb, t_alst *arg, char *orig)
+{
+	long long	c;
+	char		*padded;
+	char		*tmp;
+	int			neg;
+
+	neg = 0;
+	glb->total += 1;
 	if (glb && arg && orig)
 	{
-		n = va_arg(glb->ap, long);
-		arg->info->arg = ft_strjoin(orig, ft_itoa(ft_ltoo(n)));
-		glb->total += 1;
+		c = va_arg(glb->ap, long long);
+		if (c < 0)
+			neg = 1;
+		if (arg->info->precision > arg->info->fieldwidth)
+			arg->info->fieldwidth = arg->info->precision;
+		padded = ft_lltoa(ft_lltoo(c));
+		if (arg->info->precision > 0)
+			lnglng_oct_helper(arg, &*padded, c, 0);
+		if (arg->info->minus_flag == 1)
+		{
+			if (arg->info->plus_flag == 1 && neg == 0)
+			{
+				tmp = ft_strjoin("+", padded);
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+				ft_strdel(&tmp);
+			}
+			else
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		}
+		else if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
-	return (ret);
 }
 
-int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
+void	parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 {
-	int				ret;
 	unsigned		n;
 	unsigned long	l;
 
-	ret = 0;
 	n = 0;
 	l = 0;
 	if (glb && arg && orig)
@@ -138,38 +213,47 @@ int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 			arg->next->id = (arg->id + 1);
 		}
 	}
-	return (ret);
 }
 
-int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
+void	parse_hex(t_glb *glb, t_alst *arg, char *orig)
 {
-	int				ret;
-	int				i;
-	long	l;
-	char			*str;
+	long	c;
+	char	*padded;
+	char	*tmp;
+	int		neg;
 
-	ret = 0;
-	i = 0;
-	l = 0;
+	neg = 0;
+	glb->total += 1;
 	if (glb && arg && orig)
 	{
-		if (arg->info->lenmod[0] == 'l')
+		c = va_arg(glb->ap, long);
+		if (c < 0)
+			neg = 1;
+		if (arg->info->precision > arg->info->fieldwidth)
+			arg->info->fieldwidth = arg->info->precision;
+		padded = ft_ltoh(c);
+		if (arg->info->precision > 0)
+			long_hex_helper(arg, &*padded, c, 0);
+		if (arg->info->minus_flag == 1)
 		{
-			l = va_arg(glb->ap, long);
-			str = ft_ltoh(l);
-			arg->info->arg = ft_strjoin(orig, str);
-			glb->total += 1;
-			arg->next = new_list();
-			arg->next->id = arg->id + 1;
+			if (arg->info->plus_flag == 1 && neg == 0)
+			{
+				tmp = ft_strjoin("+", padded);
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+				ft_strdel(&tmp);
+			}
+			else
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		}
+		else if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			ft_strdel(&tmp);
 		}
 		else
-		{
-			i = va_arg(glb->ap, int);
-			arg->info->arg = ft_strjoin(orig, ft_itoh(i));
-			glb->total += 1;
-			arg->next = new_list();
-			arg->next->id = arg->id + 1;
-		}
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
 	}
-	return (ret);
 }

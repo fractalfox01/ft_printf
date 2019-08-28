@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/25 13:59:25 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:56:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,12 @@ int			has_args(char *fmt)
 	while (*fmt != '\0')
 	{
 		if (*fmt == '%')
-			return (1);
+		{
+			if (*(fmt + 1) != '%')
+				return (1);
+			else
+				fmt++;
+		}
 		fmt++;
 	}
 	return (0);

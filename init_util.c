@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/25 12:39:30 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/27 19:43:31 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	glb_init(t_glb *glb)
 {
-	glb->ret = NULL;
+	glb->ret = 0;
 	glb->ret_total = 0;
 	glb->fmt = NULL;
 	glb->total = 0;
@@ -29,7 +29,7 @@ void	glb_init(t_glb *glb)
 	glb->argfun[7] = parse_hex;
 	glb->argfun[8] = parse_float;
 	glb->argfun[9] = parse_ptr;
-	glb->argfun[10] = NULL;
+	glb->argfun[10] = null_string;
 	glb->argfun[11] = NULL;
 	glb->args = new_list();
 }
