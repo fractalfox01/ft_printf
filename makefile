@@ -6,9 +6,12 @@ FLAGS= -Werror -Wextra -Wall
 
 SRC= $(addsuffix .c, main pad_util parser_1 parser_2 parser_3 ft_printf init_util pf_flags pf_args)
 
+OBJ= $(addsuffix .o, main pad_util parser_1 parser_2 parser_3 ft_printf init_util pf_flags pf_args)
+
 $(NAME):
 	make -C libft all
-	$(CC) $(FLAGS) $(SRC) $(LIB) -o ft_printf
+	$(CC) -c $(FLAGS) $(SRC) $(LIB)
+	ar rc libftprintf.a $(OBJ)
 
 all: $(NAME)
 
