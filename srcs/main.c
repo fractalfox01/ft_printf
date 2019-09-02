@@ -1,5 +1,5 @@
-#include <math.h>
-#include "includes/ft_printf.h"
+#include <limits.h>
+#include "../includes/ft_printf.h"
 
 void	str_tests(void)
 {
@@ -145,7 +145,93 @@ void	unsigned_test()
 
 int		main(void)
 {
+    // printf("%%d 0000042 == |%d|\n", 0000042);
+    // ft_printf("%%d 0000042 == |%d|\n", 0000042);
+    // ft_printf("Kashim a %d histoires à raconter\n", 1001);
+    // printf("Kashim a %d histoires à raconter\n", 1001);
+    // ft_printf("Il fait au moins %d\n", -8000);
+    // printf("Il fait au moins %d\n", -8000);
+	// ft_printf("%d\n", -0);
+    // printf("%d\n", -0);
+	// ft_printf("%d\n", 0);
+    // printf("%d\n", 0);
+	// ft_printf("%d\n", INT_MAX);
+    // printf("%d\n", INT_MAX);
+	// ft_printf("%d\n", INT_MIN);
+    // printf("%d\n", INT_MIN);
+	// ft_printf("%d\n", INT_MIN - 1);
+    // printf("%d\n", INT_MIN - 1);
+	// ft_printf("%d\n", INT_MAX + 1);
+    // printf("%d\n", INT_MAX + 1);
+	// ft_printf("%%d 0000042 == |%d|\n", 0000042);
+    // printf("%%d 0000042 == |%d|\n", 0000042);
+	// ft_printf("%%d \t == |%d|\n", '\t');
+    // printf("%%d \t == |%d|\n", '\t');
+	// ft_printf("%%d Lydie == |%d|\n", 'L'+'y'+'d'+'i'+'e');
+    // printf("%%d Lydie == |%d|\n", 'L'+'y'+'d'+'i'+'e');
 
+    // ft_printf("%c\n", 42);
+	// ft_printf("Kashim a %c histoires à raconter\n", 1001);
+	// ft_printf("Il fait au moins %c\n", -8000);
+	ft_printf("%c\n", -0);
+	ft_printf("%c\n", 0);
+	ft_printf("%c\n", INT_MAX);
+	ft_printf("%c\n", 'c');
+	ft_printf("%c\n", '\n');
+    ft_printf("next:\n");
+    printf("%c\n", '\0');
+	// ft_printf("%c", 'l');
+	// ft_printf("%c", 'y');
+	// ft_printf("%c", ' ');
+	// ft_printf("%c", 'e');
+	// ft_printf("%c", 's');
+	// ft_printf("%c", 't');
+	// ft_printf("%c", ' ');
+	// ft_printf("%c", 'f');
+	// ft_printf("%c", 'a');
+	// ft_printf("%c", 'n');
+	// ft_printf("%c", 't');
+	// ft_printf("%c", 'a');
+	// ft_printf("%c", 's');
+	// ft_printf("%c", 't');
+	// ft_printf("%c", 'i');
+	// ft_printf("%c", 'q');
+	// ft_printf("%c", 'u');
+	// ft_printf("%c", 'e');
+	// ft_printf("%c\n", '!');
+	// ft_printf("%c\n", '\r');
+	// ft_printf("%c\n", '\t');
+
+    // printf("%c\n", 42);
+	// printf("Kashim a %c histoires à raconter\n", 1001);
+	// printf("Il fait au moins %c\n", -8000);
+	printf("%c\n", -0);
+	printf("%c\n", 0);
+	printf("%c\n", INT_MAX);
+	printf("%c\n", 'c');
+	printf("%c\n", '\n');
+    printf("Done\n");
+	// printf("%c", 'l');
+	// printf("%c", 'y');
+	// printf("%c", ' ');
+	// printf("%c", 'e');
+	// printf("%c", 's');
+	// printf("%c", 't');
+	// printf("%c", ' ');
+	// printf("%c", 'f');
+	// printf("%c", 'a');
+	// printf("%c", 'n');
+	// printf("%c", 't');
+	// printf("%c", 'a');
+	// printf("%c", 's');
+	// printf("%c", 't');
+	// printf("%c", 'i');
+	// printf("%c", 'q');
+	// printf("%c", 'u');
+	// printf("%c", 'e');
+	// printf("%c\n", '!');
+	// printf("%c\n", '\r');
+	// printf("%c\n", '\t');
 	// STRING TESTS:
 	//str_tests();
 
@@ -162,9 +248,9 @@ int		main(void)
 	//float_test();
 
 	// POINTER TESTS:
-	pointer_test();
+	// pointer_test();
 
 	// UNSIGNED TESTS:
-	unsigned_test();
+	// unsigned_test();
 	return (0);
 }

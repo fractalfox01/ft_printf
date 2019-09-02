@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:12:11 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/27 19:49:33 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/30 19:55:06 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char		*fp_pointer(long long n)
 {
@@ -40,7 +40,7 @@ char		*fp_pointer(long long n)
 	return (ret);
 }
 
-void	parse_ptr(t_glb *glb, t_alst *arg, char *orig)
+int		parse_ptr(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	n;
 	char		*tmp;
@@ -55,4 +55,5 @@ void	parse_ptr(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
 }

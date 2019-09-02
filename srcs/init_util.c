@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/27 19:43:31 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/31 19:49:38 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	glb_init(t_glb *glb)
 {
@@ -19,6 +19,9 @@ void	glb_init(t_glb *glb)
 	glb->fmt = NULL;
 	glb->total = 0;
 	glb->buf = 0;
+	glb->ncount = 0;
+	glb->cont = 1;
+	glb->err_type = 0;
 	glb->argfun[0] = parse_string;
 	glb->argfun[1] = parse_char;
 	glb->argfun[2] = parse_int;

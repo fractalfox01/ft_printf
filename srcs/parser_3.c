@@ -6,37 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/28 11:45:55 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/30 19:55:56 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
-
-char    *ft_lltoa(long long n)
-{
-    char	    *tmp;
-	char	    *ret;
-	long long	i;
-	long long	nbr;
-	
-	tmp = ft_strnew(21);
-	i = 0;
-	nbr = n;
-	if (nbr < 0)
-		nbr *= -1;
-	while (nbr / 10 > 0)
-	{
-		tmp[i++] = (nbr % 10) + 48;
-		nbr /= 10;
-	}
-	tmp[i++] = nbr + 48;
-	if (n < 0)
-		tmp[i++] = '-';
-	tmp[i] = '\0';
-	ret = ft_strrev(tmp);
-	ft_strdel(&tmp);
-	return (ret);
-}
+#include "../includes/ft_printf.h"
 
 char    *ft_stoa(short n)
 {
@@ -184,7 +158,7 @@ static void	long_helper(t_alst *arg, char *padded, long c)
 	}
 }
 
-void	parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
+int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 {
 	int		c;
 	char	*padded;
@@ -223,9 +197,10 @@ void	parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
+	return (0);
 }
 
-void	parse_int(t_glb *glb, t_alst *arg, char *orig)
+int		parse_int(t_glb *glb, t_alst *arg, char *orig)
 {
 	if (glb && arg && orig)
 	{
@@ -240,9 +215,10 @@ void	parse_int(t_glb *glb, t_alst *arg, char *orig)
 		else
 			parse_int_normal(glb, arg, orig);
 	}
+	return (0);
 }
 
-void	parse_longlong(t_glb *glb, t_alst *arg, char *orig)
+int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 {
     long long	c;
 	char        *padded;
@@ -280,9 +256,10 @@ void	parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
+	return (0);
 }
 
-void	parse_short(t_glb *glb, t_alst *arg, char *orig)
+int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 {
     long long	c;
 	char        *padded;
@@ -320,9 +297,10 @@ void	parse_short(t_glb *glb, t_alst *arg, char *orig)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
+	return (0);
 }
 
-void	parse_long(t_glb *glb, t_alst *arg, char *orig)
+int		parse_long(t_glb *glb, t_alst *arg, char *orig)
 {
 	long	c;
 	char	*padded;
@@ -360,4 +338,5 @@ void	parse_long(t_glb *glb, t_alst *arg, char *orig)
 		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
+	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/27 22:04:26 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 09:55:34 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 t_alst	*new_list(void)
 {
@@ -123,15 +123,16 @@ char	*fp_lftoa(long double flt, int afterpoint)
 
 
 
-void	parse_bin(t_glb *glb, t_alst *arg, char *orig)
+int		parse_bin(t_glb *glb, t_alst *arg, char *orig)
 {
 	if (glb && arg && orig)
 	{
 		ft_putstr("binary parse\n");
 	}
+	return (0);
 }
 
-void		parse_long_float(t_glb *glb, t_alst *arg, char *orig)
+int		parse_long_float(t_glb *glb, t_alst *arg, char *orig)
 {
 	char		*padded;
 	char		*tmp;
@@ -174,9 +175,10 @@ void		parse_long_float(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
 }
 
-void	parse_norm_float(t_glb *glb, t_alst *arg, char *orig)
+int		parse_norm_float(t_glb *glb, t_alst *arg, char *orig)
 {
 	char		*padded;
 	char		*tmp;
@@ -219,30 +221,10 @@ void	parse_norm_float(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
-
-
-	// double	n;
-	// int			b;
-
-	// n = 0;
-	// b = 0;
-	// if (glb && arg && orig)
-	// {
-	// 	n = va_arg(glb->ap, double);
-	// 	b = arg->info->precision;
-	// 	if (b == 0)
-	// 		b = 6;
-	// 	if (n == 0)
-	// 		arg->info->arg = ft_strjoin(orig, "0");
-	// 	else
-	// 		arg->info->arg = ft_strjoin(orig, fp_ftoa(n, b));
-	// 	glb->total += 1;
-	// 	arg->next = new_list();
-	// 	arg->next->id = (arg->id + 1);
-	// }
+	return (0);
 }
 
-void	parse_float(t_glb *glb, t_alst *arg, char *orig)
+int		parse_float(t_glb *glb, t_alst *arg, char *orig)
 {
 	double	n;
 	int			b;
@@ -256,6 +238,7 @@ void	parse_float(t_glb *glb, t_alst *arg, char *orig)
 		else if (arg->info->lenmod[0] == '\0')
 			parse_norm_float(glb, arg, orig);	
 	}
+	return (0);
 }
 
 static t_alst	*get_arg(t_glb *glb)
@@ -270,15 +253,42 @@ static t_alst	*get_arg(t_glb *glb)
 	return (arg);
 }
 
-void	null_string(t_glb *glb, t_alst *arg, char *orig)
+int		null_string(t_glb *glb, t_alst *arg, char *orig)
 {
+	char	*padded;
+	char	*tmp;
+	
+	glb->total += 1;
 	if (glb && arg && orig)
 	{
-		arg->info->arg = ft_strjoin(orig, "%%");
-		glb->total += 1;
+		padded = ft_strdup("%");
+		if (arg->info->minus_flag == 1)
+		{
+			if (arg->info->plus_flag == 1)
+			{
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+				ft_strdel(&tmp);
+			}
+			else
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		}
+		else if (arg->info->plus_flag == 1)
+		{
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
+}
+
+static void	error_handler(t_glb *glb)
+{
+	glb->cont = 0;
+	glb->err_type = 1;
 }
 
 int		parse_conversion(t_glb *glb, char *fmt, char *orig)
@@ -288,11 +298,14 @@ int		parse_conversion(t_glb *glb, char *fmt, char *orig)
 	
 	i = 0;
 	fmt_str = ft_strdup("scdiouxXfp%");
-	while (*fmt != fmt_str[i])
+	while (*fmt != fmt_str[i] && i < 11)
 		i++;
-	// grab option type and store in info->opt_type;
 	ft_strdel(&fmt_str);
+	if (i == 7)
+		glb->upcase = 1;
 	if (i < 11)
 		glb->argfun[i](glb, get_arg(glb), orig);
+	else
+		error_handler(glb);
 	return (0);
 }

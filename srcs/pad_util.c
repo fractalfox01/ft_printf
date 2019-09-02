@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 16:04:40 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/29 12:59:09 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char	*pad_left(t_alst *tmp, char *str)
 {

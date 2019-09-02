@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 18:59:45 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/08/30 19:52:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 /*
 **	TODO:
@@ -185,6 +185,6 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 		fmt += ret;
 		ret = 0;
 	}
-	parse_conversion(glb, fmt, orig);
+	tot += parse_conversion(glb, fmt, orig);
 	return (tot);
 }

@@ -6,11 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 18:56:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 11:09:59 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char		*get_sub_str(char *str, int	start, int end)
 {
@@ -81,7 +81,7 @@ void		save_args(t_glb *glb)
 	fmt = glb->fmt;
 	arg = ft_strdup("scdiouxXfp");
 	leftovers = NULL;
-	while (*fmt != '\0')
+	while (*fmt != '\0' && glb->cont == 1)
 	{
 		if (*fmt == '%')
 		{
@@ -114,18 +114,23 @@ void		form_formatted(t_glb *glb)
 {
 	t_alst	*tmp;
 	char		*fmt;
-	int			i;
 
 	tmp = glb->args;
 	fmt = glb->fmt;
-	i = 0;
-	if (tmp)
+	glb->ncount = 0;
+	if (tmp && glb->cont == 1)
 	{
 		while (tmp->id < glb->total)
 		{
+			glb->ncount += ft_strlen(tmp->info->arg);
 			ft_putstr(tmp->info->arg);
 			tmp = tmp->next;
 		}
+	}
+	else
+	{
+		if (glb->err_type == 1)
+			ft_printf("Bad option...\n");
 	}
 }
 
@@ -135,17 +140,14 @@ int			has_args(char *fmt)
 	{
 		if (*fmt == '%')
 		{
-			if (*(fmt + 1) != '%')
-				return (1);
-			else
-				fmt++;
+			return (1);
 		}
 		fmt++;
 	}
 	return (0);
 }
 
-size_t		ft_printf(char *fmt, ...)
+int			ft_printf(char *fmt, ...)
 {
 	t_glb	glb;
 
@@ -161,7 +163,7 @@ size_t		ft_printf(char *fmt, ...)
 		glb.fmt = ft_strdup(fmt);
 		save_args(&glb);
 		form_formatted(&glb);
-		return (glb.total);
+		return (glb.ncount);
 	}
 	return (0);
 }

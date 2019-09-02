@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/28 12:49:12 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 10:28:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void	parse_string(t_glb *glb, t_alst *arg, char *orig)
+int		parse_string(t_glb *glb, t_alst *arg, char *orig)
 {
 	size_t		buf_len;
 	char		*buf_str;
@@ -57,23 +57,27 @@ void	parse_string(t_glb *glb, t_alst *arg, char *orig)
 			arg->next->id = (arg->id + 1);
 		}
 	}
+	return (0);
 }
 
-void	parse_char(t_glb *glb, t_alst *arg, char *orig)
+int		parse_char(t_glb *glb, t_alst *arg, char *orig)
 {
-	char	c;
+	int		c;
 	size_t	buf_len;
 	char	*padded;
 
 	buf_len = 0;
 	if (glb && arg && orig)
 	{
-		while (arg->id < glb->total)
-			arg = arg->next;
 		glb->total += 1;
 		c = va_arg(glb->ap, int);
+		if (c > 127 || c < 0)
+			c = '$';
 		buf_len = (size_t)arg->info->fieldwidth;
-		padded = ft_strnew(buf_len);
+		if (buf_len)
+			padded = ft_strnew(buf_len);
+		else
+			padded = ft_strdup(" ");	
 		padded[0] = c;
 		if (arg->info->plus_flag == 1)
 			exit (0);
@@ -84,6 +88,7 @@ void	parse_char(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
 }
 
 static void lnglng_oct_helper(t_alst *arg, char *padded, long long c, int len)
@@ -144,7 +149,7 @@ static void long_hex_helper(t_alst *arg, char *padded, long c, int len)
 	}
 }
 
-void	parse_oct(t_glb *glb, t_alst *arg, char *orig)
+int		parse_oct(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	c;
 	char		*padded;
@@ -185,9 +190,10 @@ void	parse_oct(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
 }
 
-void	parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
+int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 {
 	unsigned		n;
 	unsigned long	l;
@@ -213,9 +219,27 @@ void	parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 			arg->next->id = (arg->id + 1);
 		}
 	}
+	return (0);
 }
 
-void	parse_hex(t_glb *glb, t_alst *arg, char *orig)
+static void	check_case(t_glb *glb, char **str)
+{
+	int j;
+
+	j = 0;
+	if (glb->upcase == 1)
+	{
+		glb->upcase = 0;
+		while (str[0][j] != '\0')
+		{
+			if (ft_isalpha(str[0][j]))
+				str[0][j] = str[0][j] - 32;
+			j++;
+		}		
+	}
+}
+
+int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 {
 	long	c;
 	char	*padded;
@@ -232,6 +256,14 @@ void	parse_hex(t_glb *glb, t_alst *arg, char *orig)
 		if (arg->info->precision > arg->info->fieldwidth)
 			arg->info->fieldwidth = arg->info->precision;
 		padded = ft_ltoh(c);
+		check_case(glb, &padded);
+		if (arg->info->hash_flag == 1)
+		{
+			tmp = ft_strjoin("0x", padded);
+			ft_strdel(&padded);
+			padded = ft_strdup(tmp);
+			ft_strdel(&tmp);
+		}
 		if (arg->info->precision > 0)
 			long_hex_helper(arg, &*padded, c, 0);
 		if (arg->info->minus_flag == 1)
@@ -255,5 +287,7 @@ void	parse_hex(t_glb *glb, t_alst *arg, char *orig)
 			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
+		ft_strdel(&padded);
 	}
+	return (0);
 }
