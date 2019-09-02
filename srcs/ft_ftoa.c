@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 20:11:39 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/28 11:42:44 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:42:23 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_ftoa(long double flt, int afterpoint)
 		dir *= -1;
 		d *= dir;
 	}
-	while (d > 0 && d < 1 && n++ < afterpoint)
+	while (d >= 0 && d < 1 && n++ < afterpoint)
 	{
 		d = d * fp_pow(2, 10);
 		stmp = ft_lltoa((int)d);

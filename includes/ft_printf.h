@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/27 19:58:51 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:29:36 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "../srcs/libft.h"
 
 typedef struct		s_info
 {
@@ -40,34 +40,38 @@ typedef struct		s_alist
 typedef struct		s_ftpf
 {
 	va_list			ap;
-	void			(*argfun[12])(struct s_ftpf *g, t_alst *a, char *o);
+	int				(*argfun[15])(struct s_ftpf *g, t_alst *a, char *o);
 	int				*ret;
+	int				ncount;
 	size_t			ret_total;
 	char			*fmt;
 	int				total;
 	int				buf;
+	int				upcase;
+	int				cont;
+	int				err_type;
 	t_alst			*args;
 }					t_glb;
 
+int					ft_printf(char *format, ...);
 void				glb_init(t_glb *glb);
-size_t				ft_printf(char *sfmt, ...);
 char				*pad_left(t_alst *tmp, char *str);
 char				*pad_right(t_alst *tmp, char *str);
 int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);
-void				parse_string(t_glb *glb, t_alst *arg, char *orig);
-void				parse_char(t_glb *glb, t_alst *arg, char *orig);
-void				parse_short(t_glb *glb, t_alst *arg, char *orig);
-void				parse_int(t_glb *glb, t_alst *arg, char *orig);
-void				parse_long(t_glb *glb, t_alst *arg, char *orig);
-void				parse_longlong(t_glb *glb, t_alst *arg, char *orig);
-void				parse_ptr(t_glb *glb, t_alst *arg, char *orig);
-void				parse_oct(t_glb *glb, t_alst *arg, char *orig);
-void				parse_unsigned(t_glb *glb, t_alst *arg, char *orig);
-void				parse_hex(t_glb *glb, t_alst *arg, char *orig);
-void				parse_bin(t_glb *glb, t_alst *arg, char *orig);
-void				parse_float(t_glb *glb, t_alst *arg, char *orig);
-void				parse_uint(t_glb *glb, t_alst *arg, char *orig);
-void				null_string(t_glb *glb, t_alst *arg, char *orig);
+int					parse_string(t_glb *glb, t_alst *arg, char *orig);
+int					parse_char(t_glb *glb, t_alst *arg, char *orig);
+int					parse_short(t_glb *glb, t_alst *arg, char *orig);
+int					parse_int(t_glb *glb, t_alst *arg, char *orig);
+int					parse_long(t_glb *glb, t_alst *arg, char *orig);
+int					parse_longlong(t_glb *glb, t_alst *arg, char *orig);
+int					parse_ptr(t_glb *glb, t_alst *arg, char *orig);
+int					parse_oct(t_glb *glb, t_alst *arg, char *orig);
+int					parse_unsigned(t_glb *glb, t_alst *arg, char *orig);
+int					parse_hex(t_glb *glb, t_alst *arg, char *orig);
+int					parse_bin(t_glb *glb, t_alst *arg, char *orig);
+int					parse_float(t_glb *glb, t_alst *arg, char *orig);
+int					parse_uint(t_glb *glb, t_alst *arg, char *orig);
+int					null_string(t_glb *glb, t_alst *arg, char *orig);
 int					parse_conversion(t_glb *glb, char *fmt, char *orig);
 t_alst				*new_list(void);
 
