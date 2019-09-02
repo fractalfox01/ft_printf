@@ -6,10 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 10:28:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 14:26:28 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "../includes/ft_printf.h"
 
 int		parse_string(t_glb *glb, t_alst *arg, char *orig)
@@ -72,7 +73,9 @@ int		parse_char(t_glb *glb, t_alst *arg, char *orig)
 		glb->total += 1;
 		c = va_arg(glb->ap, int);
 		if (c > 127 || c < 0)
-			c = '$';
+			c = '?';
+		if (c == 0)
+			write(1, "\0", 1);
 		buf_len = (size_t)arg->info->fieldwidth;
 		if (buf_len)
 			padded = ft_strnew(buf_len);
