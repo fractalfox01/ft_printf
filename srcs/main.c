@@ -90,7 +90,7 @@ void	int_tests(void)
 	k = 0x7ffffffffffffffe;
 	l = -3245465845856945425;
 	m = 0;
-
+	ft_printf("Mine:\n");
 	ft_printf("%i", 42);
 	ft_printf("Kashim a %i histoires à raconter", 1001);
 	ft_printf("Il fait au moins %i\n", -8000);
@@ -118,55 +118,122 @@ void	int_tests(void)
 	printf("%%i \t == |%i|\n", '\t');
 	printf("%%i Lydie == |%i|\n", 'L'+'y'+'d'+'i'+'e');
 
-	ft_printf("int testing: %%d\n", 42);
-	ft_printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
-	printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
+	ft_printf("Mine:\n");
+	ft_printf("%%04i 42 == |%04i|\n", 42);
+	ft_printf("%%05i 42 == |%05i|\n", 42);
+	ft_printf("%%0i 42 == |%0i|\n", 42);
+	ft_printf("%%0d 0000042 == |%0d|\n", 0000042);
+
+	ft_printf("\ntheirs:\n\n");
+	printf("%%04i 42 == |%04i|\n", 42);
+	printf("%%05i 42 == |%05i|\n", 42);
+	printf("%%0i 42 == |%0i|\n", 42);
+	printf("%%0d 0000042 == |%0d|\n", 0000042);
+	// ft_printf("int testing: %%d\n", 42);
+	// ft_printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
+	// printf("Int 1: |%d|\nInt 2: |%10d|\nInt 3: |%-10d|\nInt 4: |%10.5d|\nInt 5: |%-10.5d|\nInt 6: |%+10.5d|\nInt 7: |%+-10.5d|\n", 42, 90234383, -234234, 25, -25, 420, -420);
 	
-	ft_printf("\nlong testing: %%l\n");
-	ft_printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
-	printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
+	// ft_printf("\nlong testing: %%l\n");
+	// ft_printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
+	// printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
 
-	ft_printf("\nshort testing: %%h\n");
-	ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
-	printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
+	// ft_printf("\nshort testing: %%h\n");
+	// ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
+	// printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\n", h, i, i, j, j, i, i);
 
-	ft_printf("\nlong long testing: %%ll\n");
-	ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\n", m, k, l, l, k, l, k);
-	printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\n", m, k, l, l, k, l, k);
+	// ft_printf("\nlong long testing: %%ll\n");
+	// ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\n", m, k, l, l, k, l, k);
+	// printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\n", m, k, l, l, k, l, k);
 }
 
 void	octal_test(void)
 {
-	short x = 0xff;
-	int a = 0xbeef;
-	long b = 0xbeefbeddead;
-	long long c = 0x7fffffffffffff;
+	// short x = 0xff;
+	// int a = 0xbeef;
+	// long b = 0xbeefbeddead;
+	// long long c = 0x7fffffffffffff;
 
-	ft_printf("octal 1: |%o|\noctal 2: |%ho|\noctal 3: |%lo|\noctal 4: |%llo|\n", a, x, b, c);
-	printf("octal 1: |%o|\noctal 2: |%ho|\noctal 3: |%lo|\noctal 4: |%llo|\n", a, x, b, c);
-	ft_printf("\noctal 1: |%10o|\noctal 2: |%10ho|\noctal 3: |%20lo|\noctal 4: |%20llo|\n", a, x, b, c);
-	printf("octal 1: |%10o|\noctal 2: |%10ho|\noctal 3: |%20lo|\noctal 4: |%20llo|\n", a, x, b, c);
-	ft_printf("\noctal 1: |%-10o|\noctal 2: |%-10ho|\noctal 3: |%-20lo|\noctal 4: |%-20llo|\n", a, x, b, c);
-	printf("octal 1: |%-10o|\noctal 2: |%-10ho|\noctal 3: |%-20lo|\noctal 4: |%-20llo|\n", a, x, b, c);
+	// ft_printf("octal 1: |%o|\noctal 2: |%ho|\noctal 3: |%lo|\noctal 4: |%llo|\n", a, x, b, c);
+	// printf("octal 1: |%o|\noctal 2: |%ho|\noctal 3: |%lo|\noctal 4: |%llo|\n", a, x, b, c);
+	// ft_printf("\noctal 1: |%10o|\noctal 2: |%10ho|\noctal 3: |%20lo|\noctal 4: |%20llo|\n", a, x, b, c);
+	// printf("octal 1: |%10o|\noctal 2: |%10ho|\noctal 3: |%20lo|\noctal 4: |%20llo|\n", a, x, b, c);
+	// ft_printf("\noctal 1: |%-10o|\noctal 2: |%-10ho|\noctal 3: |%-20lo|\noctal 4: |%-20llo|\n", a, x, b, c);
+	// printf("octal 1: |%-10o|\noctal 2: |%-10ho|\noctal 3: |%-20lo|\noctal 4: |%-20llo|\n", a, x, b, c);
+
+	ft_printf("Mine:\n");
+	ft_printf("%o", 42);
+	ft_printf("Kashim a %o histoires à raconter", 1001);
+	ft_printf("Il fait au moins %o\n", -8000);
+	ft_printf("%o", -0);
+	ft_printf("%o", 0);
+	ft_printf("%o", INT_MAX);
+	ft_printf("%o", INT_MIN);
+	ft_printf("%o", INT_MIN - 1);
+	ft_printf("%o", INT_MAX + 1);
+	ft_printf("%%o 0000042 == |%o|\n", 0000042);
+	ft_printf("%%o \t == |%o|\n", '\t');
+	ft_printf("%%o Lydie == |%o|\n", 'L'+'y'+'d'+'i'+'e');
+
+	ft_printf("Theirs:\n");
+	printf("%o", 42);
+	printf("Kashim a %o histoires à raconter", 1001);
+	printf("Il fait au moins %o\n", -8000);
+	printf("%o", -0);
+	printf("%o", 0);
+	printf("%o", INT_MAX);
+	printf("%o", INT_MIN);
+	printf("%o", INT_MIN - 1);
+	printf("%o", INT_MAX + 1);
+	printf("%%o 0000042 == |%o|\n", 0000042);
+	printf("%%o \t == |%o|\n", '\t');
+	printf("%%o Lydie == |%o|\n", 'L'+'y'+'d'+'i'+'e');
 }
 
 void	hex_test(void)
 {
-	short x = 0xff;
-	int	a = 0xbeef;
-	long b = 0xdeadbeddead;
-	long long c = 0x7ffffffffffffffe;
+	// short x = 0xff;
+	// int	a = 0xbeef;
+	// long b = 0xdeadbeddead;
+	// long long c = 0x7ffffffffffffffe;
 
-	ft_printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
-	printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
-	ft_printf("\nhex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
-	printf("hex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
-	ft_printf("\nhex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
-	printf("hex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
-	ft_printf("\nhex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
-	printf("hex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
-	ft_printf("\nhex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
-	printf("hex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
+	// ft_printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
+	// printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
+	// ft_printf("\nhex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
+	// printf("hex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
+	// ft_printf("\nhex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
+	// printf("hex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
+	// ft_printf("\nhex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
+	// printf("hex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
+	// ft_printf("\nhex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
+	// printf("hex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
+	ft_printf("Mine:\n");
+	ft_printf("%x", 42);
+	ft_printf("Kashim a %x histoires à raconter", 1001);
+	ft_printf("Il fait au moins %x\n", -8000);
+	ft_printf("%x", -0);
+	ft_printf("%x", 0);
+	ft_printf("%x", INT_MAX);
+	ft_printf("%x", INT_MIN);
+	ft_printf("%x", INT_MIN - 1);
+	ft_printf("%x", INT_MAX + 1);
+	ft_printf("%%x 0000042 == |%x|\n", 0000042);
+	ft_printf("%%x \t == |%x|\n", '\t');
+	ft_printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+
+	ft_printf("\nTheirs:\n");
+	printf("Mine:\n");
+	printf("%x", 42);
+	printf("Kashim a %x histoires à raconter", 1001);
+	printf("Il fait au moins %x\n", -8000);
+	printf("%x", -0);
+	printf("%x", 0);
+	printf("%x", INT_MAX);
+	printf("%x", INT_MIN);
+	printf("%x", INT_MIN - 1);
+	printf("%x", INT_MAX + 1);
+	printf("%%x 0000042 == |%x|\n", 0000042);
+	printf("%%x \t == |%x|\n", '\t');
+	printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
 }
 
 void	float_test(void)
@@ -302,17 +369,26 @@ void	unsigned_test()
 
 int		main(void)
 {
+	ft_printf("%%04i 42 == |%04i|\n", 42);
+	ft_printf("%%05i 42 == |%05i|\n", 42);
+	ft_printf("%%0i 42 == |%0i|\n", 42);
+	ft_printf("%%0d 0000042 == |%0d|\n", 0000042);
+
+	printf("%%04i 42 == |%04i|\n", 42);
+	printf("%%05i 42 == |%05i|\n", 42);
+	printf("%%0i 42 == |%0i|\n", 42);
+	printf("%%0d 0000042 == |%0d|\n", 0000042);
 	// STRING TESTS:
-	str_tests();
+	//str_tests();
 
 	// INTEGER TESTS:
-	//int_tests();
+	// int_tests();
 
 	// OCTAL TESTS:
-	//octal_test();
+	// octal_test();
 
 	// HEX TESTS:
-	//hex_test();
+	// hex_test();
 
 	// FLOAT TESTS:
 	//float_test(); // Working

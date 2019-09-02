@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/30 19:55:56 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:45:34 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,11 @@ int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);
@@ -249,11 +249,11 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);
@@ -290,11 +290,11 @@ int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);
@@ -331,11 +331,11 @@ int		parse_long(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);

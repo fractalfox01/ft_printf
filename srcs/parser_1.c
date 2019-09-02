@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 14:26:28 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:38:59 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		parse_string(t_glb *glb, t_alst *arg, char *orig)
 			if (arg->info->minus_flag == 1)
 				arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
 			else
-				arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str));
+				arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str, 0));
 			arg->next = new_list();
 			arg->next->id = (arg->id + 1);
 		}
@@ -87,7 +87,7 @@ int		parse_char(t_glb *glb, t_alst *arg, char *orig)
 		if (arg->info->minus_flag == 1)
 			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
@@ -185,11 +185,11 @@ int		parse_oct(t_glb *glb, t_alst *arg, char *orig)
 		else if (arg->info->plus_flag == 1 && neg == 0)
 		{
 			tmp = ft_strjoin("+", padded);
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
 			ft_strdel(&tmp);
 		}
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
@@ -283,11 +283,11 @@ int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 		else if (arg->info->plus_flag == 1 && neg == 0)
 		{
 			tmp = ft_strjoin("+", padded);
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
 			ft_strdel(&tmp);
 		}
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 		ft_strdel(&padded);

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/30 19:52:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:21:50 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int		parse_fieldwidth(t_alst *arglst, char *fmt)
 	if (ft_isdigit(*fmt))
 	{
 		// glb fieldwidth = ft_atoi(fmt);
+		if (fmt[0] == '0')
+			arglst->info->zero_flag = 1;
 		arglst->info->fieldwidth = ft_atoi(fmt);
 		while (ft_isdigit(*fmt) && *fmt != '\0')
 		{

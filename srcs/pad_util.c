@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/29 12:59:09 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:35:08 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*pad_left(t_alst *tmp, char *str)
+char	*pad_left(t_alst *tmp, char *str, int a)
 {
 	char	*stmp;
 	int		len;
@@ -28,7 +28,10 @@ char	*pad_left(t_alst *tmp, char *str)
 		len = ft_strlen(str);
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
-		ft_memset(stmp, ' ', i);
+		if (tmp->info->zero_flag == 1 && a)
+			ft_memset(stmp, '0', i);
+		else
+			ft_memset(stmp, ' ', i);
 		if ((size_t)len > i)
 			return (str);
 		x = i - len;

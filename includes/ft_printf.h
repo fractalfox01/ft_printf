@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 13:29:36 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:36:06 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_info
 	int				hash_flag:2;
 	int				minus_flag:2;
 	int				plus_flag:2;
+	int				zero_flag:2;
 	int				fieldwidth;
 	int				precision;
 	char			lenmod[3];
@@ -55,7 +56,7 @@ typedef struct		s_ftpf
 
 int					ft_printf(char *format, ...);
 void				glb_init(t_glb *glb);
-char				*pad_left(t_alst *tmp, char *str);
+char				*pad_left(t_alst *tmp, char *str, int a);
 char				*pad_right(t_alst *tmp, char *str);
 int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);
 int					parse_string(t_glb *glb, t_alst *arg, char *orig);
