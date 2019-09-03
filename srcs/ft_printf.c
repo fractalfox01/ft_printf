@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 11:09:59 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:45:33 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void		form_formatted(t_glb *glb)
 
 	tmp = glb->args;
 	fmt = glb->fmt;
-	glb->ncount = 0;
 	if (tmp && glb->cont == 1)
 	{
 		while (tmp->id < glb->total)

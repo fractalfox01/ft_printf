@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:45:34 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:10:41 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ int		parse_int(t_glb *glb, t_alst *arg, char *orig)
 		else if (arg->info->lenmod[0] == 'h' && arg->info->lenmod[1] == '\0')
 			parse_short(glb, arg, orig);
 		else if (arg->info->lenmod[0] == 'h' && arg->info->lenmod[1] == 'h')
-			parse_char(glb, arg, orig);
+			parse_s_short(glb, arg, orig);
 		else
 			parse_int_normal(glb, arg, orig);
 	}
@@ -249,11 +249,52 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
+	arg->next = new_list();
+	arg->next->id = (arg->id + 1);
+	return (0);
+}
+
+int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
+{
+	long long	c;
+	char        *padded;
+	char	    *tmp;
+	int			neg;
+
+	neg = 0;
+	glb->total += 1;
+	c = va_arg(glb->ap, int);
+	if (c < 0)
+		neg = 1;
+	if (arg->info->precision > arg->info->fieldwidth)
+		arg->info->fieldwidth = arg->info->precision;
+	padded = ft_stoa(c);
+	if (arg->info->precision > 0)
+		short_helper(arg, &*padded, c);
+	if (arg->info->minus_flag == 1)
+	{
+		if (arg->info->plus_flag == 1 && neg == 0)
+		{
+			tmp = ft_strjoin("+", padded);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+	}
+	else if (arg->info->plus_flag == 1 && neg == 0)
+	{
+		tmp = ft_strjoin("+", padded);
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
+		ft_strdel(&tmp);
+	}
+	else
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);
@@ -290,11 +331,11 @@ int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);
@@ -331,11 +372,11 @@ int		parse_long(t_glb *glb, t_alst *arg, char *orig)
 	else if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
 	arg->next = new_list();
 	arg->next->id = (arg->id + 1);
 	return (0);

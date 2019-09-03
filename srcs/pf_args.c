@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:40:15 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:18:34 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ int		parse_conversion(t_glb *glb, char *fmt, char *orig)
 	len = ft_strlen(fmt_str);
 	while (*fmt != fmt_str[i] && i < len)
 		i++;
-	if (i == fmt_str[7] || i == fmt_str[9])
+	if (i == 7 || i == 9)
 		glb->upcase = 1;
 	if (i < len)
 		glb->argfun[i](glb, get_arg(glb), orig);

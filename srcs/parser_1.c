@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:38:59 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:45:32 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int		parse_char(t_glb *glb, t_alst *arg, char *orig)
 		if (c > 127 || c < 0)
 			c = '?';
 		if (c == 0)
+		{
+			glb->ncount += 1;
 			write(1, "\0", 1);
+		}
 		buf_len = (size_t)arg->info->fieldwidth;
 		if (buf_len)
 			padded = ft_strnew(buf_len);
@@ -244,6 +247,7 @@ static void	check_case(t_glb *glb, char **str)
 
 int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 {
+	// X flag not working: fix now!!!!!
 	long	c;
 	char	*padded;
 	char	*tmp;
@@ -283,11 +287,11 @@ int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 		else if (arg->info->plus_flag == 1 && neg == 0)
 		{
 			tmp = ft_strjoin("+", padded);
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 1));
 			ft_strdel(&tmp);
 		}
 		else
-			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 		ft_strdel(&padded);

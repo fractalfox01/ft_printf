@@ -369,15 +369,28 @@ void	unsigned_test()
 
 int		main(void)
 {
-	ft_printf("%%04i 42 == |%04i|\n", 42);
-	ft_printf("%%05i 42 == |%05i|\n", 42);
-	ft_printf("%%0i 42 == |%0i|\n", 42);
-	ft_printf("%%0d 0000042 == |%0d|\n", 0000042);
+	printf("%hhd", CHAR_MAX + 42);
+	ft_printf("After:\n");
+	int	ret_a = ft_printf("%.c", 0);
+	ft_printf("\n");
+	int	ret_b = printf("%.c", 0);
+	if (ret_a == ret_b)
+		ft_printf(ft_strjoin(FT_GREEN, ft_strjoin("SUCCESS!!\n", FT_END_ATTR)));
+	else
+		ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
+	// ft_printf("%%04i 42 == |%x|\n", -42);
+	// ft_printf("%%05i 42 == |%x|\n", -42);
+	// ft_printf("%%0i 42 == |%x|\n", -42);
+	// ft_printf("%%0d 0000042 == |%x|\n", -0000042);
 
-	printf("%%04i 42 == |%04i|\n", 42);
-	printf("%%05i 42 == |%05i|\n", 42);
-	printf("%%0i 42 == |%0i|\n", 42);
-	printf("%%0d 0000042 == |%0d|\n", 0000042);
+	// printf("%%04i 42 == |%x|\n", -42);
+	// printf("%%05i 42 == |%x|\n", -42);
+	// printf("%%0i 42 == |%x|\n", -42);
+	// printf("%%0d 0000042 == |%x|\n", -0000042);
+	// printf("%%04i 42 == |%04c|\n", (char)42);
+	// printf("%%05i 42 == |%05c|\n", (char)42);
+	// printf("%%0i 42 == |%0c|\n", (char)42);
+	// printf("%%0d 0000042 == |%0c|\n", (char)0000042);
 	// STRING TESTS:
 	//str_tests();
 
