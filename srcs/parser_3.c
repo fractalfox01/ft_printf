@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/03 13:10:41 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/05 11:20:18 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char    *ft_stoa(short n)
 	return (ret);
 }
 
-static void	int_helper(t_alst *arg, char *padded, int c)
+static char	*int_helper(t_alst *arg, char *padded, int c)
 {
 	int		len;
 	int		zero;
@@ -66,9 +66,10 @@ static void	int_helper(t_alst *arg, char *padded, int c)
 		ft_strdel(&xtmp);
 		ft_strdel(&stmp);
 	}
+	return (padded);
 }
 
-static void lnglng_helper(t_alst *arg, char *padded, long long c)
+static char	*lnglng_helper(t_alst *arg, char *padded, long long c)
 {
     int		len;
 	int		zero;
@@ -96,9 +97,10 @@ static void lnglng_helper(t_alst *arg, char *padded, long long c)
 		ft_strdel(&xtmp);
 		ft_strdel(&stmp);
 	}
+	return (padded);
 }
 
-static void	short_helper(t_alst *arg, char *padded, short c)
+static char	*short_helper(t_alst *arg, char *padded, short c)
 {
 	int		len;
 	int		zero;
@@ -126,9 +128,10 @@ static void	short_helper(t_alst *arg, char *padded, short c)
 		ft_strdel(&xtmp);
 		ft_strdel(&stmp);
 	}
+	return (padded);
 }
 
-static void	long_helper(t_alst *arg, char *padded, long c)
+char	*long_helper(t_alst *arg, char *padded, long c)
 {
 	int		len;
 	int		zero;
@@ -156,6 +159,7 @@ static void	long_helper(t_alst *arg, char *padded, long c)
 		ft_strdel(&xtmp);
 		ft_strdel(&stmp);
 	}
+	return (padded);
 }
 
 int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
@@ -170,12 +174,19 @@ int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, int);
 	if (c < 0)
 		neg = 1;
+	if (c == 0 && arg->info->blank == 1)
+	{
+		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	tmp = NULL;
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_itoa(c);
 	if (arg->info->precision > 0)
-		int_helper(arg, &*padded, c);
+		padded = int_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)
@@ -230,11 +241,18 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, long long);
 	if (c < 0)
 		neg = 1;
+	if (c == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_lltoa(c);
 	if (arg->info->precision > 0)
-		lnglng_helper(arg, &*padded, c);
+		padded = lnglng_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)
@@ -261,21 +279,28 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 
 int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
 {
-	long long	c;
-	char        *padded;
-	char	    *tmp;
-	int			neg;
+	char	c;
+	char    *padded;
+	char	*tmp;
+	int		neg;
 
 	neg = 0;
 	glb->total += 1;
-	c = va_arg(glb->ap, int);
+	c = (char)va_arg(glb->ap, unsigned int);
 	if (c < 0)
 		neg = 1;
+	if (c == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_stoa(c);
 	if (arg->info->precision > 0)
-		short_helper(arg, &*padded, c);
+		padded = short_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)
@@ -312,11 +337,18 @@ int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, int);
 	if (c < 0)
 		neg = 1;
+	if (c == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_stoa(c);
 	if (arg->info->precision > 0)
-		short_helper(arg, &*padded, c);
+		padded = short_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)
@@ -353,11 +385,18 @@ int		parse_long(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, long);
 	if (c < 0)
 		neg = 1;
+	if (c == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_ltoa(c);
 	if (arg->info->precision > 0)
-		long_helper(arg, &*padded, c);
+		padded = long_helper(arg, &*padded, c);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)

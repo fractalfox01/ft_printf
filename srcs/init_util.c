@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 13:30:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:06:30 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	glb_init(t_glb *glb)
 	glb->argfun[8] = parse_float;
 	glb->argfun[9] = parse_float;
 	glb->argfun[10] = parse_ptr;
-	glb->argfun[11] = null_string;
+	glb->argfun[11] = percent_string;
 	glb->argfun[12] = NULL;
 	glb->argfun[13] = NULL;
 	glb->argfun[14] = NULL;

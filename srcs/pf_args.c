@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/03 13:18:34 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:10:47 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ t_alst	*new_list(void)
 	info = (t_info *)malloc(sizeof(t_info) * 1);
 	list->id = 0;
 	list->info = info;
+	list->info->blank_flag = 0;
+	list->info->hash_flag = 0;
+	list->info->minus_flag = 0;
+	list->info->plus_flag = 0;
+	list->info->zero_flag = 0;
 	list->info->fieldwidth = 0;
 	list->info->precision = 0;
+	list->info->blank = 0;
 	list->next = NULL;
 	return (list);
 }
@@ -253,7 +259,40 @@ static t_alst	*get_arg(t_glb *glb)
 	return (arg);
 }
 
-int		null_string(t_glb *glb, t_alst *arg, char *orig)
+int		bad_percent(t_glb *glb, t_alst *arg, char *orig, char *fmt)
+{
+	char	*padded;
+	char	*tmp;
+	
+	glb->total += 1;
+	if (glb && arg && orig)
+	{
+		padded = ft_strdup(" ");
+		padded[0] = *fmt;
+		if (arg->info->minus_flag == 1)
+		{
+			if (arg->info->plus_flag == 1)
+			{
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+				ft_strdel(&tmp);
+			}
+			else
+				arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+		}
+		else if (arg->info->plus_flag == 1)
+		{
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+			ft_strdel(&tmp);
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+	}
+	return (0);
+}
+
+int		percent_string(t_glb *glb, t_alst *arg, char *orig)
 {
 	char	*padded;
 	char	*tmp;
@@ -307,7 +346,7 @@ int		parse_conversion(t_glb *glb, char *fmt, char *orig)
 	if (i < len)
 		glb->argfun[i](glb, get_arg(glb), orig);
 	else
-		error_handler(glb);
+		bad_percent(glb, get_arg(glb), orig, fmt);
 	ft_strdel(&fmt_str);
 	return (0);
 }

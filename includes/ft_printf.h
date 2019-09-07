@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:36:06 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/05 12:05:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_info
 	int				zero_flag:2;
 	int				fieldwidth;
 	int				precision;
+	int				blank;
 	char			lenmod[3];
 	char			*str;
 	char			*arg;
@@ -61,6 +62,7 @@ char				*pad_right(t_alst *tmp, char *str);
 int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);
 int					parse_string(t_glb *glb, t_alst *arg, char *orig);
 int					parse_char(t_glb *glb, t_alst *arg, char *orig);
+int					parse_s_short(t_glb *glb, t_alst *arg, char *orig);
 int					parse_short(t_glb *glb, t_alst *arg, char *orig);
 int					parse_int(t_glb *glb, t_alst *arg, char *orig);
 int					parse_long(t_glb *glb, t_alst *arg, char *orig);
@@ -72,8 +74,10 @@ int					parse_hex(t_glb *glb, t_alst *arg, char *orig);
 int					parse_bin(t_glb *glb, t_alst *arg, char *orig);
 int					parse_float(t_glb *glb, t_alst *arg, char *orig);
 int					parse_uint(t_glb *glb, t_alst *arg, char *orig);
-int					null_string(t_glb *glb, t_alst *arg, char *orig);
+int					percent_string(t_glb *glb, t_alst *arg, char *orig);
+int					bad_percent(t_glb *glb, t_alst *arg, char *orig, char *fmt);
 int					parse_conversion(t_glb *glb, char *fmt, char *orig);
+char				*long_helper(t_alst *arg, char *padded, long c);
 t_alst				*new_list(void);
 
 #endif

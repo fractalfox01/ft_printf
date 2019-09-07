@@ -66,13 +66,14 @@ SRC= $(addsuffix .c, srcs/pad_util srcs/parser_1 srcs/parser_2 srcs/parser_3 src
 	srcs/ft_lltoo srcs/ft_atoll srcs/ft_lltoa srcs/ft_strrev srcs/ft_itoh srcs/ft_ftoa srcs/ft_otoi srcs/ft_itoo srcs/ft_ltoo srcs/ft_ltoh srcs/ft_ltoa \
 	srcs/ft_numlen srcs/ft_abs srcs/ft_strbuild srcs/ft_power srcs/ft_itoa srcs/ft_strjoin srcs/ft_strdel srcs/ft_strnew srcs/ft_atoi srcs/ft_memcpy \
 	srcs/ft_memalloc srcs/ft_strncpy srcs/ft_memset srcs/ft_strcat srcs/ft_strdup srcs/ft_bzero srcs/ft_isdigit srcs/ft_putchar srcs/ft_putnbr \
-	srcs/ft_strcmp srcs/ft_strlen srcs/ft_isalpha srcs/ft_putstr srcs/ft_toupper srcs/ft_strxlen srcs/ft_isascii)
+	srcs/ft_strcmp srcs/ft_strlen srcs/ft_isalpha srcs/ft_putstr srcs/ft_toupper srcs/ft_strxlen srcs/ft_isascii srcs/ft_lltoh srcs/ft_ctoh srcs/ft_ustoh \
+	srcs/ft_uctoa srcs/ft_ustoa srcs/ft_uitoa srcs/ft_ultoa srcs/ft_ulltoa)
 
 OBJ= $(addsuffix .o, pad_util parser_1 parser_2 parser_3 ft_printf init_util pf_flags pf_args ft_lftoa ft_lltoo \
 	ft_atoll ft_lltoa ft_strrev ft_itoh ft_ftoa ft_otoi ft_itoo ft_ltoo ft_ltoh ft_ltoa ft_numlen \
-	ft_abs ft_strbuild ft_power ft_itoa ft_strjoin ft_strdel ft_strnew ft_atoi ft_memcpy ft_memalloc ft_strncpy\
-	ft_memset ft_strcat ft_strdup ft_bzero ft_isdigit ft_putchar ft_putnbr ft_strcmp ft_strlen ft_putstr \
-	ft_toupper ft_strxlen ft_isalpha ft_isascii)
+	ft_abs ft_strbuild ft_power ft_itoa ft_strjoin ft_strdel ft_strnew ft_atoi ft_memcpy ft_memalloc ft_strncpy \
+	ft_memset ft_strcat ft_strdup ft_bzero ft_isdigit ft_putchar ft_putnbr ft_strcmp ft_strlen ft_putstr ft_ctoh ft_ustoh\
+	ft_toupper ft_strxlen ft_isalpha ft_isascii ft_lltoh ft_uctoa ft_ustoa ft_uitoa ft_ultoa ft_ulltoa)
 
 $(NAME):
 	@echo "\033[0;32mBuilding ft_printf..."
@@ -103,6 +104,6 @@ fc: fclean
 
 debug: fc
 	#ar rc libftprintf.a $(OBJ)
-	#$(CC) -g $(FLAGS) $(SRC) $(SRCT) srcs/main.c -o ft_printf
+	$(CC) -g $(FLAGS) $(SRC) $(SRCT) srcs/main.c -o ft_printf
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:21:50 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/06 18:41:00 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		parse_fieldwidth(t_alst *arglst, char *fmt)
 	ret = 0;
 	if (ft_isdigit(*fmt))
 	{
-		// glb fieldwidth = ft_atoi(fmt);
 		if (fmt[0] == '0')
 			arglst->info->zero_flag = 1;
 		arglst->info->fieldwidth = ft_atoi(fmt);
@@ -89,12 +88,21 @@ int		parse_precision(t_alst *arglst, char *fmt)
 	{
 		fmt++;
 		ret++;
-		// glb precision = ft_atoi(fmt);
-		arglst->info->precision = ft_atoi(fmt);
-		while (ft_isdigit(*fmt))
+		if (ft_isdigit(*fmt))
 		{
-			ret++;
-			fmt++;
+			if (*fmt == '0')
+				arglst->info->blank = 1;
+			arglst->info->precision = ft_atoi(fmt);
+			while (ft_isdigit(*fmt))
+			{
+				ret++;
+				fmt++;
+			}
+		}
+		else
+		{
+			arglst->info->precision = 0;
+			arglst->info->blank = 1;
 		}
 	}
 	else
@@ -111,10 +119,15 @@ int		parse_lengthmod(t_alst *arglst, char *fmt)
 	int	ret;
 
 	ret = 0;
-	if (*fmt == 'l' || *fmt == 'h' || *fmt == 'L')
+	if (*fmt == 'l' || *fmt == 'h' || *fmt == 'L' || *fmt == 'z')
 	{
 		ret++;
-		if (*fmt == 'l')
+		if (*fmt == 'z')
+		{
+			fmt++;
+			arglst->info->lenmod[0] = 'z';
+		}
+		else if (*fmt == 'l')
 		{
 			fmt++;
 			arglst->info->lenmod[0] = 'l';
