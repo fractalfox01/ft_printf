@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/02 15:35:08 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/10 18:07:41 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@ char	*pad_left(t_alst *tmp, char *str, int a)
 		len = ft_strlen(str);
 		i = (size_t)tmp->info->fieldwidth;
 		stmp = ft_strnew(i);
-		if (tmp->info->zero_flag == 1 && a)
+		if (tmp->info->zero_flag == 1 && a && tmp->info->blank_flag == 0)
+		{
+			// if (tmp->info->precision < tmp->info->fieldwidth)
+			// 	ft_memset(stmp, ' ', i);
+			// else
 			ft_memset(stmp, '0', i);
+		}
 		else
 			ft_memset(stmp, ' ', i);
 		if ((size_t)len > i)

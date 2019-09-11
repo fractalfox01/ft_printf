@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:10:40 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/05 12:10:47 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/07 13:10:39 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ t_alst	*new_list(void)
 	list->info->fieldwidth = 0;
 	list->info->precision = 0;
 	list->info->blank = 0;
+	list->info->neg = 0;
+	list->info->padded = NULL;
+	list->info->tmp1 = NULL;
+	list->info->tmp2 = NULL;
+	list->info->arg = NULL;
 	list->next = NULL;
 	return (list);
 }

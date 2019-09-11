@@ -6,47 +6,17 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/05 11:52:36 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/09 12:37:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char		*get_sub_str(char *str, int	start, int end)
-{
-	char	*tmp;
-	int		i;
-
-	if (str)
-	{
-		tmp = (char *)malloc(sizeof(char) * (end - start) + 1);
-		i = 0;
-		while (start < end && str[start] != '\0')
-		{
-			tmp[i++] = str[start++];
-		}
-		tmp[i] = '\0';
-		return (tmp);
-	}
-	return (NULL);
-}
-
-int			check_next(char *fmt)
-{
-	while (*fmt != '\0')
-	{
-		if (*fmt == '%')
-			return (1);
-		fmt++;
-	}
-	return (0);
-}
-
 void		add_remainder(t_glb *glb, char *lo)
 {
 	t_alst	*atmp;
-	int			i;
-	int			j;
+	int		i;
+	int		j;
 
 	atmp = glb->args;
 	i = 0;
@@ -60,60 +30,10 @@ void		add_remainder(t_glb *glb, char *lo)
 	atmp->id = glb->total;
 }
 
-/*
-** parse_conversion_spec returns number of characters to be skipped
-** and saves flags, fieldwidth, precision, and length modifier.
-*/
-
-void		save_args(t_glb *glb)
-{
-	int		i;
-	int		x;
-	int		y;
-	char	*leftovers;
-	char	*tmp;
-	char	*arg;
-	char	*fmt;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	fmt = glb->fmt;
-	arg = ft_strdup("scdiouxXfp");
-	leftovers = NULL;
-	while (*fmt != '\0' && glb->cont == 1)
-	{
-		if (*fmt == '%')
-		{
-			tmp = get_sub_str(glb->fmt, y, x);
-			fmt += 1;
-			if ((i = parse_conversion_spec(glb, fmt, tmp)) > 0)
-			{
-				fmt += i;
-				x += i + 1;
-			}
-			else
-				x++;
-			ft_strdel(&tmp);
-			y = x + 1;
-			i = 0;
-			if (check_next(fmt + 1) == 0)
-			{
-				leftovers = ft_strdup(fmt + 1);
-			}
-		}
-		x++;
-		fmt++;
-	}
-	add_remainder(glb, leftovers);
-	ft_strdel(&leftovers);
-	ft_strdel(&arg);
-}
-
 void		form_formatted(t_glb *glb)
 {
 	t_alst	*tmp;
-	char		*fmt;
+	char	*fmt;
 
 	tmp = glb->args;
 	fmt = glb->fmt;
@@ -121,8 +41,8 @@ void		form_formatted(t_glb *glb)
 	{
 		while (tmp->id < glb->total)
 		{
-			glb->ncount += ft_strlen(tmp->info->arg);
-			ft_putstr(tmp->info->arg);
+			glb->ncount += ft_strlen(OUTPUT);
+			ft_putstr(OUTPUT);
 			tmp = tmp->next;
 		}
 	}
@@ -131,19 +51,6 @@ void		form_formatted(t_glb *glb)
 		if (glb->err_type == 1)
 			ft_printf("");
 	}
-}
-
-int			has_args(char *fmt)
-{
-	while (*fmt != '\0')
-	{
-		if (*fmt == '%')
-		{
-			return (1);
-		}
-		fmt++;
-	}
-	return (0);
 }
 
 int			ft_printf(char *fmt, ...)

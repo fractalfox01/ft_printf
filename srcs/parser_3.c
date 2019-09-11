@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/05 11:20:18 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:29:31 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ static char	*int_helper(t_alst *arg, char *padded, int c)
 		ft_strdel(&stmp);
 	}
 	return (padded);
+}
+
+static char *blank_helper(t_alst *arg, char *padded)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(" ", padded);
+	ft_strdel(&padded);
+	return (tmp);
 }
 
 static char	*lnglng_helper(t_alst *arg, char *padded, long long c)
@@ -181,12 +190,21 @@ int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 		arg->next->id = (arg->id + 1);
 		return (0);
 	}
+	if (c == 0 && arg->info->fieldwidth == 0 && arg->info->fieldwidth == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "0");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
 	tmp = NULL;
 	if (arg->info->precision > arg->info->fieldwidth)
 		arg->info->fieldwidth = arg->info->precision;
 	padded = ft_itoa(c);
 	if (arg->info->precision > 0)
 		padded = int_helper(arg, &*padded, c);
+	if (arg->info->blank_flag)
+		padded = blank_helper(arg, &*padded);
 	if (arg->info->minus_flag == 1)
 	{
 		if (arg->info->plus_flag == 1 && neg == 0)
@@ -241,9 +259,16 @@ int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, long long);
 	if (c < 0)
 		neg = 1;
-	if (c == 0)
+	if (c == 0 && arg->info->blank == 1)
 	{
 		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
+	if (c == 0 && arg->info->fieldwidth == 0 && arg->info->fieldwidth == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "0");
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 		return (0);
@@ -287,11 +312,16 @@ int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
 	neg = 0;
 	glb->total += 1;
 	c = (char)va_arg(glb->ap, unsigned int);
-	if (c < 0)
-		neg = 1;
-	if (c == 0)
+	if (c == 0 && arg->info->blank == 1)
 	{
 		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
+	if (c == 0 && arg->info->fieldwidth == 0 && arg->info->fieldwidth == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "0");
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 		return (0);
@@ -337,9 +367,16 @@ int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, int);
 	if (c < 0)
 		neg = 1;
-	if (c == 0)
+	if (c == 0 && arg->info->blank == 1)
 	{
 		arg->info->arg = ft_strjoin(orig, "");
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		return (0);
+	}
+	if (c == 0 && arg->info->fieldwidth == 0 && arg->info->fieldwidth == 0)
+	{
+		arg->info->arg = ft_strjoin(orig, "0");
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 		return (0);
@@ -385,11 +422,35 @@ int		parse_long(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, long);
 	if (c < 0)
 		neg = 1;
-	if (c == 0)
+	if (c == 0 && arg->info->blank == 1)
 	{
 		arg->info->arg = ft_strjoin(orig, "");
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
+		return (0);
+	}
+	if (c == 0)
+	{
+		padded = ft_strdup(" ");
+		if (arg->info->precision > arg->info->fieldwidth)
+			arg->info->fieldwidth = arg->info->precision;
+		if (arg->info->plus_flag == 1)
+		{
+			if (arg->info->precision > 0)
+				padded = long_helper(arg, &*padded, c);
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, ft_strjoin("+", padded), 1));
+		}
+		else if (arg->info->minus_flag == 1)
+		{
+			if (arg->info->precision > 0)
+				padded = long_helper(arg, &*padded, c);
+			arg->info->arg = ft_strjoin(orig, pad_right(arg, ft_strjoin("-", padded)));
+		}
+		else
+			arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 1));
+		arg->next = new_list();
+		arg->next->id = (arg->id + 1);
+		ft_strdel(&padded);
 		return (0);
 	}
 	if (arg->info->precision > arg->info->fieldwidth)

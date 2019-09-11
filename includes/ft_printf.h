@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/05 12:05:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:30:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,22 @@
 
 # include <stdarg.h>
 # include <stdio.h>
+# include <unistd.h> 
 # include "../srcs/libft.h"
+
+# define FMT_SPEC	"scdiouxXfp"
+# define OUTPUT		tmp->info->arg
+
+typedef struct		s_var
+{
+	int				i;
+	int				stop;
+	int				start;
+	char			*leftovers;
+	char			*tmp;
+	char			*arg;
+	char			*fmt;
+}					t_var;
 
 typedef struct		s_info
 {
@@ -28,6 +43,10 @@ typedef struct		s_info
 	int				precision;
 	int				blank;
 	char			lenmod[3];
+	int				neg;
+	char			*padded;
+	char			*tmp1;
+	char			*tmp2;
 	char			*str;
 	char			*arg;
 }					t_info;
@@ -57,6 +76,10 @@ typedef struct		s_ftpf
 
 int					ft_printf(char *format, ...);
 void				glb_init(t_glb *glb);
+int					has_args(char *fmt);
+void				save_args(t_glb *glb);
+void				init_var(t_var *var, t_glb *glb);
+void				add_remainder(t_glb *glb, char *lo);
 char				*pad_left(t_alst *tmp, char *str, int a);
 char				*pad_right(t_alst *tmp, char *str);
 int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);
@@ -78,6 +101,20 @@ int					percent_string(t_glb *glb, t_alst *arg, char *orig);
 int					bad_percent(t_glb *glb, t_alst *arg, char *orig, char *fmt);
 int					parse_conversion(t_glb *glb, char *fmt, char *orig);
 char				*long_helper(t_alst *arg, char *padded, long c);
+void				ps_helper_1(t_alst *arg, char *orig);
+void				ps_helper_2(t_alst *arg, char *orig, char *buf_str);
+void				ps_helper_3(t_alst *arg, char *orig, char *buf_str);
+void				lnglng_oct_helper(t_alst *arg, long long c, int len);
+void				long_hex_helper(t_alst *arg, long c, int len);
+char				*assign_x_buf(t_glb *glb, t_alst *arg, long long c);
+void				check_case(t_glb *glb, char **str);
+void				hex_flag_find(t_alst *arg, int neg, char *orig);
+void				hex_helper_1(t_alst *arg);
+void				hex_helper_2(t_glb *glb, t_alst *arg);
+void				octal_assign_1(t_alst *arg, char *pad, char *orig, int neg);
+void				octal_assign_2(t_alst *arg, char *padded, char *orig);
+char				*assign_u_buf(t_alst *arg, unsigned long long c);
+void				assign_u_arg(t_alst *arg, char *pad, int neg, char *orig);
 t_alst				*new_list(void);
 
 #endif
