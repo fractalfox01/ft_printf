@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:49:19 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/11 12:42:00 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:05:29 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ void	hex_helper_1(t_alst *arg)
 	ft_strdel(&(arg->info->padded));
 	arg->info->padded = ft_strdup(tmp);
 	ft_strdel(&tmp);
+}
+
+char *blank_helper(t_alst *arg, char *padded)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(" ", padded);
+	ft_strdel(&padded);
+	return (tmp);
 }

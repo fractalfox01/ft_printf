@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/11 14:30:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:10:10 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@
 
 # define FMT_SPEC	"scdiouxXfp"
 # define OUTPUT		tmp->info->arg
+# define PADDED		arg->info->padded
+# define BLANK		arg->info->blank
+# define FIELDWIDTH	arg->info->fieldwidth
+# define PRECISION	arg->info->precision
+# define LENMOD		arg->info->lenmod
+# define MINUS_FLAG	arg->info->minus_flag
+# define PLUS_FLAG	arg->info->plus_flag
+# define HASH_FLAG	arg->info->hash_flag
+# define BLANK_FLAG	arg->info->blank_flag
+# define ZERO_FLAG	arg->info->zero_flag
+# define NEGATIVE	arg->info->neg
+# define ARG		arg->info->arg
+# define CUR_ID		arg->id
+# define NEXT_ID	arg->next->id
+# define T_COUNT	glb->total
 
 typedef struct		s_var
 {
@@ -100,6 +115,10 @@ int					parse_uint(t_glb *glb, t_alst *arg, char *orig);
 int					percent_string(t_glb *glb, t_alst *arg, char *orig);
 int					bad_percent(t_glb *glb, t_alst *arg, char *orig, char *fmt);
 int					parse_conversion(t_glb *glb, char *fmt, char *orig);
+char				*int_helper(t_alst *arg, char *padded, int c);
+char				*short_helper(t_alst *arg, char *padded, short c);
+int					int_norm_helper_1(t_alst *arg, char *orig, int c);
+void				int_norm_helper_2(t_alst *arg, char *orig, char *padded);
 char				*long_helper(t_alst *arg, char *padded, long c);
 void				ps_helper_1(t_alst *arg, char *orig);
 void				ps_helper_2(t_alst *arg, char *orig, char *buf_str);
@@ -115,6 +134,7 @@ void				octal_assign_1(t_alst *arg, char *pad, char *orig, int neg);
 void				octal_assign_2(t_alst *arg, char *padded, char *orig);
 char				*assign_u_buf(t_alst *arg, unsigned long long c);
 void				assign_u_arg(t_alst *arg, char *pad, int neg, char *orig);
+char				*blank_helper(t_alst *arg, char *padded);
 t_alst				*new_list(void);
 
 #endif

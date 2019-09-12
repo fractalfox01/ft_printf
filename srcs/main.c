@@ -47,16 +47,16 @@ void	str_tests(void)
 	meow += ft_printf("%-.14s", NULL);
 	meow += ft_printf("%-.03s", NULL);
 	meow += ft_printf("%.s", NULL);
-	meow += ft_printf("%0.s", NULL);
-	meow += ft_printf("%0s", NULL);
+	// meow += ft_printf("%0.s", NULL);
+	// meow += ft_printf("%0s", NULL);
 	meow += ft_printf("%s", NULL);
 	
 	int moo = printf("%-.s", NULL);
 	moo += printf("%-.14s", NULL);
 	moo += printf("%-.03s", NULL);
 	moo += printf("%.s", NULL);
-	moo += printf("%0.s", NULL);
-	moo += printf("%0s", NULL);
+	// moo += printf("%0.s", NULL);
+	// moo += printf("%0s", NULL);
 	moo += printf("%s", NULL);
 	if (meow == moo)
 		ft_printf("\nMATCHES!\n");
@@ -184,107 +184,110 @@ void	octal_test(void)
 
 void	hex_test(void)
 {
-	// short x = 0xff;
-	// int	a = 0xbeef;
-	// long b = LONG_MAX;
-	// long long c = 0x7ffffffffffffffe;
+	short x = 0xff;
+	int	a = 0xbeef;
+	long b = LONG_MAX;
+	long long c = 0x7ffffffffffffffe;
 
-	// ft_printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
-	// printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
-	// ft_printf("\nhex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
-	// printf("hex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
-	// ft_printf("\nhex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
-	// printf("hex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
-	// ft_printf("\nhex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
-	// printf("hex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
-	// ft_printf("\nhex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
-	// printf("hex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
-	// ft_printf("Mine:\n");
+	ft_printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
+	printf("hex 1: |%x|\nhex 2: |%hx|\nhex 3: |%lx|\nhex 4: |%llx|\n", a, x, b, c);
+	ft_printf("\nhex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
+	printf("hex 1: |%15x|\nhex 2: |%15hx|\nhex 3: |%25lx|\nhex 4: |%25llx|\n", a, x, b, c);
+	ft_printf("\nhex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
+	printf("hex 1: |%-15x|\nhex 2: |%-15hx|\nhex 3: |%-25lx|\nhex 4: |%-25llx|\n", a, x, b, c);
+	ft_printf("\nhex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
+	printf("hex 1: |%-15.7x|\nhex 2: |%-15.5hx|\nhex 3: |%-25.15lx|\nhex 4: |%-25.20llx|\n", a, x, b, c);
+	ft_printf("\nhex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
+	printf("hex 1: |%15.7x|\nhex 2: |%15.5hx|\nhex 3: |%25.15lx|\nhex 4: |%25.20llx|\n", a, x, b, c);
+	ft_printf("Mine:\n");
+
+	// TO RUN THE FOLLOWING TEST, THE MAKEFILE NEEDS FLAGS TURNED OFF
+
 	// int meow, moo;
 
-	int meow = ft_printf("%#x\n", 0);
-	meow += ft_printf("%#X\n", 42);
-	meow += ft_printf("%#08X\n", 42);
-	meow += ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
-	meow += ft_printf("%X", 4294967296);
-	meow += ft_printf("%x", 4294967296);
-	meow += ft_printf("%X", -42);
-	meow += ft_printf("%x", -42);
-	meow += ft_printf("%x", 42);
-	meow += ft_printf("Kashim a %x histoires à raconter", 1001);
-	meow += ft_printf("Il fait au moins %x\n", -8000);
-	meow += ft_printf("%x", -0);
-	meow += ft_printf("%x", 0);
-	meow += ft_printf("%x", INT_MAX);
-	meow += ft_printf("%x", INT_MIN);
-	meow += ft_printf("%x", INT_MIN - 1);
-	meow += ft_printf("%x", INT_MAX + 1);
-	meow += ft_printf("%%x 0000042 == |%x|\n", 0000042);
-	meow += ft_printf("%%x \t == |%x|\n", '\t');
-	meow += ft_printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	meow += ft_printf("%x", 4294967296);
+	// int meow = ft_printf("%#x\n", 0);
+	// meow += ft_printf("%#X\n", 42);
+	// meow += ft_printf("%#08X\n", 42);
+	// meow += ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+	// meow += ft_printf("%X", 4294967296);
+	// meow += ft_printf("%x", 4294967296);
+	// meow += ft_printf("%X", -42);
+	// meow += ft_printf("%x", -42);
+	// meow += ft_printf("%x", 42);
+	// meow += ft_printf("Kashim a %x histoires à raconter", 1001);
+	// meow += ft_printf("Il fait au moins %x\n", -8000);
+	// meow += ft_printf("%x", -0);
+	// meow += ft_printf("%x", 0);
+	// meow += ft_printf("%x", INT_MAX);
+	// meow += ft_printf("%x", INT_MIN);
+	// meow += ft_printf("%x", INT_MIN - 1);
+	// meow += ft_printf("%x", INT_MAX + 1);
+	// meow += ft_printf("%%x 0000042 == |%x|\n", 0000042);
+	// meow += ft_printf("%%x \t == |%x|\n", '\t');
+	// meow += ft_printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// meow += ft_printf("%x", 4294967296);
 
-	ft_printf("\nTheirs:\n");
-	int moo = printf("%#x\n", 0);
-	moo += printf("%#X\n", 42);
-	moo += printf("%#08X\n", 42);
-	moo += printf("@moulitest: %#.x %#.0x\n", 0, 0);
-	moo += printf("%X", 4294967296);
-	moo += printf("%x", 4294967296);
-	moo += printf("%X", -42);
-	moo += printf("%x", -42);
-	moo += printf("%x", 42);
-	moo += printf("Kashim a %x histoires à raconter", 1001);
-	moo += printf("Il fait au moins %x\n", -8000);
-	moo += printf("%x", -0);
-	moo += printf("%x", 0);
-	moo += printf("%x", INT_MAX);
-	moo += printf("%x", INT_MIN);
-	moo += printf("%x", INT_MIN - 1);
-	moo += printf("%x", INT_MAX + 1);
-	moo += printf("%%x 0000042 == |%x|\n", 0000042);
-	moo += printf("%%x \t == |%x|\n", '\t');
-	moo += printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	moo += printf("%x", 4294967296);
+	// ft_printf("\nTheirs:\n");
+	// int moo = printf("%#x\n", 0);
+	// moo += printf("%#X\n", 42);
+	// moo += printf("%#08X\n", 42);
+	// moo += printf("@moulitest: %#.x %#.0x\n", 0, 0);
+	// moo += printf("%X", 4294967296);
+	// moo += printf("%x", 4294967296);
+	// moo += printf("%X", -42);
+	// moo += printf("%x", -42);
+	// moo += printf("%x", 42);
+	// moo += printf("Kashim a %x histoires à raconter", 1001);
+	// moo += printf("Il fait au moins %x\n", -8000);
+	// moo += printf("%x", -0);
+	// moo += printf("%x", 0);
+	// moo += printf("%x", INT_MAX);
+	// moo += printf("%x", INT_MIN);
+	// moo += printf("%x", INT_MIN - 1);
+	// moo += printf("%x", INT_MAX + 1);
+	// moo += printf("%%x 0000042 == |%x|\n", 0000042);
+	// moo += printf("%%x \t == |%x|\n", '\t');
+	// moo += printf("%%x Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// moo += printf("%x", 4294967296);
 	
-	if (meow == moo)
-		ft_printf(ft_strjoin(ft_strjoin(FT_GREEN, "\nPASS\n"), FT_END_ATTR));
-	else
-		ft_printf(ft_strjoin(ft_strjoin(FT_RED, "\nFAIL\n"), FT_END_ATTR));
+	// if (meow == moo)
+	// 	ft_printf(ft_strjoin(ft_strjoin(FT_GREEN, "\nPASS\n"), FT_END_ATTR));
+	// else
+	// 	ft_printf(ft_strjoin(ft_strjoin(FT_RED, "\nFAIL\n"), FT_END_ATTR));
 
-	ft_printf("%x\n", -42);
-	ft_printf("%hhx\n", -0);
-	ft_printf("%hhx\n", 0);
-	ft_printf("%hhx\n", INT_MAX);
-	ft_printf("%hhx\n", INT_MIN);
-	ft_printf("%hhx\n", INT_MIN - 1);
-	ft_printf("%hhx\n", INT_MAX + 1);
-	ft_printf("%%hhx 0000042 == |%x|\n", 0000042);
-	ft_printf("%%hhx \t == |%x|\n", '\t');
-	ft_printf("%%hhx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	ft_printf("%hhx", 4294967296);
+	// ft_printf("%x\n", -42);
+	// ft_printf("%hhx\n", -0);
+	// ft_printf("%hhx\n", 0);
+	// ft_printf("%hhx\n", INT_MAX);
+	// ft_printf("%hhx\n", INT_MIN);
+	// ft_printf("%hhx\n", INT_MIN - 1);
+	// ft_printf("%hhx\n", INT_MAX + 1);
+	// ft_printf("%%hhx 0000042 == |%x|\n", 0000042);
+	// ft_printf("%%hhx \t == |%x|\n", '\t');
+	// ft_printf("%%hhx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// ft_printf("%hhx", 4294967296);
 
-	ft_printf("%hx", -0);
-	ft_printf("%hx", 0);
-	ft_printf("%hx", INT_MAX);
-	ft_printf("%hx", INT_MIN);
-	ft_printf("%hx", INT_MIN - 1);
-	ft_printf("%hx", INT_MAX + 1);
-	ft_printf("%%hx 0000042 == |%x|\n", 0000042);
-	ft_printf("%%hx \t == |%x|\n", '\t');
-	ft_printf("%%hx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	ft_printf("%hx", 4294967296);
+	// ft_printf("%hx", -0);
+	// ft_printf("%hx", 0);
+	// ft_printf("%hx", INT_MAX);
+	// ft_printf("%hx", INT_MIN);
+	// ft_printf("%hx", INT_MIN - 1);
+	// ft_printf("%hx", INT_MAX + 1);
+	// ft_printf("%%hx 0000042 == |%x|\n", 0000042);
+	// ft_printf("%%hx \t == |%x|\n", '\t');
+	// ft_printf("%%hx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// ft_printf("%hx", 4294967296);
 
-	ft_printf("%lx", -0);
-	ft_printf("%lx", 0);
-	ft_printf("%lx", INT_MAX);
-	ft_printf("%lx", INT_MIN);
-	ft_printf("%lx", INT_MIN - 1);
-	ft_printf("%lx", INT_MAX + 1);
-	ft_printf("%%lx 0000042 == |%x|\n", 0000042);
-	ft_printf("%%lx \t == |%x|\n", '\t');
-	ft_printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	ft_printf("%lx", 4294967296);
+	// ft_printf("%lx", -0);
+	// ft_printf("%lx", 0);
+	// ft_printf("%lx", INT_MAX);
+	// ft_printf("%lx", INT_MIN);
+	// ft_printf("%lx", INT_MIN - 1);
+	// ft_printf("%lx", INT_MAX + 1);
+	// ft_printf("%%lx 0000042 == |%x|\n", 0000042);
+	// ft_printf("%%lx \t == |%x|\n", '\t');
+	// ft_printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// ft_printf("%lx", 4294967296);
 
 	ft_printf("%llx", -0);
 	ft_printf("%llx", 0);
@@ -297,39 +300,39 @@ void	hex_test(void)
 	ft_printf("%%llx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
 	ft_printf("%llx", 4294967296);
 
-	printf("%x\n", -42);
-	printf("%hhx\n", -0);
-	printf("%hhx\n", 0);
-	printf("%hhx\n", INT_MAX);
-	printf("%hhx\n", INT_MIN);
-	printf("%hhx\n", INT_MIN - 1);
-	printf("%hhx\n", INT_MAX + 1);
-	printf("%%hhx 0000042 == |%x|\n", 0000042);
-	printf("%%hhx \t == |%x|\n", '\t');
-	printf("%%hhx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	printf("%hhx", 4294967296);
+	// printf("%x\n", -42);
+	// printf("%hhx\n", -0);
+	// printf("%hhx\n", 0);
+	// printf("%hhx\n", INT_MAX);
+	// printf("%hhx\n", INT_MIN);
+	// printf("%hhx\n", INT_MIN - 1);
+	// printf("%hhx\n", INT_MAX + 1);
+	// printf("%%hhx 0000042 == |%x|\n", 0000042);
+	// printf("%%hhx \t == |%x|\n", '\t');
+	// printf("%%hhx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// printf("%hhx", 4294967296);
 
-	printf("%hx", -0);
-	printf("%hx", 0);
-	printf("%hx", INT_MAX);
-	printf("%hx", INT_MIN);
-	printf("%hx", INT_MIN - 1);
-	printf("%hx", INT_MAX + 1);
-	printf("%%hx 0000042 == |%x|\n", 0000042);
-	printf("%%hx \t == |%x|\n", '\t');
-	printf("%%hx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	printf("%hx", 4294967296);
+	// printf("%hx", -0);
+	// printf("%hx", 0);
+	// printf("%hx", INT_MAX);
+	// printf("%hx", INT_MIN);
+	// printf("%hx", INT_MIN - 1);
+	// printf("%hx", INT_MAX + 1);
+	// printf("%%hx 0000042 == |%x|\n", 0000042);
+	// printf("%%hx \t == |%x|\n", '\t');
+	// printf("%%hx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// printf("%hx", 4294967296);
 
-	printf("%lx", -0);
-	printf("%lx", 0);
-	printf("%lx", INT_MAX);
-	printf("%lx", INT_MIN);
-	printf("%lx", INT_MIN - 1);
-	printf("%lx", INT_MAX + 1);
-	printf("%%lx 0000042 == |%x|\n", 0000042);
-	printf("%%lx \t == |%x|\n", '\t');
-	printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	printf("%lx", 4294967296);
+	// printf("%lx", -0);
+	// printf("%lx", 0);
+	// printf("%lx", INT_MAX);
+	// printf("%lx", INT_MIN);
+	// printf("%lx", INT_MIN - 1);
+	// printf("%lx", INT_MAX + 1);
+	// printf("%%lx 0000042 == |%x|\n", 0000042);
+	// printf("%%lx \t == |%x|\n", '\t');
+	// printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	// printf("%lx", 4294967296);
 
 	printf("%llx", -0);
 	printf("%llx", 0);
@@ -456,7 +459,7 @@ void	pointer_test()
 	char	*sptr = str;
 	iptr = &b;
 
-	int			r00 = 0;
+	// int			r00 = 0;
 	char		c = 0;
 	char		*str1 = "pouet";
 	
@@ -730,6 +733,17 @@ int		main(void)
 	char str[6] = "pasta";
 	char *sptr;
 	sptr = str;
+
+	// int a = ft_printf("Kashim a %c histoires à raconter\n", 1001);
+	// int b = printf("Kashim a %c histoires à raconter\n", 1001);
+	// int a = ft_printf("Il fait au moins %c\n", -8000);
+	// int b = printf("Il fait au moins %c\n", -8000);
+	// int a = ft_printf("%c\n", INT_MAX);
+	// int b = printf("%c\n", INT_MAX);
+	// int	a = ft_printf("|%ld|\n", -0);
+	// int	b = printf("|%ld|\n", -0);
+	// int	a = ft_printf("%%#o 0 ==  %#o\n", 0);
+	// int	b = printf("%%#o 0 ==  %#o\n", 0);
 	//void *s_hidden = (void *)sptr;
 	// validate_str("%4.0s", (void *)"hello");
 	// validate_str("%.0s", (void *)"hello");
@@ -895,12 +909,14 @@ int		main(void)
 	// else
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 	// CHAR tests
-	// char_test(); // Working
+	char_test(); // Working
 	
 	// STRING TESTS:
 	// str_tests(); // working
 
 	// INTEGER TESTS:
+	// ft_printf("|%-3.1s|\n", NULL);
+	// printf("|%-3.1s|\n", NULL);
 	// int_tests(); // working
 
 	// int meow = ft_printf("%%-5.3s LYDI == |%-5.3s|\n", "LYDI");

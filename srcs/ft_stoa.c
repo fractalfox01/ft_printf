@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ctoh.c                                          :+:      :+:    :+:   */
+/*   ft_stoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 18:01:49 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/11 23:38:49 by tvandivi         ###   ########.fr       */
+/*   Created: 2019/09/11 14:45:57 by tvandivi          #+#    #+#             */
+/*   Updated: 2019/09/11 14:48:54 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_ctoh(unsigned char n)
+char	*ft_stoa(short n)
 {
-	char			*tmp;
-	char			*ret;
-	int				i;
-	unsigned char	nbr;
-	char			*hex;
+	char	*tmp;
+	char	*ret;
+	short	i;
+	short	nbr;
 
-	hex = ft_strdup("0123456789abcdef");
-	tmp = ft_strnew(3);
+	tmp = ft_strnew(21);
 	i = 0;
-	nbr = n;
-	while (nbr / 16 > 0)
+	nbr = (short)n;
+	if (nbr < 0)
+		nbr *= -1;
+	while (nbr / 10 > 0)
 	{
-		tmp[i++] = hex[(nbr % 16)];
-		nbr /= 16;
+		tmp[i++] = (nbr % 10) + 48;
+		nbr /= 10;
 	}
-	tmp[i++] = hex[nbr];
+	tmp[i++] = nbr + 48;
+	if (n < 0)
+		tmp[i++] = '-';
 	tmp[i] = '\0';
 	ret = ft_strrev(tmp);
 	ft_strdel(&tmp);

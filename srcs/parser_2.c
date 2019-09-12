@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:12:11 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/06 18:12:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:06:08 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,53 @@ int		parse_ptr(t_glb *glb, t_alst *arg, char *orig)
 		arg->next = new_list();
 		arg->next->id = (arg->id + 1);
 	}
+	return (0);
+}
+
+int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
+{
+	char	c;
+	char    *padded;
+	char	*tmp;
+	int		neg;
+
+	neg = 0;
+	T_COUNT += 1;
+	c = (char)va_arg(glb->ap, unsigned int);
+	if (int_norm_helper_1(arg, orig, c))
+		return (0);
+	if (PRECISION > FIELDWIDTH)
+		FIELDWIDTH = PRECISION;
+	padded = ft_stoa(c);
+	if (PRECISION > 0)
+		padded = short_helper(arg, &*padded, c);
+	int_norm_helper_2(arg, orig, padded);
+	arg->next = new_list();
+	NEXT_ID = (CUR_ID + 1);
+	return (0);
+}
+
+int		parse_short(t_glb *glb, t_alst *arg, char *orig)
+{
+    long long	c;
+	char        *padded;
+	char	    *tmp;
+	int			neg;
+
+	neg = 0;
+	T_COUNT += 1;
+	c = va_arg(glb->ap, int);
+	if (c < 0)
+		neg = 1;
+	if (int_norm_helper_1(arg, orig, c))
+		return (0);
+	if (PRECISION > FIELDWIDTH)
+		FIELDWIDTH = PRECISION;
+	padded = ft_stoa(c);
+	if (PRECISION > 0)
+		padded = short_helper(arg, &*padded, c);
+	int_norm_helper_2(arg, orig, padded);
+	arg->next = new_list();
+	NEXT_ID = (CUR_ID + 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 20:09:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/08 13:45:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:47:53 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ long long				ft_atoll(char *str);
 char				    *ft_lltoa(long long n);
 char					*ft_ftoa(long double flt, int afterpoint);
 char					*ft_strrev(char *str);
+char                    *ft_stoa(short n);
 int						ft_otoi(char *str);
 char					*ft_itoo(int nbr);
 int						ft_ltoo(long nbr);
