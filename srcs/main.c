@@ -909,7 +909,7 @@ int		main(void)
 	// else
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 	// CHAR tests
-	char_test(); // Working
+	// char_test(); // Working
 	
 	// STRING TESTS:
 	// str_tests(); // working
@@ -942,7 +942,7 @@ int		main(void)
 	// hex_test(); // Working
 
 	// FLOAT TESTS:
-	// float_test(); // Working
+	float_test(); // Working
 
 	// POINTER TESTS:
 	// pointer_test(); // Working

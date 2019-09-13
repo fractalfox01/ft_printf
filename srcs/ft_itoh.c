@@ -6,19 +6,19 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:11:30 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/05 21:57:33 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 02:21:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_itoh(unsigned int n)
+char	*ft_itoh(unsigned int n)
 {
-	char	*tmp;
-	char	*ret;
-	int		i;
+	char			*tmp;
+	char			*ret;
+	int				i;
 	unsigned int	nbr;
-	char	*hex;
+	char			*hex;
 
 	hex = ft_strdup("0123456789abcdef");
 	tmp = ft_strnew(19);

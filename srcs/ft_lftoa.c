@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 21:31:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/27 21:48:41 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 02:33:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,37 +45,37 @@ static char	*fp_lhlper(char *ret, char *ip, int ap)
 	return (ret);
 }
 
-char	*ft_lftoa(long double flt, int afterpoint)
+static void	set_direction(t_ftoa *lftoa)
 {
-	long long	n;
-	char		*int_part;
-	char        *stmp;
-	long double	d;
-	char    	*ret;
-	int			dir;
+	if (lftoa->d < 0)
+	{
+		lftoa->dir *= -1;
+		lftoa->d *= lftoa->dir;
+	}
+}
 
-	dir = 1;
-	n = (long long)flt;
-	int_part = ft_strjoin(ft_lltoa(n), ".");
-	d = flt - n;
-	n = 0;
-	if (d < 0)
+char		*ft_lftoa(long double flt, int afterpoint)
+{
+	t_ftoa	lftoa;
+
+	lftoa.dir = 1;
+	lftoa.n = (long long)flt;
+	lftoa.int_part = ft_strjoin(ft_lltoa(lftoa.n), ".");
+	lftoa.d = flt - lftoa.n;
+	lftoa.n = 0;
+	set_direction(&lftoa);
+	while (lftoa.d > 0 && lftoa.n++ < afterpoint)
 	{
-		dir *= -1;
-		d *= dir;
+		lftoa.d = lftoa.d * fp_lpow(2, 10);
+		lftoa.stmp = ft_itoa((int)lftoa.d);
+		lftoa.d = lftoa.d - (int)lftoa.d;
+		lftoa.ret = ft_strjoin(lftoa.int_part, lftoa.stmp);
+		ft_strdel(&lftoa.int_part);
+		lftoa.int_part = ft_strdup(lftoa.ret);
+		ft_strdel(&lftoa.stmp);
 	}
-	while (d > 0 && n++ < afterpoint)
-	{
-		d = d * fp_lpow(2, 10);
-		stmp = ft_itoa((int)d);
-		d = d - (int)d;
-		ret = ft_strjoin(int_part, stmp);
-		ft_strdel(&int_part);
-		int_part = ft_strdup(ret);
-		ft_strdel(&stmp);
-	}
-	if (n < afterpoint)
-		ret = fp_lhlper(ret, int_part, afterpoint - n);
-	ft_strdel(&int_part);
-	return (ret);
+	if (lftoa.n < afterpoint)
+		lftoa.ret = fp_lhlper(lftoa.ret, lftoa.int_part, afterpoint - lftoa.n);
+	ft_strdel(&lftoa.int_part);
+	return (lftoa.ret);
 }
