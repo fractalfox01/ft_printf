@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:54:02 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 11:57:02 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 18:29:28 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*long_helper(t_alst *arg, char *padded, long c)
+char		*long_helper(t_alst *arg, char *padded, long c)
 {
 	int		len;
 	int		zero;
@@ -41,7 +41,7 @@ char	*long_helper(t_alst *arg, char *padded, long c)
 	return (padded);
 }
 
-static int  p_long_helper_1(t_alst *arg, char *orig, char *padded, long c)
+static int	p_long_helper_1(t_alst *arg, char *orig, char *padded, long c)
 {
 	if (c == 0)
 	{
@@ -69,10 +69,10 @@ static int  p_long_helper_1(t_alst *arg, char *orig, char *padded, long c)
 	return (0);
 }
 
-static void p_long_helper_2(t_alst *arg, char *orig, char *padded)
+static void	p_long_helper_2(t_alst *arg, char *orig, char *padded)
 {
 	char *tmp;
-	
+
 	if (MINUS_FLAG == 1)
 	{
 		if (PLUS_FLAG == 1 && NEGATIVE == 0)
@@ -94,7 +94,7 @@ static void p_long_helper_2(t_alst *arg, char *orig, char *padded)
 		ARG = ft_strjoin(orig, pad_left(arg, padded, 1));
 }
 
-int         parse_long(t_glb *glb, t_alst *arg, char *orig)
+int			parse_long(t_glb *glb, t_alst *arg, char *orig)
 {
 	long	c;
 	char	*padded;

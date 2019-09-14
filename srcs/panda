@@ -131,12 +131,12 @@ void	int_tests(void)
 	printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
 
 	ft_printf("\nshort testing: %%h\n");
-	// ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
-	// printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
+	ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
+	printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
 
 	ft_printf("\nlong long testing: %%ll\n");
-	// ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
-	// printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
+	ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
+	printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
 }
 
 void	octal_test(void)
@@ -289,16 +289,16 @@ void	hex_test(void)
 	// ft_printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
 	// ft_printf("%lx", 4294967296);
 
-	// ft_printf("%llx", -0);
-	// ft_printf("%llx", 0);
-	// ft_printf("%llx", INT_MAX);
-	// ft_printf("%llx", INT_MIN);
-	// ft_printf("%llx", INT_MIN - 1);
-	// ft_printf("%llx", INT_MAX + 1);
-	// ft_printf("%%llx 0000042 == |%x|\n", 0000042);
-	// ft_printf("%%llx \t == |%x|\n", '\t');
-	// ft_printf("%%llx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	// ft_printf("%llx", 4294967296);
+	ft_printf("%llx", -0);
+	ft_printf("%llx", 0);
+	ft_printf("%llx", INT_MAX);
+	ft_printf("%llx", INT_MIN);
+	ft_printf("%llx", INT_MIN - 1);
+	ft_printf("%llx", INT_MAX + 1);
+	ft_printf("%%llx 0000042 == |%x|\n", 0000042);
+	ft_printf("%%llx \t == |%x|\n", '\t');
+	ft_printf("%%llx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	ft_printf("%llx", 4294967296);
 
 	// printf("%x\n", -42);
 	// printf("%hhx\n", -0);
@@ -334,16 +334,16 @@ void	hex_test(void)
 	// printf("%%lx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
 	// printf("%lx", 4294967296);
 
-	// printf("%llx", -0);
-	// printf("%llx", 0);
-	// printf("%llx", INT_MAX);
-	// printf("%llx", INT_MIN);
-	// printf("%llx", INT_MIN - 1);
-	// printf("%llx", INT_MAX + 1);
-	// printf("%%llx 0000042 == |%x|\n", 0000042);
-	// printf("%%llx \t == |%x|\n", '\t');
-	// printf("%%llx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
-	// printf("%llx", 4294967296);
+	printf("%llx", -0);
+	printf("%llx", 0);
+	printf("%llx", INT_MAX);
+	printf("%llx", INT_MIN);
+	printf("%llx", INT_MIN - 1);
+	printf("%llx", INT_MAX + 1);
+	printf("%%llx 0000042 == |%x|\n", 0000042);
+	printf("%%llx \t == |%x|\n", '\t');
+	printf("%%llx Lydie == |%x|\n", 'L'+'y'+'d'+'i'+'e');
+	printf("%llx", 4294967296);
 }
 
 void	float_test(void)
@@ -733,17 +733,6 @@ int		main(void)
 	char str[6] = "pasta";
 	char *sptr;
 	sptr = str;
-
-	// int a = ft_printf("Kashim a %c histoires à raconter\n", 1001);
-	// int b = printf("Kashim a %c histoires à raconter\n", 1001);
-	// int a = ft_printf("Il fait au moins %c\n", -8000);
-	// int b = printf("Il fait au moins %c\n", -8000);
-	// int a = ft_printf("%c\n", INT_MAX);
-	// int b = printf("%c\n", INT_MAX);
-	// int	a = ft_printf("|%ld|\n", -0);
-	// int	b = printf("|%ld|\n", -0);
-	// int	a = ft_printf("%%#o 0 ==  %#o\n", 0);
-	// int	b = printf("%%#o 0 ==  %#o\n", 0);
 	//void *s_hidden = (void *)sptr;
 	// validate_str("%4.0s", (void *)"hello");
 	// validate_str("%.0s", (void *)"hello");
@@ -915,8 +904,8 @@ int		main(void)
 	// str_tests(); // working
 
 	// INTEGER TESTS:
-	// ft_printf("|%-3.1s|\n", NULL);
-	// printf("|%-3.1s|\n", NULL);
+	ft_printf("%-3.1s\n", NULL);
+	printf("%-3.1s\n", NULL);
 	// int_tests(); // working
 
 	// int meow = ft_printf("%%-5.3s LYDI == |%-5.3s|\n", "LYDI");
@@ -942,7 +931,7 @@ int		main(void)
 	// hex_test(); // Working
 
 	// FLOAT TESTS:
-	float_test(); // Working
+	// float_test(); // Working
 
 	// POINTER TESTS:
 	// pointer_test(); // Working

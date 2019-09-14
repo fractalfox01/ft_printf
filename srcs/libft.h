@@ -6,10 +6,9 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 20:09:59 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/11 14:47:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/12 22:01:38 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -38,61 +37,71 @@
 # define FT_UNDERLINE		"\033[4m"
 # define FT_END_ATTR		"\033[0m"
 
-char					*ft_lftoa(long double flt, int afterpoint);
-long long				ft_lltoo(long long nbr);
-long long				ft_atoll(char *str);
-char				    *ft_lltoa(long long n);
-char					*ft_ftoa(long double flt, int afterpoint);
-char					*ft_strrev(char *str);
-char                    *ft_stoa(short n);
-int						ft_otoi(char *str);
-char					*ft_itoo(int nbr);
-int						ft_ltoo(long nbr);
-char					*ft_ltoh(long n);
-char	                *ft_lltoh(long long n);
-char					*ft_itoh(unsigned int n);
-char                    *ft_ustoh(unsigned short n);
-char					*ft_ctoh(unsigned char n);
-char					*ft_ltoa(long n);
-char            		*ft_uctoa(unsigned char n);
-char            		*ft_ustoa(unsigned short c);
-char            		*ft_uitoa(unsigned int c);
-char            		*ft_ultoa(unsigned long n);
-char            		*ft_ulltoa(unsigned long long n);
-int						ft_numlen(int i);
-int						get_n_char(int fd, char **line, int size);
-int						ft_hex_to_int(char *hex);
-int						ft_abs(int nbr);
-void					ft_putchar(long c);
-void					ft_putstr(char *str);
-void					ft_putnbr(int nb);
-void					ft_bzero(void *s, size_t n);
-long					ft_power(long n, int base);
-size_t					ft_strlen(char *str);
-int						ft_strnlen(char *str, size_t n);
-int						ft_whitespace(int c);
-int						ft_strxlen(const char *str, char c);
-char					*ft_worditoa(char *ptr, long nbr, long len, long b);
-char					*ft_strnew(size_t size);
-char					*ft_strcpy(char *dest, char *src);
-char					*ft_strncat(char *s1, const char *s2, size_t n);
-char					*ft_strdup(const char *s);
-char					*ft_strchr(const char *s, int c);
-char					*ft_strrchr(const char *s, int c);
-char					*ft_strstr(const char *haystack, const char *needle);
-char					*ft_strnstr(const char *h, const char *n, size_t ln);
-char					*ft_strjoin(char const *s1, char const *s2);
-char					*ft_strcat(char *dest, char *src);
-char					*ft_itoa(int n);
-int						ft_atoi(char *str);
-int						ft_isascii(int nbr);
-int						ft_isdigit(int c);
-int						ft_toupper(int nb);
-void					*ft_memset(void *s, int c, size_t n);
-void                	*ft_memalloc(size_t size);
-void                   	*ft_memcpy(void *restrict dest, const void *restrict src, size_t n);
-void					ft_strdel(char **as);
-char                	*ft_strncpy(char *dst, const char *src, size_t n);
-int                     ft_isalpha(int c);
+typedef struct	s_ftoa
+{
+	long long	n;
+	char		*int_part;
+	char		*stmp;
+	long double	d;
+	char		*ret;
+	int			dir;
+}				t_ftoa;
+
+char			*ft_lftoa(long double flt, int afterpoint);
+long long		ft_lltoo(long long nbr);
+long long		ft_atoll(char *str);
+char			*ft_lltoa(long long n);
+char			*ft_ftoa(long double flt, int afterpoint);
+char			*ft_strrev(char *str);
+char			*ft_stoa(short n);
+int				ft_otoi(char *str);
+char			*ft_itoo(int nbr);
+int				ft_ltoo(long nbr);
+char			*ft_ltoh(long n);
+char			*ft_lltoh(long long n);
+char			*ft_itoh(unsigned int n);
+char			*ft_ustoh(unsigned short n);
+char			*ft_ctoh(unsigned char n);
+char			*ft_ltoa(long n);
+char			*ft_uctoa(unsigned char n);
+char			*ft_ustoa(unsigned short c);
+char			*ft_uitoa(unsigned int c);
+char			*ft_ultoa(unsigned long n);
+char			*ft_ulltoa(unsigned long long n);
+int				ft_numlen(int i);
+int				get_n_char(int fd, char **line, int size);
+int				ft_hex_to_int(char *hex);
+int				ft_abs(int nbr);
+void			ft_putchar(long c);
+void			ft_putstr(char *str);
+void			ft_putnbr(int nb);
+void			ft_bzero(void *s, size_t n);
+long			ft_power(long n, int base);
+size_t			ft_strlen(char *str);
+int				ft_strnlen(char *str, size_t n);
+int				ft_whitespace(int c);
+int				ft_strxlen(const char *str, char c);
+char			*ft_worditoa(char *ptr, long nbr, long len, long b);
+char			*ft_strnew(size_t size);
+char			*ft_strcpy(char *dest, char *src);
+char			*ft_strncat(char *s1, const char *s2, size_t n);
+char			*ft_strdup(const char *s);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strrchr(const char *s, int c);
+char			*ft_strstr(const char *haystack, const char *needle);
+char			*ft_strnstr(const char *h, const char *n, size_t ln);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strcat(char *dest, char *src);
+char			*ft_itoa(int n);
+int				ft_atoi(char *str);
+int				ft_isascii(int nbr);
+int				ft_isdigit(int c);
+int				ft_toupper(int nb);
+void			*ft_memset(void *s, int c, size_t n);
+void			*ft_memalloc(size_t size);
+void			*ft_memcpy(void *restrict d, const void *restrict s, size_t n);
+void			ft_strdel(char **as);
+char			*ft_strncpy(char *dst, const char *src, size_t n);
+int				ft_isalpha(int c);
 
 #endif

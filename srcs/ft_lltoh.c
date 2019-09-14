@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 17:38:00 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/08 13:46:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 12:34:51 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*ft_lltoh(long long n)
 {
-	char	    *tmp;
-	char	    *ret;
+	char		*tmp;
+	char		*ret;
 	long long	i;
 	long long	nbr;
-	char	    *hex;
+	char		*hex;
 
 	hex = ft_strdup("0123456789abcdef");
 	tmp = ft_strnew(21);

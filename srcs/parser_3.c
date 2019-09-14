@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 12:10:10 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 18:23:53 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*int_helper(t_alst *arg, char *padded, int c)
+char		*int_helper(t_alst *arg, char *padded, int c)
 {
 	int		len;
 	int		zero;
@@ -43,8 +43,8 @@ char	*int_helper(t_alst *arg, char *padded, int c)
 
 static char	*lnglng_helper(t_alst *arg, char *padded, long long c)
 {
-    int		len;
-	int		zero;
+	int	len;
+	int	zero;
 
 	len = ft_strlen(padded);
 	if (c < 0)
@@ -70,7 +70,7 @@ static char	*lnglng_helper(t_alst *arg, char *padded, long long c)
 	return (padded);
 }
 
-char	*short_helper(t_alst *arg, char *padded, short c)
+char		*short_helper(t_alst *arg, char *padded, short c)
 {
 	int		len;
 	int		zero;
@@ -99,7 +99,7 @@ char	*short_helper(t_alst *arg, char *padded, short c)
 	return (padded);
 }
 
-int		parse_int(t_glb *glb, t_alst *arg, char *orig)
+int			parse_int(t_glb *glb, t_alst *arg, char *orig)
 {
 	if (LENMOD[0] == 'l' && LENMOD[1] == '\0')
 		parse_long(glb, arg, orig);
@@ -114,11 +114,11 @@ int		parse_int(t_glb *glb, t_alst *arg, char *orig)
 	return (0);
 }
 
-int		parse_longlong(t_glb *glb, t_alst *arg, char *orig)
+int			parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 {
-    long long	c;
-	char        *padded;
-	char	    *tmp;
+	long long	c;
+	char		*padded;
+	char		*tmp;
 	int			neg;
 
 	neg = 0;

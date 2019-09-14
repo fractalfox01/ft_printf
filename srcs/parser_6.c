@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:57:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 12:01:36 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 18:30:00 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int	int_norm_helper_1(t_alst *arg, char *orig, int c)
+int		int_norm_helper_1(t_alst *arg, char *orig, int c)
 {
 	if (c == 0)
 	{

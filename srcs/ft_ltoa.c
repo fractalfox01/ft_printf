@@ -6,19 +6,19 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:47:49 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/08/26 16:20:29 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 12:36:44 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_ltoa(long n)
+char	*ft_ltoa(long n)
 {
 	char	*tmp;
 	char	*ret;
 	long	i;
 	long	nbr;
-	
+
 	tmp = ft_strnew(21);
 	i = 0;
 	nbr = (long)n;

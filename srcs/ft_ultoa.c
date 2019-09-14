@@ -6,18 +6,18 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 21:25:46 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/06 18:51:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 12:40:26 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_ultoa(unsigned long n)
+char	*ft_ultoa(unsigned long n)
 {
-	char		    *tmp;
-	char            *ret;
-	int			    i;
-	unsigned long   nbr;
+	char			*tmp;
+	char			*ret;
+	int				i;
+	unsigned long	nbr;
 
 	tmp = ft_strnew(11);
 	i = 0;

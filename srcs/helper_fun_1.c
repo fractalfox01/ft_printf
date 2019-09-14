@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:38:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/11 18:40:40 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 13:41:00 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,44 @@
 
 void	ps_helper_1(t_alst *arg, char *orig)
 {
-	char *tmp;
-	
+	char	*tmp;
+
 	tmp = ft_strdup("(null)");
-	if (arg->info->precision > 0 && arg->info->precision < 6)
-		tmp[arg->info->precision] = '\0';
-	arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+	if (PRECISION > 0 && PRECISION < 6)
+		tmp[PRECISION] = '\0';
+	ARG = ft_strjoin(orig, pad_left(arg, tmp, 0));
 	ft_strdel(&tmp);
 	arg->next = new_list();
-	arg->next->id = (arg->id + 1);
+	NEXT_ID = (CUR_ID + 1);
 }
 
-void    ps_helper_2(t_alst *arg, char *orig, char *buf_str)
+void	ps_helper_2(t_alst *arg, char *orig, char *buf_str)
 {
-	char *nul;
-	char *tmp;
-
-	nul = ft_strdup("(null)");
-	if (arg->info->precision > 0)
+	TMP1 = ft_strdup("(null)");
+	if (PRECISION > 0)
 	{
-		tmp = ft_strnew(arg->info->precision);
-		tmp = ft_strncpy(tmp, nul, arg->info->precision);
-		ft_strdel(&nul);
-		nul = ft_strdup(tmp);
-		ft_strdel(&tmp);
+		TMP2 = ft_strnew(PRECISION);
+		TMP2 = ft_strncpy(TMP2, TMP1, PRECISION);
+		ft_strdel(&TMP1);
+		TMP1 = ft_strdup(TMP2);
+		ft_strdel(&TMP2);
 	}
-	if (arg->info->minus_flag == 1 && !(buf_str) && arg->info->blank == 0)
-		arg->info->arg = ft_strjoin(orig, pad_right(arg, nul));
-	else if (arg->info->blank == 0 && !(buf_str))
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, nul, 0));
-	else if (arg->info->minus_flag == 1 && arg->info->blank == 1 && !(buf_str) \
-		&& arg->info->precision > 0)
+	if (MINUS_FLAG == 1 && !(buf_str) && BLANK == 0)
+		ARG = ft_strjoin(orig, pad_right(arg, TMP1));
+	else if (BLANK == 0 && !(buf_str))
+		ARG = ft_strjoin(orig, pad_left(arg, TMP1, 0));
+	else if (MINUS_FLAG == 1 && BLANK == 1 && !(buf_str) && PRECISION > 0)
 	{
-		tmp = ft_strnew(arg->info->precision);
-		tmp = ft_strncpy(tmp, (const char *)nul, (size_t)arg->info->precision);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
-		ft_strdel(&tmp);
+		TMP2 = ft_strnew(PRECISION);
+		TMP2 = ft_strncpy(TMP2, (const char *)TMP1, (size_t)PRECISION);
+		ARG = ft_strjoin(orig, pad_left(arg, TMP2, 0));
+		ft_strdel(&TMP2);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, "", 0));
+		ARG = ft_strjoin(orig, pad_left(arg, "", 0));
 	arg->next = new_list();
-	arg->next->id = (arg->id + 1);
-	ft_strdel(&nul);
+	NEXT_ID = (CUR_ID + 1);
+	ft_strdel(&TMP1);
 }
 
 void	ps_helper_3(t_alst *arg, char *orig, char *buf_str)
@@ -68,14 +64,13 @@ void	ps_helper_3(t_alst *arg, char *orig, char *buf_str)
 	int		i;
 
 	i = 0;
-	buf_len = (size_t)arg->info->fieldwidth + ft_strlen(buf_str);
-	if (arg->info->plus_flag == 1 || arg->info->hash_flag == 1 || \
-		arg->info->blank_flag == 1)
-		exit (0);
-	if (arg->info->precision)
+	buf_len = (size_t)FIELDWIDTH + ft_strlen(buf_str);
+	if (PLUS_FLAG == 1 || HASH_FLAG == 1 || BLANK_FLAG == 1)
+		exit(0);
+	if (PRECISION)
 	{
-		arg->info->str = ft_strnew((size_t)arg->info->precision);
-		while (i < arg->info->precision && buf_str[i] != '\0')
+		arg->info->str = ft_strnew((size_t)PRECISION);
+		while (i < PRECISION && buf_str[i] != '\0')
 		{
 			arg->info->str[i] = buf_str[i];
 			i++;
@@ -83,62 +78,62 @@ void	ps_helper_3(t_alst *arg, char *orig, char *buf_str)
 		buf_str = ft_strdup(arg->info->str);
 		ft_strdel(&(arg->info->str));
 	}
-	if (arg->info->minus_flag == 1)
-		arg->info->arg = ft_strjoin(orig, pad_right(arg, buf_str));
+	if (MINUS_FLAG == 1)
+		ARG = ft_strjoin(orig, pad_right(arg, buf_str));
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, buf_str, 0));
+		ARG = ft_strjoin(orig, pad_left(arg, buf_str, 0));
 	arg->next = new_list();
-	arg->next->id = (arg->id + 1);
+	NEXT_ID = (CUR_ID + 1);
 }
 
 char	*assign_u_buf(t_alst *arg, unsigned long long c)
 {
-	char *padded;
+	char	*padded;
 
-	if (arg->info->precision > arg->info->fieldwidth)
-		arg->info->fieldwidth = arg->info->precision;
-	else if (arg->info->lenmod[0] == 'l' || arg->info->lenmod[0] == 'z')
+	if (PRECISION > FIELDWIDTH)
+		FIELDWIDTH = PRECISION;
+	else if (LENMOD[0] == 'l' || LENMOD[0] == 'z')
 	{
-		if (arg->info->lenmod[1] == 'l' || arg->info->lenmod[0] == 'z')
+		if (LENMOD[1] == 'l' || LENMOD[0] == 'z')
 			padded = ft_ulltoa(c);
 		else
 			padded = ft_ultoa((unsigned long)c);
 	}
-	else if (arg->info->lenmod[0] == 'h')
+	else if (LENMOD[0] == 'h')
 	{
-		if (arg->info->lenmod[1] == 'h')
+		if (LENMOD[1] == 'h')
 			padded = ft_uctoa((unsigned char)c);
 		else
 			padded = ft_ustoa((unsigned short)c);
 	}
 	else
 		padded = ft_uitoa((unsigned int)c);
-	if (arg->info->precision > 0)
+	if (PRECISION > 0)
 		padded = long_helper(arg, &*padded, c);
 	return (padded);
 }
 
 void	assign_u_arg(t_alst *arg, char *padded, int neg, char *orig)
 {
-	char *tmp;
-	
-	if (arg->info->minus_flag == 1)
+	char	*tmp;
+
+	if (MINUS_FLAG == 1)
 	{
-		if (arg->info->plus_flag == 1 && neg == 0)
+		if (PLUS_FLAG == 1 && neg == 0)
 		{
 			tmp = ft_strjoin("+", padded);
-			arg->info->arg = ft_strjoin(orig, pad_right(arg, tmp));
+			ARG = ft_strjoin(orig, pad_right(arg, tmp));
 			ft_strdel(&tmp);
 		}
 		else
-			arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
+			ARG = ft_strjoin(orig, pad_right(arg, padded));
 	}
-	else if (arg->info->plus_flag == 1 && neg == 0)
+	else if (PLUS_FLAG == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, tmp, 0));
+		ARG = ft_strjoin(orig, pad_left(arg, tmp, 0));
 		ft_strdel(&tmp);
 	}
 	else
-		arg->info->arg = ft_strjoin(orig, pad_left(arg, padded, 0));
+		ARG = ft_strjoin(orig, pad_left(arg, padded, 0));
 }

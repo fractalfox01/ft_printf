@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 12:10:10 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 13:51:01 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,29 @@
 
 # include <stdarg.h>
 # include <stdio.h>
-# include <unistd.h> 
+# include <unistd.h>
 # include "../srcs/libft.h"
 
-# define FMT_SPEC	"scdiouxXfp"
-# define OUTPUT		tmp->info->arg
-# define PADDED		arg->info->padded
-# define BLANK		arg->info->blank
-# define FIELDWIDTH	arg->info->fieldwidth
-# define PRECISION	arg->info->precision
-# define LENMOD		arg->info->lenmod
-# define MINUS_FLAG	arg->info->minus_flag
-# define PLUS_FLAG	arg->info->plus_flag
-# define HASH_FLAG	arg->info->hash_flag
-# define BLANK_FLAG	arg->info->blank_flag
-# define ZERO_FLAG	arg->info->zero_flag
-# define NEGATIVE	arg->info->neg
-# define ARG		arg->info->arg
-# define CUR_ID		arg->id
-# define NEXT_ID	arg->next->id
-# define T_COUNT	glb->total
+# define FMT_SPEC		"scdiouxXfp"
+# define IS_UPPERCASE	glb->upcase
+# define OUTPUT			tmp->info->arg
+# define PADDED			arg->info->padded
+# define BLANK			arg->info->blank
+# define FIELDWIDTH		arg->info->fieldwidth
+# define PRECISION		arg->info->precision
+# define LENMOD			arg->info->lenmod
+# define MINUS_FLAG		arg->info->minus_flag
+# define PLUS_FLAG		arg->info->plus_flag
+# define HASH_FLAG		arg->info->hash_flag
+# define BLANK_FLAG		arg->info->blank_flag
+# define ZERO_FLAG		arg->info->zero_flag
+# define NEGATIVE		arg->info->neg
+# define ARG			arg->info->arg
+# define TMP1			arg->info->tmp1
+# define TMP2			arg->info->tmp2
+# define CUR_ID			arg->id
+# define NEXT_ID		arg->next->id
+# define T_COUNT		glb->total
 
 typedef struct		s_var
 {
@@ -103,6 +106,7 @@ int					parse_char(t_glb *glb, t_alst *arg, char *orig);
 int					parse_s_short(t_glb *glb, t_alst *arg, char *orig);
 int					parse_short(t_glb *glb, t_alst *arg, char *orig);
 int					parse_int(t_glb *glb, t_alst *arg, char *orig);
+int					parse_int_normal(t_glb *glb, t_alst *arg, char *orig);
 int					parse_long(t_glb *glb, t_alst *arg, char *orig);
 int					parse_longlong(t_glb *glb, t_alst *arg, char *orig);
 int					parse_ptr(t_glb *glb, t_alst *arg, char *orig);

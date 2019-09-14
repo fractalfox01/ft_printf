@@ -6,42 +6,35 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/10 18:07:41 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:01:33 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*pad_left(t_alst *tmp, char *str, int a)
+char	*pad_left(t_alst *arg, char *str, int a)
 {
 	char	*stmp;
 	int		len;
 	int		y;
-	int		x;
 	size_t	i;
 
 	i = 0;
-	x = 0;
 	y = 0;
-	if (tmp && str)
+	if (arg && str)
 	{
 		len = ft_strlen(str);
-		i = (size_t)tmp->info->fieldwidth;
+		i = (size_t)arg->info->fieldwidth;
 		stmp = ft_strnew(i);
-		if (tmp->info->zero_flag == 1 && a && tmp->info->blank_flag == 0)
-		{
-			// if (tmp->info->precision < tmp->info->fieldwidth)
-			// 	ft_memset(stmp, ' ', i);
-			// else
+		if (arg->info->zero_flag == 1 && a && arg->info->blank_flag == 0)
 			ft_memset(stmp, '0', i);
-		}
 		else
 			ft_memset(stmp, ' ', i);
 		if ((size_t)len > i)
 			return (str);
-		x = i - len;
-		while (x < (int)i && str[y] != '\0')
-			stmp[x++] = str[y++];
+		arg->info->neg = i - len;
+		while (arg->info->neg < (int)i && str[y] != '\0')
+			stmp[arg->info->neg++] = str[y++];
 		return (stmp);
 	}
 	return (str);

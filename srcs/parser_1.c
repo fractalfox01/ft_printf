@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 11:12:22 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:02:34 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	c;
-	char	*tmp;
-	int		neg;
+	char		*tmp;
+	int			neg;
 
 	neg = 0;
 	glb->total += 1;

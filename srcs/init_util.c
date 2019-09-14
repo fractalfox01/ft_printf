@@ -6,11 +6,49 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/09 12:07:19 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:09:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+t_alst	*get_arg(t_glb *glb)
+{
+	t_alst *arg;
+
+	arg = glb->args;
+	while (arg->id < (glb->total))
+	{
+		arg = arg->next;
+	}
+	return (arg);
+}
+
+t_alst	*new_list(void)
+{
+	t_alst	*list;
+	t_info	*info;
+
+	list = (t_alst *)malloc(sizeof(t_alst) * 1);
+	info = (t_info *)malloc(sizeof(t_info) * 1);
+	list->id = 0;
+	list->info = info;
+	list->info->blank_flag = 0;
+	list->info->hash_flag = 0;
+	list->info->minus_flag = 0;
+	list->info->plus_flag = 0;
+	list->info->zero_flag = 0;
+	list->info->fieldwidth = 0;
+	list->info->precision = 0;
+	list->info->blank = 0;
+	list->info->neg = 0;
+	list->info->padded = NULL;
+	list->info->tmp1 = NULL;
+	list->info->tmp2 = NULL;
+	list->info->arg = NULL;
+	list->next = NULL;
+	return (list);
+}
 
 void	glb_init(t_glb *glb)
 {

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:49:19 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 12:05:29 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 13:04:41 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 ** function here are all called from parse_oct function; Contained in parse_1.c
 */
 
-void    octal_assign_1(t_alst *arg, char *padded, char *orig, int neg)
+void	octal_assign_1(t_alst *arg, char *padded, char *orig, int neg)
 {
-	char *tmp;
-	
+	char	*tmp;
+
 	if (arg->info->plus_flag == 1 && neg == 0)
 	{
 		tmp = ft_strjoin("+", padded);
@@ -30,7 +30,7 @@ void    octal_assign_1(t_alst *arg, char *padded, char *orig, int neg)
 		arg->info->arg = ft_strjoin(orig, pad_right(arg, padded));
 }
 
-void    octal_assign_2(t_alst *arg, char *padded, char *orig)
+void	octal_assign_2(t_alst *arg, char *padded, char *orig)
 {
 	char	*tmp;
 
@@ -39,32 +39,32 @@ void    octal_assign_2(t_alst *arg, char *padded, char *orig)
 	ft_strdel(&tmp);
 }
 
-void    lnglng_oct_helper(t_alst *arg, long long c, int len)
+void	lnglng_oct_helper(t_alst *arg, long long c, int len)
 {
 	int		zero;
-	char	*xtmp;
-	char	*stmp;
+	char	*x;
+	char	*s;
 
-	len = ft_strlen(arg->info->padded);
+	len = ft_strlen(PADDED);
 	if (c < 0)
 		len--;
-	zero = arg->info->precision - len;
+	zero = PRECISION - len;
 	if (zero >= 0)
 	{
 		if (c < 0)
 			zero++;
-		xtmp = ft_strnew(zero);
-		ft_memset(xtmp, '0', zero);
+		x = ft_strnew(zero);
+		ft_memset(x, '0', zero);
 		if (c < 0)
-			xtmp[0] = '-';
-		if (arg->info->hash_flag == 1)
-			stmp = ft_strjoin(xtmp, ft_strjoin( "0" , ft_lltoa(ft_lltoo(ft_abs(c)))));
+			x[0] = '-';
+		if (HASH_FLAG == 1)
+			s = ft_strjoin(x, ft_strjoin("0", ft_lltoa(ft_lltoo(ft_abs(c)))));
 		else
-			stmp = ft_strjoin(xtmp, ft_lltoa(ft_lltoo(ft_abs(c))));
-		ft_strdel(&(arg->info->padded));
-		arg->info->padded = ft_strdup(stmp);
-		ft_strdel(&xtmp);
-		ft_strdel(&stmp);
+			s = ft_strjoin(x, ft_lltoa(ft_lltoo(ft_abs(c))));
+		ft_strdel(&(PADDED));
+		PADDED = ft_strdup(s);
+		ft_strdel(&x);
+		ft_strdel(&s);
 	}
 }
 
@@ -82,7 +82,7 @@ void	hex_helper_1(t_alst *arg)
 	ft_strdel(&tmp);
 }
 
-char *blank_helper(t_alst *arg, char *padded)
+char	*blank_helper(t_alst *arg, char *padded)
 {
 	char	*tmp;
 

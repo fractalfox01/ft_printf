@@ -6,21 +6,21 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:12:11 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/12 12:06:08 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/13 14:05:39 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char		*fp_pointer(long long n)
+char	*fp_pointer(long long n)
 {
-	char	        *tmp;
-	char	        *ret;
+	char		*tmp;
+	char		*ret;
 	long long	i;
 	long long	nbr;
-    char        *hex;
-	
-    hex = ft_strdup("0123456789abcdef");
+	char		*hex;
+
+	hex = ft_strdup("0123456789abcdef");
 	tmp = ft_strnew(21);
 	i = 0;
 	nbr = n;
@@ -61,7 +61,7 @@ int		parse_ptr(t_glb *glb, t_alst *arg, char *orig)
 int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
 {
 	char	c;
-	char    *padded;
+	char	*padded;
 	char	*tmp;
 	int		neg;
 
@@ -83,9 +83,9 @@ int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
 
 int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 {
-    long long	c;
-	char        *padded;
-	char	    *tmp;
+	long long	c;
+	char		*padded;
+	char		*tmp;
 	int			neg;
 
 	neg = 0;
