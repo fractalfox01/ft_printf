@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 13:51:01 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:29:00 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ int					has_args(char *fmt);
 void				save_args(t_glb *glb);
 void				init_var(t_var *var, t_glb *glb);
 void				add_remainder(t_glb *glb, char *lo);
+int					parse_flags(t_alst *arglst, char *fmt);
+t_alst				*get_arg(t_glb *glb);
+int					parse_fieldwidth(t_alst *arglst, char *fmt);
+int					parse_precision(t_alst *arglst, char *fmt);
+int					parse_lengthmod(t_alst *arglst, char *fmt);
 char				*pad_left(t_alst *tmp, char *str, int a);
 char				*pad_right(t_alst *tmp, char *str);
 int					parse_conversion_spec(t_glb *glb, char *fmt, char *orig);

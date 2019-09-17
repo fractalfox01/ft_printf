@@ -131,12 +131,12 @@ void	int_tests(void)
 	printf("Int 1: |%ld|\nInt 2: |%20ld|\nInt 3: |%-20ld|\nInt 4: |%20.5ld|\nInt 5: |%-20.5ld|\nInt 6: |%+20.5ld|\nInt 7: |%+-20.7ld|\n", g, b, c, d, e, f, g);
 
 	ft_printf("\nshort testing: %%h\n");
-	// ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
-	// printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
+	ft_printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
+	printf("Int 1: |%hd|\nInt 2: |%10hd|\nInt 3: |%-10hd|\nInt 4: |%10.5hd|\nInt 5: |%-10.5hd|\nInt 6: |%+10.5hd|\nInt 7: |%+-10.5hd|\nInt 8: |%+-10.5hi|\n", h, i, i, j, j, i, -0, -0);
 
 	ft_printf("\nlong long testing: %%ll\n");
-	// ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
-	// printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
+	ft_printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
+	printf("Int 1: |%lld|\nInt 2: |%25lld|\nInt 3: |%-25lld|\nInt 4: |%35.25lld|\nInt 5: |%-35.25lld|\nInt 6: |%+35.25lld|\nInt 7: |%+-35.25lld|\nInt 8: |%+-35.25lli|\n", m, k, l, l, k, l, k, -0);
 }
 
 void	octal_test(void)
@@ -909,15 +909,15 @@ int		main(void)
 	// else
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 	// CHAR tests
-	// char_test(); // Working
+	char_test(); // Working
 	
 	// STRING TESTS:
-	// str_tests(); // working
+	str_tests(); // working
 
 	// INTEGER TESTS:
 	// ft_printf("|%-3.1s|\n", NULL);
 	// printf("|%-3.1s|\n", NULL);
-	// int_tests(); // working
+	int_tests(); // working
 
 	// int meow = ft_printf("%%-5.3s LYDI == |%-5.3s|\n", "LYDI");
 	// meow += ft_printf("%% 4.5i 42 == |% 4.5i|\n", 42);
@@ -936,7 +936,7 @@ int		main(void)
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 
 	// OCTAL TESTS:
-	// octal_test(); // working
+	octal_test(); // working
 
 	// HEX TESTS:
 	// hex_test(); // Working

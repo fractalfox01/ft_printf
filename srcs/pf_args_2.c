@@ -6,23 +6,23 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 18:46:42 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 19:07:47 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:29:44 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static t_alst	*get_arg(t_glb *glb)
-{
-	t_alst *arg;
+// static t_alst	*get_arg(t_glb *glb)
+// {
+// 	t_alst *arg;
 
-	arg = glb->args;
-	while (arg->id < (glb->total))
-	{
-		arg = arg->next;
-	}
-	return (arg);
-}
+// 	arg = glb->args;
+// 	while (arg->id < (glb->total))
+// 	{
+// 		arg = arg->next;
+// 	}
+// 	return (arg);
+// }
 
 int				bad_percent(t_glb *glb, t_alst *arg, char *orig, char *fmt)
 {
