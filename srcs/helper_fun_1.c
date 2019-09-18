@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:38:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 13:41:00 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:08:18 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ps_helper_3(t_alst *arg, char *orig, char *buf_str)
 	i = 0;
 	buf_len = (size_t)FIELDWIDTH + ft_strlen(buf_str);
 	if (PLUS_FLAG == 1 || HASH_FLAG == 1 || BLANK_FLAG == 1)
-		exit(0);
+		ARG = ft_strdup("");
 	if (PRECISION)
 	{
 		arg->info->str = ft_strnew((size_t)PRECISION);

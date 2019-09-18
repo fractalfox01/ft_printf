@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 21:31:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 02:33:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:32:27 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static char	*fp_lhlper(char *ret, char *ip, int ap)
 
 	stmp = ft_strnew(ap);
 	ft_memset(stmp, '0', ap);
-	ip = ft_strdup(ret);
+	if (!(ret))
+		ip = ft_strdup("0");
+	else
+		ip = ft_strdup(ret);
 	ft_strdel(&ret);
 	ret = ft_strjoin(ip, stmp);
 	ft_strdel(&stmp);

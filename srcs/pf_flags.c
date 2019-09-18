@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 20:01:45 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/18 08:59:33 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,16 @@
 
 
 
-
+char	*check_ret(int *ret, char *fmt, int *tot)
+{
+	if (ret > 0)
+	{
+		*tot += *ret;
+		fmt += *ret;
+		*ret = 0;
+	}
+	return (fmt);
+}
 
 
 /*
@@ -33,35 +42,14 @@ int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 
 	tot = 0;
 	ret = 0;
-	track = 0;
 	ret = parse_flags(get_arg(glb), fmt);
-	if (ret > track)
-	{
-		tot += ret;
-		fmt += ret;
-		ret = 0;
-	}
+	fmt = check_ret(&ret, fmt, &tot);
 	ret = parse_fieldwidth(get_arg(glb), fmt);
-	if (ret > track)
-	{
-		tot += ret;
-		fmt += ret;
-		ret = 0;
-	}
+	fmt = check_ret(&ret, fmt, &tot);
 	ret = parse_precision(get_arg(glb), fmt);
-	if (ret > track)
-	{
-		tot += ret;
-		fmt += ret;
-		ret = 0;
-	}
+	fmt = check_ret(&ret, fmt, &tot);
 	ret = parse_lengthmod(get_arg(glb), fmt);
-	if (ret > track)
-	{
-		tot += ret;
-		fmt += ret;
-		ret = 0;
-	}
+	fmt = check_ret(&ret, fmt, &tot);
 	tot += parse_conversion(glb, fmt, orig);
 	return (tot);
 }

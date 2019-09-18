@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 18:46:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 19:07:02 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/18 09:39:08 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int			parse_float(t_glb *glb, t_alst *arg, char *orig)
 	b = 0;
 	if (glb && arg && orig)
 	{
-		if (arg->info->lenmod[0] == 'L' || arg->info->lenmod[0] == 'l')
+		if ((LENMOD[0] == 'L' || LENMOD[0] == 'l') && LENMOD[1] != 'l')
 			parse_long_float(glb, arg, orig);
-		else if (arg->info->lenmod[0] == '\0')
+		else
 			parse_norm_float(glb, arg, orig);
 	}
 	return (0);
