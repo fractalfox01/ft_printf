@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:49:19 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 13:04:41 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 12:17:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ void	lnglng_oct_helper(t_alst *arg, long long c, int len)
 ** helper function for parse_hex function; Contained in parser_1.c
 */
 
-void	hex_helper_1(t_alst *arg)
+void	hex_helper_1(t_alst *arg, int a)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin("0x", arg->info->padded);
+	if (a == 1)
+		tmp = ft_strjoin("0X", arg->info->padded);
+	else
+		tmp = ft_strjoin("0x", arg->info->padded);
 	ft_strdel(&(arg->info->padded));
 	arg->info->padded = ft_strdup(tmp);
 	ft_strdel(&tmp);

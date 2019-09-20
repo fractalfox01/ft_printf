@@ -6,13 +6,13 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:57:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/18 08:59:33 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 22:14:41 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int		int_norm_helper_1(t_alst *arg, char *orig, int c)
+int			int_norm_helper_1(t_alst *arg, char *orig, int c)
 {
 	if (c == 0)
 	{
@@ -34,7 +34,17 @@ int		int_norm_helper_1(t_alst *arg, char *orig, int c)
 	return (0);
 }
 
-void	int_norm_helper_2(t_alst *arg, char *orig, char *padded)
+static void	h2_hlpr(t_alst *arg, char *padded, char *orig)
+{
+	char	*tmp;
+
+	tmp = pad_left(arg, padded, 1);
+	tmp[0] = '+';
+	ARG = ft_strjoin(orig, tmp);
+	ft_strdel(&tmp);
+}
+
+void		int_norm_helper_2(t_alst *arg, char *orig, char *padded)
 {
 	char *tmp;
 
@@ -51,15 +61,18 @@ void	int_norm_helper_2(t_alst *arg, char *orig, char *padded)
 	}
 	else if (PLUS_FLAG == 1 && NEGATIVE == 0)
 	{
-		tmp = ft_strjoin("+", padded);
-		ARG = ft_strjoin(orig, pad_left(arg, tmp, 1));
-		ft_strdel(&tmp);
+		if (FIELDWIDTH > 0)
+			h2_hlpr(arg, padded, orig);
+		else
+			ARG = ft_strjoin(orig, ft_strjoin("+", pad_left(arg, padded, 1)));
 	}
+	else if (ZERO_FLAG == 1 && PRECISION > 0)
+		ARG = ft_strjoin(orig, pad_left(arg, padded, 0));
 	else
 		ARG = ft_strjoin(orig, pad_left(arg, padded, 1));
 }
 
-int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
+int			parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 {
 	int		c;
 	char	*padded;
@@ -77,10 +90,11 @@ int		parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 	padded = ft_itoa(c);
 	if (PRECISION > 0)
 		padded = int_helper(arg, &*padded, c);
-	if (BLANK_FLAG)
+	if (BLANK_FLAG && c > 0)
 		padded = blank_helper(arg, &*padded);
 	int_norm_helper_2(arg, orig, padded);
 	arg->next = new_list();
 	NEXT_ID = (CUR_ID + 1);
+	ft_strdel(&padded);
 	return (0);
 }

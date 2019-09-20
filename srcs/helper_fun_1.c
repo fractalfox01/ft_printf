@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:38:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/18 09:08:18 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 20:22:44 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	ps_helper_3(t_alst *arg, char *orig, char *buf_str)
 		ARG = ft_strdup("");
 	if (PRECISION)
 	{
-		arg->info->str = ft_strnew((size_t)PRECISION);
+		STR = ft_strnew((size_t)PRECISION);
 		while (i < PRECISION && buf_str[i] != '\0')
 		{
-			arg->info->str[i] = buf_str[i];
+			STR[i] = buf_str[i];
 			i++;
 		}
-		buf_str = ft_strdup(arg->info->str);
-		ft_strdel(&(arg->info->str));
+		buf_str = ft_strdup(STR);
+		ft_strdel(&(STR));
 	}
 	if (MINUS_FLAG == 1)
 		ARG = ft_strjoin(orig, pad_right(arg, buf_str));

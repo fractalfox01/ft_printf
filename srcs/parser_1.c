@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 14:02:34 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 11:17:10 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 	PADDED = assign_x_buf(glb, arg, c);
 	check_case(glb, &PADDED);
 	if (HASH_FLAG == 1 && ZERO_FLAG == 0 && c != 0)
-		hex_helper_1(arg);
+		hex_helper_1(arg, HASH_FLAG);
 	if (PRECISION > 0)
 		long_hex_helper(arg, c, ft_strlen(PADDED));
 	hex_flag_find(arg, neg, orig);

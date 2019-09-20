@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/17 10:29:00 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/20 12:38:27 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "../srcs/libft.h"
 
+# define PF_NULL		(void *)0
 # define FMT_SPEC		"scdiouxXfp"
 # define IS_UPPERCASE	glb->upcase
 # define OUTPUT			tmp->info->arg
@@ -33,6 +34,7 @@
 # define ZERO_FLAG		arg->info->zero_flag
 # define NEGATIVE		arg->info->neg
 # define ARG			arg->info->arg
+# define STR			arg->info->str
 # define TMP1			arg->info->tmp1
 # define TMP2			arg->info->tmp2
 # define CUR_ID			arg->id
@@ -93,7 +95,7 @@ typedef struct		s_ftpf
 }					t_glb;
 
 int					ft_printf(char *format, ...);
-void				glb_init(t_glb *glb);
+t_glb				*glb_init(t_glb *glb);
 int					has_args(char *fmt);
 void				save_args(t_glb *glb);
 void				init_var(t_var *var, t_glb *glb);
@@ -137,7 +139,7 @@ void				long_hex_helper(t_alst *arg, long c, int len);
 char				*assign_x_buf(t_glb *glb, t_alst *arg, long long c);
 void				check_case(t_glb *glb, char **str);
 void				hex_flag_find(t_alst *arg, int neg, char *orig);
-void				hex_helper_1(t_alst *arg);
+void				hex_helper_1(t_alst *arg, int a);
 void				hex_helper_2(t_glb *glb, t_alst *arg);
 void				octal_assign_1(t_alst *arg, char *pad, char *orig, int neg);
 void				octal_assign_2(t_alst *arg, char *padded, char *orig);

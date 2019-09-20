@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:45:41 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 18:28:06 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 14:00:53 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int			parse_char(t_glb *glb, t_alst *arg, char *orig)
 	buf_len = 0;
 	glb->total += 1;
 	c = va_arg(glb->ap, int);
-	if (c > 127 || c < 0)
-		c = '?';
 	if (c == 0)
 		pf_putchar(glb);
 	buf_len = (size_t)FIELDWIDTH;

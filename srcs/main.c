@@ -909,16 +909,32 @@ int		main(void)
 	// else
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 	// CHAR tests
-	//char_test(); // Working
+	// char_test(); // Working
 	
 	// STRING TESTS:
-	//str_tests(); // working
+	// str_tests(); // working
 
 	// INTEGER TESTS:
 	// ft_printf("|%-3.1s|\n", NULL);
 	// printf("|%-3.1s|\n", NULL);
 	// int_tests(); // working
 
+	// ft_printf("Il fait au moins %ld\n", -8000);
+	// printf("Il fait au moins %ld\n", -8000);
+	// ft_printf("Int 6: |%+10.5hd|\n", -5000);
+	// printf("Int 6: |%+10.5hd|\n", -5000);
+	// ft_printf("%%+04d 42 == %0+04d\n", 42);
+	// printf("%%+04d 42 == %0+04d\n", 42);
+
+	// ft_printf("%%      i 42 == |% i|\n", 42);
+	// printf("%%      i 42 == |% i|\n", 42);
+	// ft_printf("%%      i 42 == |%  i|\n", 42);
+	// printf("%%      i 42 == |%  i|\n", 42);
+	
+	// ft_printf("%%      d 42 == |% d|\n", 42);
+	// printf("%%      d 42 == |% d|\n", 42);
+	// ft_printf("%%      d 42 == |%  d|\n", 42);
+	// printf("%%      d 42 == |%  d|\n", 42);
 	// int meow = ft_printf("%%-5.3s LYDI == |%-5.3s|\n", "LYDI");
 	// meow += ft_printf("%% 4.5i 42 == |% 4.5i|\n", 42);
 	// meow += ft_printf("%%04.5i 42 == |%04.5i|\n", 42);
@@ -936,13 +952,13 @@ int		main(void)
 	// 	ft_printf(ft_strjoin(FT_RED, ft_strjoin("FAIL :(\n", FT_END_ATTR)));
 
 	// OCTAL TESTS:
-	//octal_test(); // working
+	// octal_test(); // working
 
 	// HEX TESTS:
 	// hex_test(); // Working
 
 	// FLOAT TESTS:
-	//float_test(); // Working
+	// float_test(); // Working
 
 	// POINTER TESTS:
 	// pointer_test(); // Working
@@ -950,13 +966,28 @@ int		main(void)
 	// UNSIGNED TESTS:
 	// unsigned_test(); // Working
 
-	ft_printf("%#s\n", "hello");
-	printf("%#s\n", "hello");
+	// ft_printf("%#s\n", "hello");
+	// printf("%#s\n", "hello");
 
-	long double a = 42.5;
+	// long double a = 42.5;
 
-	ft_printf("%llf\n", 42.5);
-	printf("%llf\n", 42.5);
+	// ft_printf("%llf\n", 42.5);
+	// printf("%llf\n", 42.5);
+	//ft_printf("%% i -42 == |% i|\n", -42);
+	//printf("%% i -42 == |% i|\n", -42);
+
+	//ft_printf("%% d -42 == |% d|\n", -42);
+	//printf("%% d -42 == |% d|\n", -42);
+	ft_printf("%0+04d\n", 42);
+	// system("leaks ft_printf");
+	printf("%0+04d\n", 42);
+
+
+	// ft_printf("%%04.3i 42 == |%04.3i|\n", 42);
+	// printf("%%04.3i 42 == |%04.3i|\n", 42);
+
+	// ft_printf("%%#X INT_MIN ==  %#X\n", INT_MIN);
+	// printf("%%#X INT_MIN ==  %#X\n", INT_MIN);
 	// ft_printf("|%+00015d|\n", 42);
 	// printf("|%+00015d|\n", 42);
 	

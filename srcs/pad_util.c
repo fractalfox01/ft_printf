@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 14:01:33 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/19 20:22:32 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,31 @@
 
 char	*pad_left(t_alst *arg, char *str, int a)
 {
-	char	*stmp;
+	char	*tmp;
 	int		len;
 	int		y;
 	size_t	i;
 
 	i = 0;
 	y = 0;
-	if (arg && str)
-	{
-		len = ft_strlen(str);
-		i = (size_t)arg->info->fieldwidth;
-		stmp = ft_strnew(i);
-		if (arg->info->zero_flag == 1 && a && arg->info->blank_flag == 0)
-			ft_memset(stmp, '0', i);
-		else
-			ft_memset(stmp, ' ', i);
-		if ((size_t)len > i)
-			return (str);
-		arg->info->neg = i - len;
-		while (arg->info->neg < (int)i && str[y] != '\0')
-			stmp[arg->info->neg++] = str[y++];
-		return (stmp);
-	}
-	return (str);
+	len = ft_strlen(str);
+	i = (size_t)FIELDWIDTH;
+	tmp = ft_strnew(i);
+	if (ZERO_FLAG == 1 && a && BLANK_FLAG == 0)
+		ft_memset(tmp, '0', i);
+	else
+		ft_memset(tmp, ' ', i);
+	if ((size_t)len > i)
+		return (str);
+	NEGATIVE = i - len;
+	while (NEGATIVE < (int)i && str[y] != '\0')
+		tmp[NEGATIVE++] = str[y++];
+	return (tmp);
 }
 
-char	*pad_right(t_alst *tmp, char *str)
+char	*pad_right(t_alst *arg, char *str)
 {
-	char	*stmp;
+	char	*tmp;
 	int		len;
 	int		y;
 	int		x;
@@ -51,20 +47,20 @@ char	*pad_right(t_alst *tmp, char *str)
 	i = 0;
 	x = 0;
 	y = 0;
-	if (tmp && str)
+	len = ft_strlen(str);
+	i = (size_t)FIELDWIDTH;
+	tmp = ft_strnew(i);
+	ft_memset(tmp, ' ', i);
+	if (MINUS_FLAG == 1)
 	{
-		len = ft_strlen(str);
-		i = (size_t)tmp->info->fieldwidth;
-		stmp = ft_strnew(i);
-		ft_memset(stmp, ' ', i);
-		if (tmp->info->minus_flag == 1)
+		if ((size_t)len > i)
 		{
-			if ((size_t)len > i)
-				return (str);
-			while (x <= (int)i && str[y] != '\0')
-				stmp[x++] = str[y++];
-			return (stmp);
+			ft_strdel(&tmp);
+			return (str);
 		}
+		while (x <= (int)i && str[y] != '\0')
+			tmp[x++] = str[y++];
+		return (tmp);
 	}
-	return (str);
+	return (tmp);
 }

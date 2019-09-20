@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 16:51:52 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/09 12:37:03 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/20 12:39:19 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void		add_remainder(t_glb *glb, char *lo)
 {
-	t_alst	*atmp;
+	t_alst	*arg;
 	int		i;
 	int		j;
 
-	atmp = glb->args;
+	arg = glb->args;
 	i = 0;
 	j = 0;
-	while (atmp->id < glb->total)
-		atmp = atmp->next;
-	glb->total += 1;
-	atmp->info->arg = ft_strdup(lo);
-	atmp->next = (t_alst *)malloc(sizeof(t_alst) * 1);
-	atmp = atmp->next;
-	atmp->id = glb->total;
+	while (CUR_ID < T_COUNT)
+		arg = arg->next;
+	T_COUNT += 1;
+	ARG = ft_strdup(lo);
+	arg->next = (t_alst *)malloc(sizeof(t_alst) * 1);
+	arg = arg->next;
+	CUR_ID = T_COUNT;
 }
 
 void		form_formatted(t_glb *glb)
@@ -39,7 +39,7 @@ void		form_formatted(t_glb *glb)
 	fmt = glb->fmt;
 	if (tmp)
 	{
-		while (tmp->id < glb->total)
+		while (tmp->id < T_COUNT)
 		{
 			glb->ncount += ft_strlen(OUTPUT);
 			ft_putstr(OUTPUT);
@@ -53,12 +53,41 @@ void		form_formatted(t_glb *glb)
 	}
 }
 
+static void	free_all(t_glb *glb)
+{
+	t_alst	*arg;
+	t_info	*inf;
+	int		i;
+
+	i = 0;
+	arg = glb->args;
+	while (CUR_ID < T_COUNT)
+	{
+		inf = arg->info;
+		if (!(inf))
+			break ;
+		if (ARG)
+			ft_strdel(&ARG);
+		if (STR)
+			ft_strdel(&STR);
+		if (TMP1)
+			ft_strdel(&TMP1);
+		if (TMP2)
+			ft_strdel(&TMP2);
+		if (PADDED)
+			ft_strdel(&PADDED);
+		free((void *)arg);
+		arg = arg->next;
+	}
+	ft_strdel(&glb->fmt);
+}
+
 int			ft_printf(char *fmt, ...)
 {
-	t_glb	glb;
+	t_glb	*glb;
 
-	glb_init(&glb);
-	va_start(glb.ap, fmt);
+	glb = glb_init(glb);
+	va_start(glb->ap, fmt);
 	if (has_args(fmt) == 0)
 	{
 		ft_putstr(fmt);
@@ -66,10 +95,11 @@ int			ft_printf(char *fmt, ...)
 	}
 	else
 	{
-		glb.fmt = ft_strdup(fmt);
-		save_args(&glb);
-		form_formatted(&glb);
-		return (glb.ncount);
+		glb->fmt = ft_strdup(fmt);
+		save_args(glb);
+		form_formatted(glb);
+		free_all(glb);
+		return (glb->ncount);
 	}
 	return (0);
 }
