@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:12:11 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 14:45:36 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:23:10 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*fp_pointer(long long n)
 	tmp[i] = '\0';
 	ret = ft_strrev(tmp);
 	ft_strdel(&tmp);
+	ft_strdel(&hex);
 	return (ret);
 }
 
@@ -62,7 +63,6 @@ int		parse_s_short(t_glb *glb, t_alst *arg, char *orig)
 {
 	char	c;
 	char	*padded;
-	char	*tmp;
 
 	NEGATIVE = 0;
 	T_COUNT += 1;
@@ -84,7 +84,6 @@ int		parse_short(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	c;
 	char		*padded;
-	char		*tmp;
 
 	T_COUNT += 1;
 	c = va_arg(glb->ap, int);

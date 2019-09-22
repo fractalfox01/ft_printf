@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:57:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 22:14:41 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 14:30:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		int_norm_helper_2(t_alst *arg, char *orig, char *padded)
 {
 	char *tmp;
 
+	tmp = NULL;
 	if (MINUS_FLAG == 1)
 	{
 		if (PLUS_FLAG == 1 && NEGATIVE == 0)
@@ -78,6 +79,7 @@ int			parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 	char	*padded;
 	char	*tmp;
 
+	tmp = NULL;
 	T_COUNT += 1;
 	c = va_arg(glb->ap, int);
 	if (c < 0)
@@ -91,7 +93,7 @@ int			parse_int_normal(t_glb *glb, t_alst *arg, char *orig)
 	if (PRECISION > 0)
 		padded = int_helper(arg, &*padded, c);
 	if (BLANK_FLAG && c > 0)
-		padded = blank_helper(arg, &*padded);
+		padded = blank_helper(padded);
 	int_norm_helper_2(arg, orig, padded);
 	arg->next = new_list();
 	NEXT_ID = (CUR_ID + 1);

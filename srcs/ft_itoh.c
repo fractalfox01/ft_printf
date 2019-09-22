@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:11:30 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 02:21:58 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:12:03 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char	*ft_itoh(unsigned int n)
 	tmp[i] = '\0';
 	ret = ft_strrev(tmp);
 	ft_strdel(&tmp);
+	ft_strdel(&hex);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:54:02 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 14:46:26 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:05:12 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,21 @@ static void	p_long_helper_2(t_alst *arg, char *orig, char *padded)
 		ARG = ft_strjoin(orig, pad_left(arg, padded, 1));
 }
 
+static int	pl_helper(t_alst *arg, long c, char *orig, char *padded)
+{
+	if (c == 0)
+		return (p_long_helper_1(arg, orig, padded, c));
+	if (PRECISION > FIELDWIDTH)
+		FIELDWIDTH = PRECISION;
+	return (-42);
+}
+
 int			parse_long(t_glb *glb, t_alst *arg, char *orig)
 {
 	long	c;
 	char	*padded;
 
+	padded = PF_NULL;
 	T_COUNT += 1;
 	c = va_arg(glb->ap, long);
 	if (c < 0)
@@ -110,10 +120,8 @@ int			parse_long(t_glb *glb, t_alst *arg, char *orig)
 		NEXT_ID = (CUR_ID + 1);
 		return (0);
 	}
-	if (c == 0)
-		return (p_long_helper_1(arg, orig, padded, c));
-	if (PRECISION > FIELDWIDTH)
-		FIELDWIDTH = PRECISION;
+	if (pl_helper(arg, c, orig, padded) == 0)
+		return (0);
 	padded = ft_ltoa(c);
 	if (PRECISION > 0)
 		padded = long_helper(arg, &*padded, c);

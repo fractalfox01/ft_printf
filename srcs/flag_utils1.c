@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 19:13:22 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 18:23:50 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:26:31 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 **	checks for ll hh l h
 */
 
-static int	set_z(t_alst *arg, char *fmt)
+static int	set_z(t_alst *arg)
 {
 	LENMOD[0] = 'z';
 	return (1);
@@ -68,7 +68,7 @@ int			parse_lengthmod(t_alst *arg, char *fmt)
 	{
 		ret++;
 		if (*fmt == 'z')
-			ret = set_z(arg, fmt);
+			ret = set_z(arg);
 		else if (*fmt == 'l')
 			ret = set_l(arg, fmt);
 		else if (*fmt == 'h')

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:03:43 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 20:22:32 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:21:09 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ char	*pad_left(t_alst *arg, char *str, int a)
 	y = 0;
 	len = ft_strlen(str);
 	i = (size_t)FIELDWIDTH;
-	tmp = ft_strnew(i);
+	tmp = ft_strnew(i + 1);
 	if (ZERO_FLAG == 1 && a && BLANK_FLAG == 0)
-		ft_memset(tmp, '0', i);
+		tmp = ft_memset(tmp, '0', i);
 	else
-		ft_memset(tmp, ' ', i);
+		tmp = ft_memset(tmp, ' ', i);
 	if ((size_t)len > i)
+	{
+		ft_strdel(&tmp);
 		return (str);
+	}
 	NEGATIVE = i - len;
 	while (NEGATIVE < (int)i && str[y] != '\0')
 		tmp[NEGATIVE++] = str[y++];
@@ -49,8 +52,8 @@ char	*pad_right(t_alst *arg, char *str)
 	y = 0;
 	len = ft_strlen(str);
 	i = (size_t)FIELDWIDTH;
-	tmp = ft_strnew(i);
-	ft_memset(tmp, ' ', i);
+	tmp = ft_strnew(i + 1);
+	tmp = ft_memset(tmp, ' ', i);
 	if (MINUS_FLAG == 1)
 	{
 		if ((size_t)len > i)
@@ -60,7 +63,6 @@ char	*pad_right(t_alst *arg, char *str)
 		}
 		while (x <= (int)i && str[y] != '\0')
 			tmp[x++] = str[y++];
-		return (tmp);
 	}
 	return (tmp);
 }

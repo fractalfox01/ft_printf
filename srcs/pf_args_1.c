@@ -6,11 +6,23 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 18:46:48 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/18 09:39:08 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 17:38:05 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+t_alst		*get_arg(t_glb *glb)
+{
+	t_alst *arg;
+
+	arg = glb->args;
+	while (CUR_ID < T_COUNT)
+	{
+		arg = arg->next;
+	}
+	return (arg);
+}
 
 static void	assign_flt(t_alst *arg, int neg, char *padded, char *orig)
 {
@@ -40,7 +52,6 @@ static void	assign_flt(t_alst *arg, int neg, char *padded, char *orig)
 int			parse_long_float(t_glb *glb, t_alst *arg, char *orig)
 {
 	char		*padded;
-	char		*tmp;
 	long double	n;
 	int			b;
 	int			neg;
@@ -68,7 +79,6 @@ int			parse_long_float(t_glb *glb, t_alst *arg, char *orig)
 int			parse_norm_float(t_glb *glb, t_alst *arg, char *orig)
 {
 	char	*padded;
-	char	*tmp;
 	double	n;
 	int		b;
 	int		neg;

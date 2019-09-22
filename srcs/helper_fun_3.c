@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:07:00 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 13:53:16 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:30:09 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	long_hex_helper(t_alst *arg, long c, int len)
 	}
 }
 
-char	*assign_x_buf(t_glb *glb, t_alst *arg, long long c)
+char	*assign_x_buf(t_alst *arg, long long c)
 {
 	char	*padded;
 

@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:56:05 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/13 12:35:40 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 11:50:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ long long	ft_lltoo(long long nbr)
 	str[i] = (nbr + 48);
 	ret = ft_strrev(str);
 	oct = ft_atoll(ret);
-	free((void *)str);
+	ft_strdel(&str);
 	return (oct);
 }

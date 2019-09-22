@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:06:18 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 14:46:53 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 14:23:45 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int			parse_longlong(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	c;
 	char		*padded;
-	char		*tmp;
 
 	T_COUNT += 1;
 	c = va_arg(glb->ap, long long);

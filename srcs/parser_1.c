@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:08:10 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 11:17:10 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 14:03:07 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 	unsigned long long	c;
 	char				*padded;
 	int					neg;
-	char				*tmp;
 
+	neg = 0;
 	if (glb && arg && orig)
 	{
 		glb->total += 1;
@@ -67,7 +67,6 @@ int		parse_unsigned(t_glb *glb, t_alst *arg, char *orig)
 int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 {
 	long long	c;
-	char		*tmp;
 	int			neg;
 
 	neg = 0;
@@ -75,7 +74,7 @@ int		parse_hex(t_glb *glb, t_alst *arg, char *orig)
 	c = va_arg(glb->ap, long long);
 	if (c < 0)
 		neg = 1;
-	PADDED = assign_x_buf(glb, arg, c);
+	PADDED = assign_x_buf(arg, c);
 	check_case(glb, &PADDED);
 	if (HASH_FLAG == 1 && ZERO_FLAG == 0 && c != 0)
 		hex_helper_1(arg, HASH_FLAG);

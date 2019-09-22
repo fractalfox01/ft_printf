@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:03:33 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 20:33:52 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:07:58 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*check_ret(int *ret, char *fmt, int *tot)
 
 int		parse_conversion_spec(t_glb *glb, char *fmt, char *orig)
 {
-	int 	ret;
+	int		ret;
 	int		tot;
 	t_alst	*arg;
 

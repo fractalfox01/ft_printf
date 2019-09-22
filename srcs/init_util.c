@@ -6,23 +6,11 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 12:31:25 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/20 12:38:14 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 18:58:31 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-t_alst	*get_arg(t_glb *glb)
-{
-	t_alst *arg;
-
-	arg = glb->args;
-	while (CUR_ID < T_COUNT)
-	{
-		arg = arg->next;
-	}
-	return (arg);
-}
 
 static void	new_info(t_alst *arg)
 {
@@ -43,7 +31,7 @@ static void	new_info(t_alst *arg)
 	arg->info->arg = PF_NULL;
 }
 
-t_alst	*new_list(void)
+t_alst		*new_list(void)
 {
 	t_alst	*list;
 
@@ -54,17 +42,29 @@ t_alst	*new_list(void)
 	return (list);
 }
 
-void	new_glb_list(t_glb *glb)
+void		new_glb_list(t_glb *glb)
 {
 	glb->args = (t_alst *)malloc(sizeof(t_alst) * 1);
 	glb->args->id = 0;
-	new_info(glb->args);
-	glb->args->next = NULL;
+	glb->args->info = (t_info *)malloc(sizeof(t_info) * 1);
+	glb->args->info->blank_flag = 0;
+	glb->args->info->hash_flag = 0;
+	glb->args->info->minus_flag = 0;
+	glb->args->info->plus_flag = 0;
+	glb->args->info->zero_flag = 0;
+	glb->args->info->fieldwidth = 0;
+	glb->args->info->precision = 0;
+	glb->args->info->blank = 0;
+	glb->args->info->neg = 0;
+	glb->args->info->str = PF_NULL;
+	glb->args->info->padded = PF_NULL;
+	glb->args->info->tmp1 = PF_NULL;
+	glb->args->info->tmp2 = PF_NULL;
+	glb->args->info->arg = PF_NULL;
 }
 
-t_glb *glb_init(t_glb *glb)
+void		glb_init(t_glb *glb)
 {
-	glb = (t_glb *)malloc(sizeof(t_glb) * 1);
 	glb->ret = 0;
 	glb->ret_total = 0;
 	glb->fmt = PF_NULL;
@@ -89,10 +89,9 @@ t_glb *glb_init(t_glb *glb)
 	glb->argfun[13] = NULL;
 	glb->argfun[14] = NULL;
 	new_glb_list(glb);
-	return (glb);
 }
 
-void	init_var(t_var *var, t_glb *glb)
+void		init_var(t_var *var, t_glb *glb)
 {
 	var->i = 0;
 	var->stop = 0;

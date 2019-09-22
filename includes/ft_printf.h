@@ -6,13 +6,14 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:03:21 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/20 12:38:27 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 19:15:46 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <stdlib.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -95,7 +96,7 @@ typedef struct		s_ftpf
 }					t_glb;
 
 int					ft_printf(char *format, ...);
-t_glb				*glb_init(t_glb *glb);
+void				glb_init(t_glb *glb);
 int					has_args(char *fmt);
 void				save_args(t_glb *glb);
 void				init_var(t_var *var, t_glb *glb);
@@ -136,7 +137,7 @@ void				ps_helper_2(t_alst *arg, char *orig, char *buf_str);
 void				ps_helper_3(t_alst *arg, char *orig, char *buf_str);
 void				lnglng_oct_helper(t_alst *arg, long long c, int len);
 void				long_hex_helper(t_alst *arg, long c, int len);
-char				*assign_x_buf(t_glb *glb, t_alst *arg, long long c);
+char				*assign_x_buf(t_alst *arg, long long c);
 void				check_case(t_glb *glb, char **str);
 void				hex_flag_find(t_alst *arg, int neg, char *orig);
 void				hex_helper_1(t_alst *arg, int a);
@@ -145,7 +146,10 @@ void				octal_assign_1(t_alst *arg, char *pad, char *orig, int neg);
 void				octal_assign_2(t_alst *arg, char *padded, char *orig);
 char				*assign_u_buf(t_alst *arg, unsigned long long c);
 void				assign_u_arg(t_alst *arg, char *pad, int neg, char *orig);
-char				*blank_helper(t_alst *arg, char *padded);
+char				*blank_helper(char *padded);
 t_alst				*new_list(void);
+void				free_all(t_glb *glb);
+void				del_info(t_info **info);
+void				del_arg(t_alst **arg);
 
 #endif

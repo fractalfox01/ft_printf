@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:18:02 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 18:22:40 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:27:09 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			parse_precision(t_alst *arg, char *fmt)
 	return (ret);
 }
 
-static int	precheck(t_alst *arg, char *fmt, int *ret)
+static int	precheck(t_alst *arg, int *ret)
 {
 	ZERO_FLAG = 1;
 	*ret += 1;
@@ -69,7 +69,7 @@ int			parse_flags(t_alst *arglst, char *fmt)
 	arglst->info->minus_flag = 0;
 	arglst->info->plus_flag = 0;
 	if (*fmt == '0')
-		fmt += precheck(arglst, fmt, &ret);
+		fmt += precheck(arglst, &ret);
 	while (*fmt == ' ' || *fmt == '#' || *fmt == '-' || *fmt == '+')
 	{
 		if (*fmt == ' ')

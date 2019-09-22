@@ -6,7 +6,7 @@
 /*   By: tvandivi <tvandivi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 10:49:19 by tvandivi          #+#    #+#             */
-/*   Updated: 2019/09/19 12:17:07 by tvandivi         ###   ########.fr       */
+/*   Updated: 2019/09/21 13:29:10 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	hex_helper_1(t_alst *arg, int a)
 	ft_strdel(&tmp);
 }
 
-char	*blank_helper(t_alst *arg, char *padded)
+char	*blank_helper(char *padded)
 {
 	char	*tmp;
 
